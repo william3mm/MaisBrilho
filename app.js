@@ -1,4 +1,10 @@
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 import express from "express";
+
+import './src/Database'
 
 import UsuarioRoutes from './src/Routes/UsuarioRoutes'
 
