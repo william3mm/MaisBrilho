@@ -4,8 +4,10 @@ import databaseconfig from '../config/database'
 
 import Usuario from "../Models/Usuario";
 
+import Produto from '../Models/Produto'
 
-const models = [Usuario]
+
+const models = [Usuario, Produto]
 
 
 const connection = new Sequelize(databaseconfig)

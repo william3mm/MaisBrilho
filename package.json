@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r sucrase/register server.js",
-
     "undo": "npx sequelize db:migrate:undo",
-
     "migrate": "npx sequelize db:migrate"
   },
   "keywords": [],
@@ -26,6 +24,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "is-fullwidth-code-point": "^5.0.0",
     "mariadb": "^3.4.0",
     "sequelize": "^6.37.5"
   }
