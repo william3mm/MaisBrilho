@@ -1,6 +1,16 @@
+import dotenv from 'dotenv'
+
+dotenv.config();
+
 import express from "express";
 
+import './src/Database'
+
 import UsuarioRoutes from './src/Routes/UsuarioRoutes'
+
+import CategoriaRoutes from './src/Routes/CategoriaRoutes'
+
+import ProdutoRoutes from  './src/Routes/ProdutoRoutes'
 
 class App{
 
@@ -25,7 +35,11 @@ class App{
   Routes(){
 
 
-    this.app.use('/usuarios', UsuarioRoutes)
+    this.app.use('/usuarios/', UsuarioRoutes);
+
+    this.app.use('/categorias/', CategoriaRoutes);
+
+    this.app.use('/produtos/', ProdutoRoutes)
 
   }
 
