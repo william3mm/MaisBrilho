@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -r sucrase/register server.js"
+    "dev": "nodemon -r sucrase/register server.js",
+
+    "undo": "npx sequelize db:migrate:undo",
+
+    "migrate": "npx sequelize db:migrate"
   },
   "keywords": [],
   "author": "",
