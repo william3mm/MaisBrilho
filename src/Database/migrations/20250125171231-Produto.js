@@ -57,28 +57,28 @@ module.exports = {
 
      },
 
-     CATEGORIA:{
+     CATEGORIA_ID:{
 
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
 
       references:{
-        model: "CATEGORIA",
+        model: "Categoria",
 
-        key: "NOME" // VAMOS REFERENCIAR A CATEGORIA PELO NOME
+        key: "id" // VAMOS REFERENCIAR A CATEGORIA PELO id
       }
 
      },
 
      createdAt:{
 
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
 
       allowNull: false
      },
 
      updatedAt:{
 
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
 
       allowNull: false
      }

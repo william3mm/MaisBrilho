@@ -42,7 +42,9 @@ export default class Categoria extends Model{
 
       sequelize,
 
-      tableName: 'Categoria'
+      tableName: 'Categoria',
+
+      modelName: 'Categoria'
 
     });
 
@@ -55,17 +57,7 @@ export default class Categoria extends Model{
     return this
   }
 
-  static associate(models){
 
-    Categoria.hasMany(models.Produto, {
-
-      foreignKey:'CATEGORIA_ID',
-
-      sourceKey: 'id',
-
-      as: "PRODUTO"
-    })
-  }
 
 
 }

@@ -1,6 +1,6 @@
 
 import Usuario from "../Models/Usuario";
-class HomeController{
+class UsuarioController{
 
   async index(req,res){
 
@@ -108,4 +108,4 @@ class HomeController{
   }
 }
 
-export default new HomeController();
+export default new UsuarioController();

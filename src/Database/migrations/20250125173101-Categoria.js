@@ -13,9 +13,11 @@ module.exports = {
 
         allowNull: false,
 
+        primaryKey: true,
+
+        autoIncrement: true
 
 
-        primaryKey: true // O nome da categoria será a primary key
       },
 
       NOME:{
@@ -32,14 +34,14 @@ module.exports = {
 
       createdAt:{
 
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
 
         allowNull: false
        },
 
        updatedAt:{
 
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
 
         allowNull: false
        }

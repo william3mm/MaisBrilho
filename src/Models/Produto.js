@@ -98,6 +98,24 @@ export default class Produto extends Model{
 
         },
 
+        DESCRICAO:{
+
+          type: Sequelize.STRING,
+
+          allowNull: false,
+
+          validate:{
+
+            notEmpty:{
+
+              msg: "O CAMPO QUANTIDADE NÃO PODE ESTAR VAZIO"
+            }
+          }
+
+
+
+        },
+
         CATEGORIA_ID:{
 
           type: Sequelize.INTEGER,
@@ -132,18 +150,11 @@ export default class Produto extends Model{
 
 
 
+
     return this
   }
 
-  static associate(models){
 
-    Produto.belongsTo(models.CATEGORIA, {
-
-      foreignKey:'CATEGORIA_ID',
-
-     targetKey: 'id'
-    })
-  }
 
 
 }
