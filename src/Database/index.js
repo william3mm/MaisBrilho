@@ -7,8 +7,10 @@ import Categoria from "../Models/Categoria";
 
 import Produto from '../Models/Produto'
 
+import Fotos_Dos_Produtos from  '../Models/Fotos_Dos_Produtos'
 
-const models = [Usuario,Categoria, Produto]
+
+const models = [Usuario,Categoria, Produto, Fotos_Dos_Produtos]
 
 
 const connection = new Sequelize(databaseconfig)

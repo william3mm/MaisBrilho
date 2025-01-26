@@ -22,7 +22,7 @@ export default class Categoria extends Model{
 
             args: [3,100],
 
-            msg: "O NOME DEVE TER ENTRE 3 E 20CARACTERES"
+            msg: "O NOME DEVE TER ENTRE 3 E 100 CARACTERES"
           },
 
           notEmpty:{
