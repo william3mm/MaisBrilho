@@ -26,9 +26,7 @@ class ProdutoController{
 
     } catch (e) {
 
-      res.status(400).json({
 
-        erro: e.errors.map(err => err.message)})
       console.log(e.message)
 
     }
