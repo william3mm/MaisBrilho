@@ -61,11 +61,23 @@ module.exports = {
 
       type: Sequelize.INTEGER,
 
-      references:{
-        model: "Categoria",
+      allowNull: false,
 
-        key: "id" // VAMOS REFERENCIAR A CATEGORIA PELO id
+      onDelete: 'CASCADE',
+
+      onUpdate: 'CASCADE',
+
+
+      references:{
+        model: 'Categoria', // Este é a tabela que será referenciada pelo campo CATEGORIA_ID
+
+        key: 'id',// VAMOS REFERENCIAR A CATEGORIA PELO id
+
       }
+
+
+
+
 
      },
 
