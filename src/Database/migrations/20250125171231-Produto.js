@@ -69,7 +69,7 @@ module.exports = {
 
 
       references:{
-        model: 'Categoria', // Este é a tabela que será referenciada pelo campo CATEGORIA_ID
+        model: 'Categoria', // Esta é a tabela que será referenciada pelo campo CATEGORIA_ID
 
         key: 'id',// VAMOS REFERENCIAR A CATEGORIA PELO id
 

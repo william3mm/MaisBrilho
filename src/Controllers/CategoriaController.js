@@ -28,10 +28,10 @@ class CategoriaController{
 
     } catch (e) {
 
-      res.status(400).json({
+      return res.status(401).json({
 
-        erro: e.errors.map(err => err.message)})
-      console.log(e.message)
+        errors: ['ERRO AO CRIAR CATEGORIA']
+      })
 
     }
   }
@@ -57,10 +57,10 @@ class CategoriaController{
     res.json("CATEGORIA DELETADA COM SUCESSO")
 
   } catch(e){
-    res.status(400).json({
+    return res.status(401).json({
 
-      erro: e.errors.map(err => err.message)})
-    console.log(e.message)
+      errors: ['ERRO AO DELETAR CATEGORIA']
+    })
 
 
     }
@@ -87,10 +87,10 @@ class CategoriaController{
 
     } catch (e) {
 
-      res.status(400).json({
+      return res.status(401).json({
 
-        erro: e.errors.map(err => err.message)})
-      console.log(e.message)
+        errors: ['ERRO AO ACTUALIZAR CATEGORIA']
+      })
 
     }
 

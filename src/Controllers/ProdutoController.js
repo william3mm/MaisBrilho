@@ -27,7 +27,10 @@ class ProdutoController{
     } catch (e) {
 
 
-      console.log(e.message)
+      return res.status(401).json({
+
+        errors: ['ERRO AO CRIAR PRODUTO']
+      })
 
     }
   }
@@ -57,11 +60,10 @@ class ProdutoController{
 
     } catch (e) {
 
-      res.status(400).json({
+      return res.status(401).json({
 
-        erro: e.errors.map(err => err.message)})
-      console.log(e.message)
-
+        errors: ['ERRO AO DELETAR PRODUTO']
+      })
     }
 
 
@@ -90,7 +92,11 @@ class ProdutoController{
     res.json(novos_dados)
 
   }catch(e){
-  console.log(e.message)
+
+return res.status(401).json({
+
+        errors: ['ERRO AO ACTUALIZAR PRODUTO']
+      })
 
   }
   }
