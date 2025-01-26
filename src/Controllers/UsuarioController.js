@@ -27,7 +27,7 @@ class UsuarioController{
 
       res.status(400).json({
 
-        erro: e.errors.map(err => err.message)})
+        erro: [ 'ERRO AO CRIAR USUÁRIO']})
       console.log(e.message)
 
     }
@@ -59,11 +59,12 @@ class UsuarioController{
 
     } catch (e) {
 
-      // Pegamos o erro a partir de um array que nos é retornado sempre que há uma exception
-      res.status(400).json({
-
-        erro: e.errors.map(err => err.message)})
       console.log(e.message)
+      // Pegamos o erro a partir de um array que nos é retornado sempre que há uma exception
+      return res.status(400).json({
+
+        erro: ['ERRO AO DELETAR USUÁRIO']})
+
     }
 
   }
@@ -98,7 +99,9 @@ class UsuarioController{
     } catch (e) {
 
       console.log(e)
-      return res.json(null)
+      return res.status(400).json({
+
+        erro: ['ERRO AO ACTUALIZAR USUÁRIO']})
 
 
 

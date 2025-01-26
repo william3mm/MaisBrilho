@@ -2,9 +2,21 @@ import Sequelize, {Model} from 'sequelize'
 
 import bcrypt from 'bcrypt'
 
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 export default class Usuario extends Model{
 
+
+  // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
+  passwordisValid(password){
+
+    return bcrypt.compare(password, this.SENHA)
+  }
   static init(sequelize){
+
+
 
     super.init({
 
@@ -55,13 +67,7 @@ export default class Usuario extends Model{
           }
      },
 
-        SENHA_VIRTUAL:{
 
-          type: Sequelize.VIRTUAL,
-
-          defaultValue: " "
-
-        },
 
         EMAIL:{
 
@@ -101,11 +107,13 @@ export default class Usuario extends Model{
 
     });
 
-   this.addHook('beforeSave', async Usuario => {
+   this.addHook('beforeSave', async (Usuario) => {
 
-    if(Usuario.SENHA_VIRTUAL){
 
-      Usuario.SENHA = await bcrypt.hash(Usuario.SENHA_VIRTUAL, 8);
+    if(Usuario.SENHA){
+
+
+      Usuario.SENHA = await bcrypt.hash(Usuario.SENHA,8);
     }
 
 

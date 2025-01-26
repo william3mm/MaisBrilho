@@ -1,6 +1,6 @@
 import Sequelize, {Model} from 'sequelize'
 
-
+import Categoria from '../Models/Categoria'
 
 export default class Produto extends Model{
 
@@ -30,19 +30,17 @@ export default class Produto extends Model{
     const ano = dataAtual.getFullYear();
     const mes = String(dataAtual.getMonth() + 1).padStart(2, "0");
 
-    const segundos = dataAtual.getMilliseconds();
+    const milisegundos = dataAtual.getMilliseconds();
 
     // Sequencial formatado (com 4 dígitos)
     const sequenciaFormatada = String(sequencial).padStart(6, "0");
 
     // Gera o código final
-    const codigoFinal = `${abreviacaoCategoria}-${abreviacaoNome}-${ano}${mes}-${segundos}-${sequenciaFormatada}`;
+    const codigoFinal = `${abreviacaoCategoria}-${abreviacaoNome}-${ano}${mes}-${milisegundos}-${sequenciaFormatada}`;
     return codigoFinal;
   }
 
   static init(sequelize){
-
-
 
     super.init({
 
@@ -52,8 +50,6 @@ export default class Produto extends Model{
         type: Sequelize.STRING,
 
         allowNull: false,
-
-
 
         validate: {
 
@@ -111,13 +107,6 @@ export default class Produto extends Model{
             }
           }
 
-        },
-
-        CODIGO_VIRTUAL:{
-
-          type: Sequelize.VIRTUAL,
-
-          allowNull:true
         },
 
         CODIGO:{
@@ -192,25 +181,21 @@ export default class Produto extends Model{
     this.addHook('beforeSave', async Produto=>{
 
 
-      // if(Produto.CODIGO_VIRTUAL){
+      if(Produto.CODIGO){
 
-      //   const categoria = await sequelize.models.Categoria.findByPk(produto.CATEGORIA_ID);
-      //   if (!categoria) {
-      //     throw new Error("Categoria não encontrada para o ID fornecido.");
-      //   }
+        // Vamos verificar se a categoria existe
 
-      // }
+        const categoria = await Categoria.findByPk(Produto.CATEGORIA_ID)
 
+        if(!categoria){
 
-
-
-
-        Produto.CODIGO = Produto.GerarCodigo(Produto.NOME, Produto.CATEGORIA_ID)
+          throw new Error("Categoria não encontrada!");
+        }
 
 
+      }
 
-
-
+      Produto.CODIGO = Produto.GerarCodigo(Produto.NOME, Produto.CATEGORIA_ID)
 
     })
 
