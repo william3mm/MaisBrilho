@@ -110,7 +110,8 @@ export default class Usuario extends Model{
    this.addHook('beforeSave', async (Usuario) => {
 
 
-    if(Usuario.SENHA){
+    // Para que a senha não se altere automaticamente sempre que fizermos o update de alguma nova informacao sobre o usuario
+    if(Usuario.changed('SENHA')){
 
 
       Usuario.SENHA = await bcrypt.hash(Usuario.SENHA,8);
