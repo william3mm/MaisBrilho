@@ -16,6 +16,8 @@ import Fotos_Dos_ProdutosRoutes from  './src/Routes/Fotos_Dos_Produtos_Routes';
 
 import TokenRoutes from './src/Routes/TokenRoutes'
 
+import AdminRoutes from './src/Routes/AdminRoutes'
+
 class App{
 
   constructor(){
@@ -43,11 +45,13 @@ class App{
 
     this.app.use('/categorias/', CategoriaRoutes);
 
-    this.app.use('/produtos/', ProdutoRoutes)
+    this.app.use('/produtos/', ProdutoRoutes);
 
-    this.app.use('/produtos/fotos', Fotos_Dos_ProdutosRoutes)
+    this.app.use('/produtos/fotos', Fotos_Dos_ProdutosRoutes);
 
-    this.app.use('/tokens/', TokenRoutes)
+    this.app.use('/tokens/', TokenRoutes);
+
+    this.app.use('/secure-dashboard/', AdminRoutes);
 
   }
 
