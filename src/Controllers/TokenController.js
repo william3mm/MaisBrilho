@@ -54,7 +54,11 @@ class TokenController{
 
     if(!(await usuario.passwordisValid(SENHA))){
 
-      f
+
+      return res.status(401).json({
+
+        errors: [ 'Senha Inválida']
+      })
     }
 
     // CASO O USUÁRIO SEJA AUTENTICADO VAMOS GERAR UM TOKEN PARA ELE

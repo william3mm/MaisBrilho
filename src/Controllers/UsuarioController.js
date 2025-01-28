@@ -2,11 +2,33 @@
 import Usuario from "../Models/Usuario";
 class UsuarioController{
 
+
   async index(req,res){
 
+    try {
 
-    const usuario = await Usuario.findAll();
-    res.json(usuario)
+
+    const usuario = await Usuario.findAll( {attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA']});
+
+    res.json(usuario);
+
+    // Podemos ter acesso aos dados passados na requisicao pelo middeware em login required
+
+    // console.log( 'User Id', req.userId);
+
+    // console.log('User Email', req.userEmail)
+
+    } catch (error) {
+
+      console.log(error);
+
+
+
+      return res.status(400).json({
+
+        errors: [ 'Erro ao listar Usuários']
+      })
+    }
 
 
   }
@@ -18,7 +40,8 @@ class UsuarioController{
     if(!req.body) res.json("NENHUM DADO ENVIADO")
     try {
 
-      const usuario = await Usuario.create(req.body)
+      const {NOME, EMAIL, SENHA} = req.body;
+      const usuario = await Usuario.create({NOME, EMAIL, SENHA})
 
 
       res.json(usuario)
@@ -27,7 +50,7 @@ class UsuarioController{
 
       res.status(400).json({
 
-        erro: [ 'ERRO AO CRIAR USUÁRIO']})
+        errors: [ 'ERRO AO CRIAR USUÁRIO']})
       console.log(e.message)
 
     }
@@ -39,13 +62,13 @@ class UsuarioController{
 
     // Aqui vamos deletar usuarios
 
-    if(!req.body) res.json("NENHUM DADO ENVIADO")
+
 
     try {
 
       // Vamos pegar o valor do id do usuário que estamos a tentar deletar capturando o id pelo parametro da requisicao
 
-      const usuario =  await Usuario.findByPk(req.params.id);
+      const usuario =  await Usuario.findByPk(req.userID);
 
       // Verificamos se o usuário existe na base de dados
       if(!usuario) res.status(400).json("USUARIO NÃO ENCONTRADO")
@@ -55,15 +78,13 @@ class UsuarioController{
 
       res.json("USUÁRIO DELETADO COM SUCESSO")
 
-
-
     } catch (e) {
 
       console.log(e.message)
       // Pegamos o erro a partir de um array que nos é retornado sempre que há uma exception
       return res.status(400).json({
 
-        erro: ['ERRO AO DELETAR USUÁRIO']})
+        errors: ['ERRO AO DELETAR USUÁRIO']})
 
     }
 
@@ -73,26 +94,26 @@ class UsuarioController{
 
     // Vamos actualizar os dados dos  usuários
 
-
-
     try {
 
-      if(!req.params.id) {
+      const usuario = await Usuario.findByPk(req.userID);
 
-        return res.json("NENHUM DADO ENVIADO")}
+      if(!req.userID) {
+
+        return res.json("ID NÃO ENVIADO")}
 
       // Primeiro vamos verificar se o usuário existe na base de dados
 
-      const usuario = await Usuario.findByPk(req.params.id)
-
       if(!usuario){
 
-        res.json("USUÁRIO NÃO EXISTE")}
+        return res.json("USUÁRIO NÃO EXISTE")
 
+      }
 
       // Vamos permitir que o usuário troque apenas o seu nome e email
 
-      const novos_dados = await usuario.update(req.body)
+      const {NOME, EMAIL,SENHA} = req.body
+      const novos_dados = await usuario.update({ NOME, EMAIL, SENHA})
 
      return res.json(novos_dados)
 
@@ -101,13 +122,9 @@ class UsuarioController{
       console.log(e)
       return res.status(400).json({
 
-        erro: ['ERRO AO ACTUALIZAR USUÁRIO']})
-
-
-
+        errors: ['ERRO AO ACTUALIZAR USUÁRIO']})
 
     }
-
   }
 }
 

@@ -26,6 +26,7 @@ class ProdutoController{
 
     } catch (e) {
 
+      console.log(e.message)
 
       return res.status(401).json({
 
@@ -60,6 +61,7 @@ class ProdutoController{
 
     } catch (e) {
 
+      console.log(e.message)
       return res.status(401).json({
 
         errors: ['ERRO AO DELETAR PRODUTO']
@@ -92,6 +94,8 @@ class ProdutoController{
     res.json(novos_dados)
 
   }catch(e){
+
+    console.log(e)
 
 return res.status(401).json({
 

@@ -2,16 +2,19 @@ import { Router } from "express";
 
 import usuarioController from "../Controllers/UsuarioController";
 
+import LoginRequired from "../Middlewares/LoginRequired";
+
 const router = new Router();
 
 
-router.get('/', usuarioController.index)
+router.get('/',  LoginRequired, usuarioController.index) // Falha de segurança lista todos os usuarios
 
 router.post('/', usuarioController.create)
 
-router.delete('/:id', usuarioController.delete)
+router.delete('/', LoginRequired, usuarioController.delete)
 
-router.put('/:id', usuarioController.update)
+router.put('/',  LoginRequired, usuarioController.update)
+
 
 
 export default router
