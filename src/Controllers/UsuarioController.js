@@ -96,12 +96,13 @@ class UsuarioController{
 
     try {
 
-      const usuario = await Usuario.findByPk(req.userID);
 
       if(!req.userID) {
 
-        return res.json("ID NÃO ENVIADO")}
+        return res.json("ID NÃO ENVIADO")
+      }
 
+        const usuario = await Usuario.findByPk(req.userID);
       // Primeiro vamos verificar se o usuário existe na base de dados
 
       if(!usuario){
