@@ -14,13 +14,20 @@ export default class Produto extends Model{
 
   // Vamos criar um metodo de instancia para gerar um codigo para o produto
 
-  GerarCodigo(nome_produto, categoria_produto, sequencial = 1) {
+  async GerarCodigo(nome_produto, categoria_produto, sequencial = 1) {
     // Garantir que os parâmetros sejam strings e tratar espaços em excesso
     const nome = nome_produto.trim().toUpperCase();
-    const categoria = categoria_produto.trim().toUpperCase();
+
+    const categoria =  await Categoria.findByPk(categoria_produto)
+
+    if(!categoria){
+
+      throw new Error( 'CATEGORIA NÃO ENCONTRADA')
+    }
+    const categoria_nome = categoria.NOME.trim().toUpperCase();
 
     // Abreviação da categoria (primeiras 3 letras ou menos, caso seja curta)
-    const abreviacaoCategoria = categoria.slice(0, 3);
+    const abreviacaoCategoria = categoria_nome.slice(0, 3);
 
     // Abreviação do nome (primeiras 3 letras do nome do produto)
     const abreviacaoNome = nome.replace(/\s+/g, "").slice(0, 3);
@@ -181,7 +188,7 @@ export default class Produto extends Model{
     this.addHook('beforeSave', async Produto=>{
 
 
-      if(Produto.CODIGO){
+      if(Produto.changed('CATEGORIA_ID')){
 
         // Vamos verificar se a categoria existe
 
@@ -195,7 +202,7 @@ export default class Produto extends Model{
 
       }
 
-      Produto.CODIGO = Produto.GerarCodigo(Produto.NOME, Produto.CATEGORIA_ID)
+      Produto.CODIGO = await Produto.GerarCodigo(Produto.NOME, Produto.CATEGORIA_ID)
 
     })
 

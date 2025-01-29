@@ -10,11 +10,13 @@ import UsuarioRoutes from './src/Routes/UsuarioRoutes'
 
 import CategoriaRoutes from './src/Routes/CategoriaRoutes'
 
-import ProdutoRoutes from  './src/Routes/ProdutoRoutes'
-
 import Fotos_Dos_ProdutosRoutes from  './src/Routes/Fotos_Dos_Produtos_Routes';
 
 import TokenRoutes from './src/Routes/TokenRoutes'
+
+import AdminRoutes_Produtos from './src/Routes/AdminRoutes/AdminRoutes_Produto'
+
+import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Admin_Generator'
 
 class App{
 
@@ -43,15 +45,18 @@ class App{
 
     this.app.use('/categorias/', CategoriaRoutes);
 
-    this.app.use('/produtos/', ProdutoRoutes)
+    // this.app.use('/produtos/', ProdutoRoutes);
 
-    this.app.use('/produtos/fotos', Fotos_Dos_ProdutosRoutes)
+    this.app.use('/produtos/fotos', Fotos_Dos_ProdutosRoutes);
 
-    this.app.use('/tokens/', TokenRoutes)
+    this.app.use('/tokens/', TokenRoutes);
+
+      this.app.use('/secure-dashboard/produtos', AdminRoutes_Produtos);
+
+      this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
   }
 
 }
-
 
 export default new App().app;

@@ -116,10 +116,7 @@ export default class Usuario extends Model{
 
       Usuario.SENHA = await bcrypt.hash(Usuario.SENHA,8);
     }
-
-
-    })
-
+  })
 
     return this
   }

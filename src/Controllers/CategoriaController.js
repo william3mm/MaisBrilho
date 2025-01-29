@@ -4,7 +4,7 @@ import Categoria from '../Models/Categoria'
 class CategoriaController{
 
 
- async index(req,res){
+ async  index(req,res){
 
     const categoria =  await Categoria.findAll();
 
