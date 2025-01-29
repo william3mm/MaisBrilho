@@ -6,19 +6,19 @@ module.exports = {
 
      await queryInterface.createTable('Admin',
 
-     { id: {
+
+     { id:{
 
       type: Sequelize.INTEGER,
 
       primaryKey: true,
 
-      allowNull: false,
+      autoIncrement: true,
 
-      autoIncrement: true
+      allowNull: false
      },
 
-     NOME:{
-
+     NOME: {
 
       type: Sequelize.STRING,
 
@@ -31,9 +31,10 @@ module.exports = {
 
       allowNull: false,
 
+      unique: true
      },
 
-     SENHA:{
+     SENHA: {
 
       type: Sequelize.STRING,
 
@@ -42,30 +43,25 @@ module.exports = {
 
      createdAt:{
 
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
 
       allowNull: false
      },
-
      updatedAt:{
 
-      type: Sequelize.DATE,
+      type: Sequelize.STRING,
 
       allowNull: false
      }
 
 
-    }
-
-
-
-     );
+    });
 
   },
 
   async down (queryInterface, Sequelize) {
 
-     await queryInterface.dropTable('Admin');
+      await queryInterface.dropTable('Admin');
 
   }
 };

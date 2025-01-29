@@ -30,7 +30,6 @@ class TokenController{
 
         EMAIL,
 
-
       }
     })
 
@@ -43,17 +42,8 @@ class TokenController{
       })
     }
 
-    // CASO A SENHA FOR INVALIDA VAMOS CRIAR UMA CONDICAO PARA INFORMAR
-
-   usuario.SENHA_VIRTUAL = SENHA
-
-
-   const senha =  usuario.SENHA_VIRTUAL
-    console.log(senha)
-
 
     if(!(await usuario.passwordisValid(SENHA))){
-
 
       return res.status(401).json({
 
@@ -79,7 +69,5 @@ class TokenController{
 
   }
 
-
 }
-
 export default new TokenController();

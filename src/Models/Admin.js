@@ -8,8 +8,6 @@ static init(sequelize){
 
   super.init({
 
-
-
     NOME:{
 
       type: Sequelize.STRING,
@@ -20,7 +18,7 @@ static init(sequelize){
 
         len:{
 
-          args: [3,15],
+          args: [3,20],
 
           msg: [ 'O CAMPO NOME DEVE TER ENTRE 3 A 15 CARACTERES']
         },
@@ -65,7 +63,7 @@ static init(sequelize){
           msg: ['O CAMPO SENHA NÃO PODE ESTAR VAZIO']
         },
 
-        // Vamos fazer com que senha obrigatório incluir pelo menos um simbolo ou um caracter no campo senha
+        // // Vamos fazer com que senha obrigatório incluir pelo menos um simbolo ou um caracter no campo senha
         isValid(valor){
 
           const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]*$/;
@@ -77,12 +75,11 @@ static init(sequelize){
         }
 
       }
-
     }
   },{
 
     sequelize,
-    tableName: 'Admin'
+    tableName:'Admin'
   })
 
   this.addHook('beforeSave', async (Admin)=>{
@@ -94,6 +91,4 @@ static init(sequelize){
   })
   return this
 }
-
-
-}
+  }
