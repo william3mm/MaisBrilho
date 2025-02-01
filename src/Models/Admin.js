@@ -4,6 +4,12 @@ import bcrypt from 'bcrypt';
 
 export default class Admin extends Model{
 
+  // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
+  passwordisValid(password){
+
+    return bcrypt.compare(password, this.SENHA)
+  }
+
 static init(sequelize){
 
   super.init({

@@ -8,7 +8,7 @@ class CategoriaController{
 
     const categoria =  await Categoria.findAll();
 
-    res.json(categoria)
+   return  res.json(categoria)
   }
 
   async create(req,res){
@@ -24,7 +24,7 @@ class CategoriaController{
 
       const categoria = await Categoria.create(req.body)
 
-      res.json(categoria)
+      return res.json(categoria)
 
     } catch (e) {
 

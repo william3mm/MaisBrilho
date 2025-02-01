@@ -5,9 +5,9 @@ import adminController from '../../Controllers/AdminController/AdminController_P
 const router = new Router();
 
 
-router.post('/', adminController.create_produto);
+router.post('/', adminController.create);
 
-router.put('/:id', adminController.update_produto);
+router.put('/:id', adminController.update);
 
 router.delete('/:id', adminController.delete)
 

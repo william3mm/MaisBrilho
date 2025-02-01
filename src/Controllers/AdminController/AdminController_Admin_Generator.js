@@ -3,7 +3,6 @@
 import Admin from  '../../Models/Admin'
 class AdminController_Admin_Generator{
 
-
   async index(req,res){
 
     try {
@@ -15,7 +14,7 @@ class AdminController_Admin_Generator{
         return res.json("NENHUM ADMINISTRADOR ENCONTRADO OU CRIADO")
       }
 
-      res.json(admin)
+      return res.json(admin)
 
     } catch (e) {
 
@@ -122,8 +121,6 @@ class AdminController_Admin_Generator{
         const novos_dados = await admin.update(req.body);
 
         return res.json(novos_dados)
-
-
 
     } catch (e) {
 
