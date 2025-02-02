@@ -9,7 +9,7 @@ class AdminController{
   // O Admin vai poder criar os produtos vamos realizar isto aqui
 
 
-  async create_produto(req,res){
+  async create(req,res){
 
     try {
 
@@ -29,7 +29,7 @@ class AdminController{
 
   }
 
-  async update_produto(req,res){
+  async update(req,res){
 
     try {
 

@@ -3,7 +3,6 @@
 import Admin from  '../../Models/Admin'
 class AdminController_Admin_Generator{
 
-
   async index(req,res){
 
     try {
@@ -15,7 +14,7 @@ class AdminController_Admin_Generator{
         return res.json("NENHUM ADMINISTRADOR ENCONTRADO OU CRIADO")
       }
 
-      res.json(admin)
+      return res.json(admin)
 
     } catch (e) {
 
@@ -101,31 +100,44 @@ class AdminController_Admin_Generator{
 
   async update(req,res){
 
-    const {id} = req.params.id
-    const {NOME, EMAIL} = req.body;
+    try {
 
-    if(!NOME || !EMAIL){
+      if(!req.params.id){
 
-      return res.json("NENHUM PARÂMETRO ENVIADO")
+        return res.json("NENHUM PARAMETRO ENVIADO")
+       }
+
+      if(!req.body){
+
+        return res.json("POR FAVOR DECLARE O PARÂMETRO A SER MUDADO")
+      }
+        const admin = await Admin.findByPk(req.params.id);
+
+        if(!admin){
+
+          return res.json("NENHUM ADMIN ENCONTRADO")
+        }
+
+        const novos_dados = await admin.update(req.body);
+
+        return res.json(novos_dados)
+
+    } catch (e) {
+
+      console.log(e);
+
+      const validateErrors = e.errors.map(err => err.message)
+
+
+      return res.json({
+
+        errors: [validateErrors]
+      })
+
     }
-
-    const admin = await Admin.findByPk(id);
-
-    if(!admin){
-
-      return res.json("NENHUM ADMIN ENCONTRADO")
-    }
-
-
-    const novos_dados = admin.update({NOME, EMAIL});
-
-    res.json(novos_dados)
-
-    // Vamos verificar se os dados do usuário ainda são os mesmos, caso não, ele irá fazer log out
 
 
   }
 }
-
 
 export default new AdminController_Admin_Generator();
