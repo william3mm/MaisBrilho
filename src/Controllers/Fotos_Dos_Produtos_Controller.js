@@ -1,4 +1,6 @@
 
+import Fotos_Dos_Produtos from '../Models/Fotos_Dos_Produtos';
+
 class Fotos_Dos_ProdutosController{
 
 
@@ -8,11 +10,36 @@ class Fotos_Dos_ProdutosController{
   }
 
 
-  async create(req,res){
+   async create(req,res){
 
-    return res.json(req.files)
+    if(!req.files){
+
+      return res.json({errors: "NENHUM FICHEIRO ENVIADO"})
+    }
+
+    const file = req.files.map((file) => ({
+
+      originalname:file.originalname,
+
+      filename: file.filename
+    }))
+
+    const originalname = file.map((file) => file.originalname);
+
+    const filename = file.map((file)=> file.filename);
+
+    if(!req.body){
+
+      return res.json("NENHUM PARAMETRO ENVIADOS")
+    }
+   // Aqui o produto ID é passado como string precisamos converter ele
 
 
+    const {PRODUTO_ID} = req.body
+
+    const Foto = await Fotos_Dos_Produtos.create({ originalname, filename, PRODUTO_ID})
+
+    return res.json(Foto)
 
 
   }

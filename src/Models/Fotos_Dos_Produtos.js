@@ -12,19 +12,22 @@ export default class Fotos_Dos_Produtos extends Model{
 
     super.init({
 
-      FILENAME:{
+      filename:{
 
-        type: Sequelize.STRING,
+        type: Sequelize.JSON,
 
         allowNull: false,
 
-        validate:{
 
-          notEmpty:{
+      },
 
-            msg: "O CAMPO FILENAME NÃO PODE ESTAR VAZIO"
-          }
-        }
+      originalname:{
+
+        type: Sequelize.JSON,
+
+        allowNull: false,
+
+
       },
 
       PRODUTO_ID:{

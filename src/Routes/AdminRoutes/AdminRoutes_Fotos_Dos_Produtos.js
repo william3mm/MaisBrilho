@@ -13,6 +13,6 @@ const router = new Router();
 
 router.get('/', adminController_Foto_Dos_Produtos.index);
 
-router.post('/', upload.array('Fotos[]', 3) ,adminController_Foto_Dos_Produtos.create);
+router.post('/', upload.array('Fotos', 3) ,adminController_Foto_Dos_Produtos.create);
 
 export default router;
