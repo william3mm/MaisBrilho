@@ -18,9 +18,16 @@ module.exports = {
       autoIncrement: true
     },
 
-    FILENAME:{
+    filename:{
 
-      type: Sequelize.STRING,
+      type: Sequelize.JSON,
+
+      allowNull: false
+    },
+
+     originalname:{
+
+      type: Sequelize.JSON,
 
       allowNull: false
     },

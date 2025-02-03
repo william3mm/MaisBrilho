@@ -8,7 +8,7 @@ class AdminController_Fotos_Dos_Produtos{
     return Fotos_Dos_Produtos_Controller.index(req,res);
   }
 
-  async create(req,res){
+  create(req,res){
 
     return Fotos_Dos_Produtos_Controller.create(req,res);
   }
