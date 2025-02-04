@@ -7,7 +7,9 @@ export default class Produto extends Model{
 
   static associate(models){
 
-    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', })
+    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
+
+    this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'})
 
     //this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'})
   }

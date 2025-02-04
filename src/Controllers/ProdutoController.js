@@ -1,11 +1,31 @@
-import { Op } from 'sequelize';
 import Produto from '../Models/Produto'
+
+import Fotos_Dos_Produtos from '../Models/Fotos_Dos_Produtos';
 
 class ProdutoController{
 
  async index(req,res){
 
-  const produto = await Produto.findAll();
+  const produto = await Produto.findAll({attributes:[ 'ID', 'NOME', 'CODIGO', 'CATEGORIA_ID', 'PRECO', 'DESCRICAO'],
+
+
+  // Podemos ordenar os campos de forma que o ultimo produto criado seja o primeiro a ser exibido:
+
+
+  order: [ ['ID', 'DESC']], // Significa que o ID será mostrado de forma decrescente
+
+  // Vamos mostrar as fotos associadas ao aluno utilizando a propriedade include
+
+  include:{
+
+    model: Fotos_Dos_Produtos,
+
+    // Vamos pegar apenas o ID, Originalname e o Filename
+
+    attributes: [ 'ID','filename']
+  }
+
+});
 
   res.json(produto)
 

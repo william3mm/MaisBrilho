@@ -12,6 +12,9 @@ class Fotos_Dos_ProdutosController{
 
    async create(req,res){
 
+    try{
+
+
     if(!req.files){
 
       return res.json({errors: "NENHUM FICHEIRO ENVIADO"})
@@ -40,6 +43,14 @@ class Fotos_Dos_ProdutosController{
     const Foto = await Fotos_Dos_Produtos.create({ originalname, filename, PRODUTO_ID})
 
     return res.json(Foto)
+  }catch(e){
+
+    console.log(e);
+    return res.status(400).json({
+
+      errors: 'ERRO AO SALVAR FOTO'
+    })
+  }
 
 
   }

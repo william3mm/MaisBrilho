@@ -18,54 +18,65 @@ class TokenController{
 
     const {EMAIL = '', SENHA= ''} = req.body;
 
+    console.log(EMAIL, SENHA)
+
 
     if(!EMAIL || !SENHA){
 
-      res.status(400).json("EMAIL OU SENHA NÃO ENVIADOS")
+      return res.status(400).json("EMAIL OU SENHA NÃO ENVIADOS")
     }
-    const admin = await Admin.findOne({
 
-      where: {
+    try {
+      const admin = await Admin.findOne({
 
-        // WHERE RECEBE CHAVE:VALOR MAS PODEMOS PASSAR APENAS O VALOR
+        where: {
 
-        EMAIL,
+          // WHERE RECEBE CHAVE:VALOR MAS PODEMOS PASSAR APENAS O VALOR
 
+          EMAIL,
+
+        }
+      })
+
+
+      if(!admin){
+
+        return res.status(401).json({
+
+          errors: ['Admin não existe']
+        })
       }
-    })
 
 
-    if(!admin){
+      if(!(await admin.passwordisValid(SENHA))){
 
-      return res.status(401).json({
+        return res.status(401).json({
 
-        errors: ['Admin não existe']
+          errors: [ 'Senha Inválida']
+        })
+      }
+
+      // CASO O USUÁRIO SEJA AUTENTICADO VAMOS GERAR UM TOKEN PARA ELE
+
+
+      const {id}= admin
+
+      // O PRIMEIRO ARGUMENTO QUE É O PAYLOAD SE REFERE AOS DADOS QUE IRÃO IDENTIFICAR O USUÁRIO, NO CASO O SEU ID E O EMAIL
+      const token =  jwt.sign({ id, EMAIL}, process.env.TOKEN_SECRET, {
+
+        // NO SEGUNDO PARAMETRO PASSAMOS QUANDO O TOKEN VAI EXPIRAR
+
+        expiresIn: process.env.TOKEN_EXPIRATION
       })
+
+      return res.json({token})
+
+
+    } catch (error) {
+
+      return res.status(400).json({errors: 'ERRO AO GERAR TOKEN'})
+
     }
-
-
-    if(!(await admin.passwordisValid(SENHA))){
-
-      return res.status(401).json({
-
-        errors: [ 'Senha Inválida']
-      })
-    }
-
-    // CASO O USUÁRIO SEJA AUTENTICADO VAMOS GERAR UM TOKEN PARA ELE
-
-
-    const {id}= admin
-
-    // O PRIMEIRO ARGUMENTO QUE É O PAYLOAD SE REFERE AOS DADOS QUE IRÃO IDENTIFICAR O USUÁRIO, NO CASO O SEU ID E O EMAIL
-    const token =  jwt.sign({ id, EMAIL}, process.env.TOKEN_SECRET_ADMIN, {
-
-      // NO SEGUNDO PARAMETRO PASSAMOS QUANDO O TOKEN VAI EXPIRAR
-
-      expiresIn: process.env.TOKEN_EXPIRATION_ADMIN
-    })
-
-    return res.json({token})
 
 
   }
