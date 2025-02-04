@@ -1,5 +1,7 @@
 import dotenv from 'dotenv'
 
+import {resolve} from 'path'
+
 dotenv.config();
 
 import express from "express";
@@ -40,6 +42,10 @@ class App{
     this.app.use(express.urlencoded({extended:true}));
 
     this.app.use(express.json()); //Para podermos receber requisicoes por json
+
+    // Vamos comunicar ao express onde está a pasta de arquivos estaticos para que possamos abrir os arquivos
+
+    this.app.use(express.static(resolve(__dirname, 'Uploads')))
 
   }
 

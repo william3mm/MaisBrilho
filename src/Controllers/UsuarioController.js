@@ -8,7 +8,13 @@ class UsuarioController{
     try {
 
 
-    const usuario = await Usuario.findAll( {attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA']});
+    const usuario = await Usuario.findAll( {attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA'],
+
+
+    order: [['ID', 'DESC']]
+
+
+  } );
 
     res.json(usuario);
 

@@ -9,7 +9,9 @@ export default class Produto extends Model{
 
     this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
 
-    this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'})
+    this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'});
+
+    this.hasOne(models.Carrinho, {foreignKey: 'PRODUTO_ID'})
 
     //this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'})
   }

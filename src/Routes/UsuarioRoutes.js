@@ -6,7 +6,7 @@ import LoginRequired from "../Middlewares/LoginRequired";
 
 const router = new Router();
 
-router.get('/',  LoginRequired, usuarioController.index) // Falha de segurança lista todos os usuarios
+router.get('/', usuarioController.index) // Falha de segurança lista todos os usuarios
 
 router.post('/', usuarioController.create)
 

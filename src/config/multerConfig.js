@@ -14,7 +14,7 @@ export default {
     // Vamos dizer onde o arquivo vai ser salvo
     destination: (req,file, cb)=> {
 
-      cb(null, resolve(__dirname, '..', '..', 'Uploads')) // Caso ocorra um erro receberiamos na nossa funcao callback no primeiro argumento e no segundo passamos onde vamos salvar a nossa imagem
+      cb(null, resolve(__dirname, '..', '..', 'Uploads', 'Images')) // Caso ocorra um erro receberiamos na nossa funcao callback no primeiro argumento e no segundo passamos onde vamos salvar a nossa imagem
 
 
 
