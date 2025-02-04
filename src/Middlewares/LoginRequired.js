@@ -11,7 +11,7 @@ if(!authorization){
 
   return res.status(401).json({
 
-    errors: [ ' Login Required']
+    errors: [ 'SEM PERMISSAO']
   });
 }
 

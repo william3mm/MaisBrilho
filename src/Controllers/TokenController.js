@@ -18,9 +18,11 @@ class TokenController{
     const {EMAIL = '', SENHA= ''} = req.body;
 
 
+
+
     if(!EMAIL || !SENHA){
 
-      res.status(400).json("EMAIL OU SENHA NÃO ENVIADOS")
+      return res.status(400).json("EMAIL OU SENHA NÃO ENVIADOS")
     }
     const usuario = await Usuario.findOne({
 
