@@ -15,4 +15,6 @@ router.delete('/:id',  adminController.delete)
 
 router.get('/',adminController.index)
 
+router.get('/:id?', adminController.show)
+
 export default router

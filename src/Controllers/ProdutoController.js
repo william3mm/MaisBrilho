@@ -22,7 +22,7 @@ class ProdutoController{
 
     // Vamos pegar apenas o ID, Originalname e o Filename
 
-    attributes: [ 'ID','filename']
+    attributes: [ 'ID','filename', 'url'] //
   }
 
 });
@@ -95,46 +95,19 @@ return res.status(401).json({
 
     try {
 
-
-
-
-      if(!req.body && !req.params){
+      if(!req.params){
 
         return res.json("NENHUM PARÂMETRO DE BUSCA ENVIADO")
       }
 
       const { id} = req.params;
 
-      const { NOME, CATEGORIA} = req.body
-      /*Podemos procurar o produto pelo seu ID, NOME, CATEGORIA Para isso vamos criar uma condicao
-
-      E vamos usar a biblioteca Op do sequelize para realizar uma busca exata
-      */
-      const whereCondition = {};
-
-      if(id){
-
-        whereCondition.id = id
-
-      }
-
-      if(NOME){
-
-        whereCondition.NOME = NOME
-      }
-
-      if(CATEGORIA){
-
-        // Busca pela categoria, ela é passada como um número, por isso não há necessidade de usarmos o Op.eq
-        whereCondition.CATEGORIA = CATEGORIA;
-      }
-
-
-
-
       const produto = await Produto.findOne( {
 
-        where: { whereCondition}
+        where: {
+
+          NOME: id
+        }
       })
 
       if(!produto){
