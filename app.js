@@ -23,7 +23,9 @@ import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Ad
 
 import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categoria'
 
-import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token'
+import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
+
+import AdminRoutes_Usuarios from './src/Routes/AdminRoutes/AdminRoutes_Usuarios'
 
 class App{
 
@@ -54,6 +56,8 @@ class App{
 
     this.app.use('/usuarios/', UsuarioRoutes);
 
+    this.app.use('/usuarios/carrinho/', UsuarioRoutes);
+
     // this.app.use('/categorias/', CategoriaRoutes);
 
     // this.app.use('/produtos/', ProdutoRoutes);
@@ -68,7 +72,9 @@ class App{
 
       this.app.use('/secure-dashbooards/categorias/', AdminRoutes_Categorias);
 
-      this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token)
+      this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
+
+      this.app.use('/secure-dashboard/user-management/', AdminRoutes_Usuarios)
 
   }
 

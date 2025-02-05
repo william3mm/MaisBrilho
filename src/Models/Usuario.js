@@ -17,13 +17,11 @@ export default class Usuario extends Model{
 
   // Vamos associar um usuario a um carrinho
 
-  static associations(models){
+  static associate(models){
 
     this.hasOne(models.Carrinho, {foreignKey: 'USUARIO_ID'})
   }
   static init(sequelize){
-
-
 
     super.init({
 

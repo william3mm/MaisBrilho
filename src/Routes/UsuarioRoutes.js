@@ -14,4 +14,6 @@ router.delete('/', LoginRequired, usuarioController.delete)
 
 router.put('/',  LoginRequired, usuarioController.update)
 
+router.post('/:id/', usuarioController.adiciona_ao_carrinho)
+
 export default router
