@@ -11,9 +11,9 @@ export default class Produto extends Model{
 
     this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'});
 
-    this.hasOne(models.Carrinho, {foreignKey: 'PRODUTO_ID'})
+    this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'PRODUTO_ID'});
 
-    //this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'})
+
   }
 
   // Vamos criar um metodo de instancia para gerar um codigo para o produto
@@ -86,14 +86,14 @@ export default class Produto extends Model{
 
           validate: {
 
-            isInt:{
+            isDecimal:{
 
-              msg: "O CAMPO PRECO NÃO PODE CONTER LETRAS OU SÍMBOLOS"
+              msg: "O CAMPO DEVE SER UM VALOR DECIMAL"
             },
 
             notEmpty:{
 
-              msg: "O CAMPO SENHA NÃO PODE ESTAR VAZIO"
+              msg: "O CAMPO PRECO NÃO PODE ESTAR VAZIO"
             }
           }
      },
@@ -107,7 +107,7 @@ export default class Produto extends Model{
           validate:{
 
 
-            isDecimal:{
+            isInt:{
 
               msg: "O CAMPO QUANTIDADE NÃO PODE CONTER LETRAS OU SÍMBOLOS"
             },
@@ -196,12 +196,12 @@ export default class Produto extends Model{
 
         // Vamos verificar se a categoria existe
 
-        const categoria = await Categoria.findByPk(Produto.CATEGORIA_ID)
+        // const categoria = await Categoria.findByPk(Produto.CATEGORIA_ID)
 
-        if(!categoria){
+        // if(!categoria){
 
-          throw new Error("Categoria não encontrada!");
-        }
+        //   throw new Error("Categoria não encontrada!");
+        // }
 
 
       }
@@ -212,8 +212,5 @@ export default class Produto extends Model{
 
     return this
   }
-
-
-
 
 }

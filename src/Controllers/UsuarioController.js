@@ -1,40 +1,13 @@
-
 import Usuario from "../Models/Usuario";
+
+import CarrinhoController from "./CarrinhoController";
+
 class UsuarioController{
 
 
   async index(req,res){
 
-    try {
-
-
-    const usuario = await Usuario.findAll( {attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA'],
-
-
-    order: [['ID', 'DESC']]
-
-
-  } );
-
-    res.json(usuario);
-
-    // Podemos ter acesso aos dados passados na requisicao pelo middeware em login required
-
-    // console.log( 'User Id', req.userId);
-
-    // console.log('User Email', req.userEmail)
-
-    } catch (error) {
-
-      console.log(error);
-
-
-
-      return res.status(400).json({
-
-        errors: [ 'Erro ao listar Usuários']
-      })
-    }
+   return CarrinhoController.index(req,res);
 
 
   }
@@ -69,7 +42,6 @@ class UsuarioController{
     // Aqui vamos deletar usuarios
 
 
-
     try {
 
       // Vamos pegar o valor do id do usuário que estamos a tentar deletar capturando o id pelo parametro da requisicao
@@ -94,6 +66,11 @@ class UsuarioController{
 
     }
 
+  }
+
+  async adiciona_ao_carrinho(req,res){
+
+  return CarrinhoController.create(req,res);
   }
 
   async update(req,res){

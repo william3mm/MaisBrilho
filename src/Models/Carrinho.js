@@ -4,6 +4,14 @@ export default class Carrinho extends Model{
 
 
 
+  static associate(models){
+
+
+
+    this.belongsTo(models.Usuario, {foreignKey: 'USUARIO_ID'});
+
+    this.belongsToMany(models.Produto, {through: 'Carrinho_Produto', foreignKey: 'CARRINHO_ID'})
+  }
 
   static init(sequelize){
 
@@ -24,19 +32,6 @@ export default class Carrinho extends Model{
         allowNull: true
       },
 
-      PRODUTO_ID:{
-
-        type: Sequelize.INTEGER,
-
-        allowNull: true,
-
-        references:{
-
-          model: 'Produto',
-
-          key: 'id'
-        }
-      },
 
       USUARIO_ID:{
 

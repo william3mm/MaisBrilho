@@ -32,23 +32,10 @@ module.exports = {
         allowNull: true
       },
 
-      PRODUTO_ID:{
-
-        allowNull: true,
-
-        onDelete: 'CASCADE',
-
-        onUpdate: 'CASCADE'
-,
-        references:{
-
-          model: 'Produto',
-
-          key: 'id'
-        }
-      },
 
       USUARIO_ID:{
+
+        type: Sequelize.INTEGER,
 
         allowNull: false,
 

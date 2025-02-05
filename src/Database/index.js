@@ -11,8 +11,9 @@ import Fotos_Dos_Produtos from  '../Models/Fotos_Dos_Produtos'
 
 import Admin from "../Models/Admin";
 
+import Carrinho from "../Models/Carrinho";
 
-const models = [Usuario,Categoria, Produto, Fotos_Dos_Produtos, Admin]
+const models = [Usuario,Categoria, Produto, Fotos_Dos_Produtos, Admin, Carrinho]
 
 
 const connection = new Sequelize(databaseconfig)
