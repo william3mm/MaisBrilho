@@ -55,6 +55,8 @@ export default class Carrinho extends Model{
         tableName: 'Carrinho'
       })
 
+
+
 return this;
   }
 }

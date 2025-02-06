@@ -48,7 +48,11 @@ module.exports = {
           model: 'Usuario',
 
           key: 'id'
-        }
+        },
+
+        field: 'USUARIO_ID'
+
+
       },
 
       createdAt:{

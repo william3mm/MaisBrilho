@@ -1,4 +1,4 @@
-import ProdutoController from  '../ProdutoController'
+import ProdutoController from  '../ProdutoController/ProdutoController'
 
 
 

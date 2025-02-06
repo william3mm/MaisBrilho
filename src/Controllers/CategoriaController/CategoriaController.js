@@ -1,4 +1,4 @@
-import Categoria from '../Models/Categoria'
+import Categoria from '../../Models/Categoria'
 
 
 class CategoriaController{

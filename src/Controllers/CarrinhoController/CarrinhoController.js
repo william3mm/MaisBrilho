@@ -1,7 +1,9 @@
- import Produto from "../Models/Produto";
+ import Produto from "../../Models/Produto";
  import CalculaTotal from "./CalculaTotal";
+ import Carrinho from "../../Models/Carrinho";
+import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
- import Carrinho from "../Models/Carrinho";
+
  class CarrinhoController{
 
 
@@ -13,6 +15,8 @@
 
     return res.json(carrinho);
   }
+
+
 
   async create(req,res){
 
@@ -35,13 +39,17 @@
 
           },
 
-          attributes: [ 'PRECO', 'NOME']
+          attributes: [ 'PRECO', 'NOME', 'id'],
+
+
         });
+
 
         if(!produto){
 
           return res.status(404).json('PRODUTO NAO ENCONTRADO')
         }
+
 
         // Primeiro vamos pegar o preco do produto
 
@@ -49,25 +57,46 @@
 
         // Vamos pegar a quantidade
 
-        const {QUANTIDADE_ADICIONADA, USUARIO_ID} = req.body;
+        const {QUANTIDADE_ADICIONADA, USUARIO_ID} = req.body
 
+
+        if(!USUARIO_ID){
+
+          return res.json('O ID DO USUÁRIO É OBRIGATÓRIO');
+        }
+
+        console.log(USUARIO_ID)
         // Vamos calcular o total atraves da funcao CalculaTotal
 
         const VALOR_TOTAL = CalculaTotal(QUANTIDADE_ADICIONADA, produto_preco);
 
         // Vamos tentar criar o carrinho aqui
 
+        const carrinho =  await Carrinho.create({QUANTIDADE_ADICIONADA, VALOR_TOTAL,USUARIO_ID:req.body.USUARIO_ID,})
 
-        const carrinho =  await Carrinho.create({QUANTIDADE_ADICIONADA, VALOR_TOTAL,USUARIO_ID })
 
+        // Agora vamos criar o registro na tabela intermediaria Carrinho_Produto
+
+        await Carrinho_Produto.create({
+
+          CARRINHO_ID: carrinho.id,
+
+          PRODUTO_ID: produto.id
+        })
 
         return res.json(carrinho);
+
+
 
       } catch (error) {
         console.log(error)
         return res.status(400).json('ERRO AO ADICIONAR PRODUTO AO CARRINHO')
 
+
+
       }
+
+
   }
 
 
