@@ -25,7 +25,9 @@ import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categor
 
 import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
 
-import AdminRoutes_Usuarios from './src/Routes/AdminRoutes/AdminRoutes_Usuarios'
+import AdminRoutes_Usuarios from './src/Routes/AdminRoutes/AdminRoutes_Usuarios';
+
+import AdminRoutes_Gerir_Carrinho from './src/Routes/AdminRoutes/AdminRoutes_Gerir_Carrinho';
 
 class App{
 
@@ -62,6 +64,7 @@ class App{
 
     // this.app.use('/produtos/', ProdutoRoutes);
 
+
     this.app.use('/produtos/fotos', AdminRoutes_Fotos_Dos_Produtos);
 
     this.app.use('/tokens/', TokenRoutes);
@@ -70,11 +73,15 @@ class App{
 
       this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
-      this.app.use('/secure-dashbooards/categorias/', AdminRoutes_Categorias);
+      this.app.use('/secure-dashbooard/categorias/', AdminRoutes_Categorias);
 
       this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 
-      this.app.use('/secure-dashboard/user-management/', AdminRoutes_Usuarios)
+      this.app.use('/secure-dashboard/user-management/', AdminRoutes_Usuarios);
+
+      this.app.use('/secure-dashboard/carrinho-management/', AdminRoutes_Gerir_Carrinho)
+
+
 
   }
 

@@ -1,4 +1,4 @@
-import CategoriaController from  '../../Controllers/CategoriaController';
+import CategoriaController from  '../CategoriaController/CategoriaController';
 
 
 class AdminController_Categoria{

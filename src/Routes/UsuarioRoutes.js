@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import usuarioController from "../Controllers/UsuarioController";
+import usuarioController from "../Controllers/UsuarioController/UsuarioController";
 
 import LoginRequired from "../Middlewares/LoginRequired";
 

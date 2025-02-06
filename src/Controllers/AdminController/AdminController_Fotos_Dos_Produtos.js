@@ -1,5 +1,5 @@
 
-import Fotos_Dos_Produtos_Controller from '../Fotos_Dos_Produtos_Controller'
+import Fotos_Dos_Produtos_Controller from '../Fotos_Dos_Produtos_Controller/Fotos_Dos_Produtos_Controller'
 class AdminController_Fotos_Dos_Produtos{
 
 

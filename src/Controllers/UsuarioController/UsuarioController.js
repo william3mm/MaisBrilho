@@ -1,6 +1,6 @@
-import Usuario from "../Models/Usuario";
+import Usuario from "../../Models/Usuario";
 
-import CarrinhoController from "./CarrinhoController";
+import CarrinhoController from "../CarrinhoController/CarrinhoController";
 
 class UsuarioController{
 
