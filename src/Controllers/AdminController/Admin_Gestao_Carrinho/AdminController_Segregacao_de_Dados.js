@@ -21,8 +21,7 @@ class Segregacao_de_Dados{
         model: Carrinho,
 
 
-
-
+        // mode: Produto
 
       }
 
