@@ -22,8 +22,10 @@
     "sucrase": "^3.35.0"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "helmet": "^8.0.0",
     "is-fullwidth-code-point": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.4.0",

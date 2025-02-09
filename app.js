@@ -6,6 +6,10 @@ dotenv.config();
 
 import express from "express";
 
+import cors from 'cors';
+
+import helmet from 'helmet';
+
 import './src/Database' /*Importamos o arquivo de configuracao da database para que os modelos sejam inicializados antes do servidor começar a executar as rotas,
 
 se nao o fizessemos iriamos ter erros dizendo que os modelos nao foram inicializados.
@@ -29,6 +33,45 @@ import AdminRoutes_Usuarios from './src/Routes/AdminRoutes/AdminRoutes_Usuarios'
 
 import AdminRoutes_Gerir_Carrinho from './src/Routes/AdminRoutes/AdminRoutes_Gerir_Carrinho';
 
+const whiteList = [
+
+  // 'https://react2.otaviomiranda.com.br',
+
+  'http://localhost:3000'
+]
+
+// Vamos escrever as configuracoes do CORS
+
+const corsOptions  = {
+
+
+  origin: function(origin, callback){
+
+    /* O cabecalho origin vai indicar a origem de um recurso que está a ser procurado, tem as seguintes funcoes:
+
+
+    1 - Ele vai informar ao navegador quais orignens podem receber solicitacoes
+
+     2 - Vai comparar com as informacoes de metodos e origens na configuracao
+
+     3 - Vai especificar os dominios que têm permissao para acessar o recurso
+
+    */
+
+     // whiteList.indexOf(origin) != -1 significa que a origin está contida e !origin quer dizer que nem sempre ela será envidada
+
+     if(whiteList.indexOf(origin) != -1 || !origin){
+
+      // O primeiro argumento do callback seria um erro, que, vamos setar como null
+      callback(null, true)
+
+    }else{
+
+      callback(new Error('NOT ALLOWED BY CORS'))
+    }
+  }
+}
+
 class App{
 
   constructor(){
@@ -42,6 +85,10 @@ class App{
   }
 
   Middlewares(){
+
+    this.app.use(cors(corsOptions));
+
+    this.app.use(helmet()); // Previne vunerabilidades comuns
 
     this.app.use(express.urlencoded({extended:true}));
 
