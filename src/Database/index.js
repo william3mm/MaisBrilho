@@ -2,24 +2,19 @@ import { Sequelize } from "sequelize";
 
 import databaseconfig from '../config/database'
 
-import Usuario from "../Models/Usuario";
+import Vendedor from "../Models/Vendedor";
+
 import Categoria from "../Models/Categoria";
 
-import Produto from '../Models/Produto'
-
-import Fotos_Dos_Produtos from  '../Models/Fotos_Dos_Produtos'
-
-import Admin from "../Models/Admin";
-
-import Carrinho from "../Models/Carrinho";
-
-import Carrinho_Produto from "../Models/Carrinho_Produto";
+import Produto from "../Models/Produto";
 
 
-const models = [Usuario,Categoria, Produto, Fotos_Dos_Produtos, Admin, Carrinho, Carrinho_Produto]
+
+const models = [Vendedor, Categoria, Produto]
 
 
-const connection = new Sequelize(databaseconfig)
+const connection = new Sequelize(databaseconfig); // Aqui inicializamos a conexao passando as informacoes da nossa database
+
 models.forEach(model=> model.init(connection))
 
 

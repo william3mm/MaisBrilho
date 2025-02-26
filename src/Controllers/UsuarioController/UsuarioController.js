@@ -68,10 +68,7 @@ class UsuarioController{
 
   }
 
-  async adiciona_ao_carrinho(req,res){
 
-  return CarrinhoController.create(req,res);
-  }
 
   async update(req,res){
 
@@ -109,6 +106,25 @@ class UsuarioController{
         errors: ['ERRO AO ACTUALIZAR USUÁRIO']})
 
     }
+  }
+
+  // Agora iremos adicionar os metodos associados ao carrinho
+
+  async criar_carrinho(req,res){
+
+    return CarrinhoController.create(req,res);
+    }
+
+
+  async listar_carrinho(req,res){
+
+    return CarrinhoController.index(req,res);
+  }
+
+  async adicionar_item_ao_carrinho(req,res){
+
+
+    return CarrinhoController.update(req,res)
   }
 }
 

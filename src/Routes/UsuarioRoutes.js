@@ -6,14 +6,16 @@ import LoginRequired from "../Middlewares/LoginRequired";
 
 const router = new Router();
 
-router.get('/', usuarioController.index) // Falha de segurança lista todos os usuarios
-
-router.post('/', usuarioController.create)
+router.post('/', LoginRequired, usuarioController.create)
 
 router.delete('/', LoginRequired, usuarioController.delete)
 
 router.put('/',  LoginRequired, usuarioController.update)
 
-router.post('/:id/', usuarioController.adiciona_ao_carrinho)
+router.post('/:id/', LoginRequired, usuarioController.criar_carrinho);
+
+router.post('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho)
+
+router.get('/', LoginRequired, usuarioController.listar_carrinho);
 
 export default router

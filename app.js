@@ -21,21 +21,14 @@ import TokenRoutes from './src/Routes/TokenRoutes'
 
 import AdminRoutes_Fotos_Dos_Produtos from  './src/Routes/AdminRoutes/AdminRoutes_Fotos_Dos_Produtos';
 
-import AdminRoutes_Produtos from './src/Routes/AdminRoutes/AdminRoutes_Produto'
-
 import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Admin_Generator'
 
 import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categoria'
 
 import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
 
-import AdminRoutes_Usuarios from './src/Routes/AdminRoutes/AdminRoutes_Usuarios';
-
-import AdminRoutes_Gerir_Carrinho from './src/Routes/AdminRoutes/AdminRoutes_Gerir_Carrinho';
-
+import VendedorRoutes from './src/Routes/VendedorRoutes/index'
 const whiteList = [
-
-  // 'https://react2.otaviomiranda.com.br',
 
   'http://localhost:3000'
 ]
@@ -107,16 +100,9 @@ class App{
 
     this.app.use('/usuarios/carrinho/', UsuarioRoutes);
 
-    // this.app.use('/categorias/', CategoriaRoutes);
-
-    // this.app.use('/produtos/', ProdutoRoutes);
-
-
     this.app.use('/produtos/fotos', AdminRoutes_Fotos_Dos_Produtos);
 
     this.app.use('/tokens/', TokenRoutes);
-
-      this.app.use('/secure-dashboard/produtos', AdminRoutes_Produtos);
 
       this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
@@ -124,9 +110,11 @@ class App{
 
       this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 
-      this.app.use('/secure-dashboard/user-management/', AdminRoutes_Usuarios);
 
-      this.app.use('/secure-dashboard/carrinho-management/', AdminRoutes_Gerir_Carrinho)
+
+
+
+      this.app.use('/produtos/', VendedorRoutes)
 
 
 

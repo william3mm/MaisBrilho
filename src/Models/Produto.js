@@ -5,16 +5,16 @@ import Categoria from '../Models/Categoria'
 export default class Produto extends Model{
 
 
-  static associate(models){
+  // static associate(models){
 
-    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
+  //   this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
 
-    this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'});
+  //   this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'});
 
-    this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'PRODUTO_ID'});
+  //   this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'PRODUTO_ID'});
 
 
-  }
+  // }
 
   // Vamos criar um metodo de instancia para gerar um codigo para o produto
 
@@ -56,7 +56,7 @@ export default class Produto extends Model{
     super.init({
 
 
-      NOME: {
+      Nome: {
 
         type: Sequelize.STRING,
 
@@ -78,15 +78,15 @@ export default class Produto extends Model{
         },
       },
 
-        PRECO:{
+        Preco:{
 
-          type: Sequelize.DECIMAL(10,2),
+          type: Sequelize.FLOAT,
 
           allowNull: false,
 
           validate: {
 
-            isDecimal:{
+            isFloat:{
 
               msg: "O CAMPO DEVE SER UM VALOR DECIMAL"
             },
@@ -98,7 +98,7 @@ export default class Produto extends Model{
           }
      },
 
-        QUANTIDADE:{
+        Quantidade:{
 
           type: Sequelize.INTEGER,
 
@@ -120,11 +120,11 @@ export default class Produto extends Model{
 
         },
 
-        CODIGO:{
+        Codigo:{
 
           type: Sequelize.STRING,
 
-          allowNull: false,
+          allowNull: true,
 
           unique:{
 
@@ -132,18 +132,9 @@ export default class Produto extends Model{
 
           },
 
-          validate: {
-
-
-            notEmpty:{
-
-              msg: "O CAMPO CODIGO NÃO PODE ESTAR VAZIO"
-            }
-          }
-
         },
 
-        DESCRICAO:{
+       Descricao:{
 
           type: Sequelize.STRING,
 
@@ -153,7 +144,7 @@ export default class Produto extends Model{
 
             notEmpty:{
 
-              msg: "O CAMPO QUANTIDADE NÃO PODE ESTAR VAZIO"
+              msg: "O CAMPO DESCRICAO NÃO PODE ESTAR VAZIO"
             }
           }
 
@@ -161,7 +152,7 @@ export default class Produto extends Model{
 
         },
 
-        CATEGORIA_ID:{
+        Categoria_ID:{
 
           type: Sequelize.INTEGER,
 
@@ -169,7 +160,7 @@ export default class Produto extends Model{
 
           references:{
 
-            model: "CATEGORIA",
+            model: "Categoria",
 
             key: "id"
           }
@@ -192,7 +183,7 @@ export default class Produto extends Model{
     this.addHook('beforeSave', async Produto=>{
 
 
-      if(Produto.changed('CATEGORIA_ID')){
+      if(Produto.changed('Categoria_ID')){
 
         // Vamos verificar se a categoria existe
 
@@ -206,7 +197,7 @@ export default class Produto extends Model{
 
       }
 
-      Produto.CODIGO = await Produto.GerarCodigo(Produto.NOME, Produto.CATEGORIA_ID)
+      Produto.Codigo = await Produto.GerarCodigo(Produto.Nome, Produto.Categoria_ID)
 
     })
 

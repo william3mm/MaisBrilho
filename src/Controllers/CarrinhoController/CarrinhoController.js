@@ -11,7 +11,24 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
   async index(req,res){
 
-    const carrinho = await  Carrinho.findAll();
+    const carrinho = await Carrinho.findOne(
+
+      {
+
+        where: {
+
+          USUARIO_ID :  req.userID
+        },
+
+        include: [
+
+          {model: Produto,
+
+            attributes: [ 'id', 'NOME']
+          }
+        ]
+      }
+    );
 
     return res.json(carrinho);
   }
@@ -50,39 +67,81 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
           return res.status(404).json('PRODUTO NAO ENCONTRADO')
         }
 
+        // Vamos buscar ou criar o carrinho do usuário
+
+        let carrinho =  await Carrinho.findOne({
+
+          where: {USUARIO_ID: req.userID}
+        })
+
+
+        // Vamos pegar a quantidade
+
+        const {QUANTIDADE_ADICIONADA} = req.body
+        // Caso não ouver nenhum carrinho associado ao usuário vamos criar um
+
+        if(!req.userID){
+
+          return res.json('O ID DO USUÁRIO É OBRIGATÓRIO');
+        }
+        if(!carrinho){
+
+           // Vamos tentar criar o carrinho aqui
+          carrinho =  await Carrinho.create({QUANTIDADE_ADICIONADA, VALOR_TOTAL: VALOR_TOTAL_ITEM, USUARIO_ID: req.userID,})
+        }
 
         // Primeiro vamos pegar o preco do produto
 
         const produto_preco = produto.PRECO;
 
-        // Vamos pegar a quantidade
-
-        const {QUANTIDADE_ADICIONADA, USUARIO_ID} = req.body
-
-
-        if(!USUARIO_ID){
-
-          return res.json('O ID DO USUÁRIO É OBRIGATÓRIO');
-        }
-
-        console.log(USUARIO_ID)
         // Vamos calcular o total atraves da funcao CalculaTotal
 
-        const VALOR_TOTAL = CalculaTotal(QUANTIDADE_ADICIONADA, produto_preco);
+        const VALOR_TOTAL_ITEM = CalculaTotal(QUANTIDADE_ADICIONADA, produto_preco);
 
-        // Vamos tentar criar o carrinho aqui
+        // Vamos verificar se o produto já está no carrinho
 
-        const carrinho =  await Carrinho.create({QUANTIDADE_ADICIONADA, VALOR_TOTAL,USUARIO_ID:req.body.USUARIO_ID,})
+        const ItemExistente =  await Carrinho_Produto.findOne({
 
+          where:{
 
-        // Agora vamos criar o registro na tabela intermediaria Carrinho_Produto
+            CARRINHO_ID: carrinho.id,
 
-        await Carrinho_Produto.create({
-
-          CARRINHO_ID: carrinho.id,
-
-          PRODUTO_ID: produto.id
+            PRODUTO_ID : produto.id
+          }
         })
+
+        if(ItemExistente){
+
+          // Caso o item exista, vamos actualizar a quantidade e o valor total do item no carrinho
+
+          ItemExistente.QUANTIDADE_ADICIONADA += QUANTIDADE_ADICIONADA;
+
+          await ItemExistente.save();
+
+        } else{
+
+          /* Caso o item nao existir vamos adicionar um novo produto ao carrinho
+
+            Agora vamos criar o registro na tabela intermediaria Carrinho_Produto
+          */
+
+          await Carrinho_Produto.create({
+
+            CARRINHO_ID: carrinho.id,
+
+            PRODUTO_ID: produto.id
+          })
+
+        }
+
+        // Vamos actualizar também o valor total do carrinho
+
+        carrinho.VALOR_TOTAL += VALOR_TOTAL_ITEM;
+
+        await carrinho.save();
+
+
+
 
         return res.json(carrinho);
 
@@ -98,6 +157,34 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
 
   }
+
+
+  async update(req,res){
+
+    // Aqui, depois de criar o carrinho, vai ser possível adicionar mais itens dentro dele
+
+    // Primeiro vamos localizar o carrinho associado ao id do usuario
+
+    if(!req.userID){
+
+      res.status(400).json("ID DO USUÁRIO NÃO ENVIADO");
+    }
+
+    const carrinho = await Carrinho.findOne({
+
+      where: {
+
+        USUARIO_ID: req.userID
+      }
+
+
+    })
+
+    res.json(carrinho);
+
+  }
+
+
 
 
  }

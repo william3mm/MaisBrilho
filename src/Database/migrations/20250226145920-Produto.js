@@ -1,10 +1,13 @@
 'use strict';
 
+
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.createTable('Carrinho_Produto', {
+      await queryInterface.createTable('Produto', {
+
 
         id: {
 
@@ -12,12 +15,49 @@ module.exports = {
 
           allowNull: false,
 
-          autoIncrement: true,
+          primaryKey: true,
 
-          primaryKey: true
+          autoIncrement: true
         },
 
-        CARRINHO_ID:{
+        Nome:{
+
+          type: Sequelize.STRING,
+
+          allowNull: false
+        },
+
+        Preco: {
+
+          type: Sequelize.FLOAT,
+
+          allowNull: false
+        },
+
+        Quantidade : {
+
+          type: Sequelize.INTEGER,
+
+          allowNull: false
+        },
+
+        Codigo:{
+
+          type: Sequelize.STRING,
+
+          allowNull: true,
+
+          unique: true
+        },
+
+        Descricao:{
+
+          type: Sequelize.STRING,
+
+          allowNull: false
+        },
+
+        Categoria_ID: {
 
           type: Sequelize.INTEGER,
 
@@ -25,7 +65,7 @@ module.exports = {
 
           references:{
 
-            model: 'Carrinho',
+            model: 'Categoria',
 
             key: 'id'
           },
@@ -33,25 +73,6 @@ module.exports = {
           onDelete: 'CASCADE',
 
           onUpdate: 'CASCADE'
-        },
-
-        PRODUTO_ID:{
-
-          type: Sequelize.INTEGER,
-
-          allowNull: false,
-
-          references:{
-
-            model: 'Produto',
-
-            key: 'id'
-          },
-
-          onDelete: 'CASCADE',
-
-          onUpdate: 'CASCADE'
-
         },
 
         createdAt:{
@@ -69,13 +90,15 @@ module.exports = {
         }
 
 
+
       });
 
   },
 
+  // eslint-disable-next-line no-unused-vars
   async down (queryInterface, Sequelize) {
 
-      await queryInterface.dropTable('Carrinho_Produto');
+      await queryInterface.dropTable('Produto');
 
   }
 };

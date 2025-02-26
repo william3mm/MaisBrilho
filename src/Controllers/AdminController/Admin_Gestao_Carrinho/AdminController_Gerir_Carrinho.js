@@ -38,7 +38,9 @@ class AdminController_Gerir_Carrinhos{
 
     } catch (error) {
 
+      console.log(error);
       return res.status(400).json('ERRO AO PROCURAR POR CARRINHOS');
+
     }
 
 

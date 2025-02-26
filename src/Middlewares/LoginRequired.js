@@ -18,7 +18,7 @@ if(!authorization){
 console.log(authorization)
 
 
-const [_, token] = authorization.split(' '); //Separamos o texto Bearer do texto do token
+const [_ ,  token] = authorization.split(' '); //Separamos o texto Bearer do texto do token
 
 
 try {
@@ -64,6 +64,7 @@ try {
 
 } catch (error) {
 
+  console.log(error);
   return res.status(400).json({
 
     erro: ['Login Required']})

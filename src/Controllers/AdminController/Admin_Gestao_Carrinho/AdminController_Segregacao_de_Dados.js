@@ -14,21 +14,29 @@ class Segregacao_de_Dados{
 
   try {
 
+    // Vamos ter que filtrar as informacoes que devem ser apresentadas, tanto do Carrinho quanto do Produto
     const carrinhos = await Carrinho_Produto.findAll({
 
-      include:{
 
-        model: Carrinho,
+      include: [
+
+        {model: Carrinho  ,
+
+          attributes: [ 'id', 'QUANTIDADE_ADICIONADA', 'VALOR_TOTAL', 'USUARIO_ID']
 
 
-        // mode: Produto
+        },
 
-      }
+        {model: Produto,
+
+          attributes: ['id', 'NOME', 'PRECO', 'QUANTIDADE', 'CATEGORIA_ID']
+        }
+      ]
 
 
     });
 
-    return res.json(carrinhos)
+    return res.json(carrinhos);
 
 
   } catch (error) {
