@@ -27,7 +27,9 @@ import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categor
 
 import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
 
-import VendedorRoutes from './src/Routes/VendedorRoutes/index'
+import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
+
+import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes'
 const whiteList = [
 
   'http://localhost:3000'
@@ -110,11 +112,9 @@ class App{
 
       this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 
-
-
-
-
       this.app.use('/produtos/', VendedorRoutes)
+
+      this.app.use('/', HomeRoutes);
 
 
 

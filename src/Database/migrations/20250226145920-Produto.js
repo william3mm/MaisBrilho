@@ -24,7 +24,9 @@ module.exports = {
 
           type: Sequelize.STRING,
 
-          allowNull: false
+          allowNull: false,
+
+
         },
 
         Preco: {
