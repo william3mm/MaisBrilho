@@ -11,20 +11,16 @@ export default class Usuario extends Model {
   // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
   passwordisValid(password) {
 
-    return bcrypt.compare(password, this.SENHA)
+    return bcrypt.compare(password, this.Senha)
   }
 
   // Vamos associar um usuario a um carrinho
 
-  static associate(models) {
-
-    this.hasOne(models.Carrinho, { foreignKey: 'USUARIO_ID' })
-  }
   static init(sequelize) {
 
     super.init({
 
-      NOME: {
+      Nome: {
 
         type: Sequelize.STRING,
 
@@ -46,7 +42,7 @@ export default class Usuario extends Model {
         },
       },
 
-      SENHA: {
+      Senha: {
 
         type: Sequelize.STRING,
 
@@ -70,7 +66,7 @@ export default class Usuario extends Model {
 
 
 
-      EMAIL: {
+      Telefone: {
 
         type: Sequelize.STRING,
 
@@ -78,21 +74,19 @@ export default class Usuario extends Model {
 
         unique: {
 
-          msg: "EMAIL JÁ EXISTE"
+          msg: "NÚMERO DE TELEFONE JÁ REGISTRADO"
 
         },
 
         validate: {
 
-          isEmail: {
-
-            msg: "EMAIL INVÁLIDO"
-          },
 
           notEmpty: {
 
-            msg: "O CAMPO EMAIL NÃO PODE ESTAR VAZIO"
-          }
+            msg: "O CAMPO TELEFONE NÃO PODE ESTAR VAZIO"
+          },
+
+
         }
       }
 
@@ -108,10 +102,10 @@ export default class Usuario extends Model {
 
 
       // Para que a senha não se altere automaticamente sempre que fizermos o update de alguma nova informacao sobre o usuario
-      if (Usuario.changed('SENHA')) {
+      if (Usuario.changed('Senha')) {
 
 
-        Usuario.SENHA = await bcrypt.hash(Usuario.SENHA, 8);
+        Usuario.Senha = await bcrypt.hash(Usuario.Senha, 8);
       }
     })
 

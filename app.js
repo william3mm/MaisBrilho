@@ -15,9 +15,9 @@ import './src/Database' /*Importamos o arquivo de configuracao da database para 
 se nao o fizessemos iriamos ter erros dizendo que os modelos nao foram inicializados.
  */
 
-import UsuarioRoutes from './src/Routes/UsuarioRoutes'
+import UsuarioRoutes from './src/Routes/UsuarioRoutes/UsuarioRoutes'
 
-import TokenRoutes from './src/Routes/TokenRoutes'
+
 
 import AdminRoutes_Fotos_Dos_Produtos from  './src/Routes/AdminRoutes/AdminRoutes_Fotos_Dos_Produtos';
 
@@ -30,6 +30,10 @@ import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
 import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
 
 import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes'
+
+import LoginRoutes from './src/Routes/LoginRoutes/LoginRoutes'
+
+import Criar_Conta_Routes from './src/Routes/Criar_ContaRoutes/Criar_Conta'
 const whiteList = [
 
   'http://localhost:3000'
@@ -104,8 +108,6 @@ class App{
 
     this.app.use('/produtos/fotos', AdminRoutes_Fotos_Dos_Produtos);
 
-    this.app.use('/tokens/', TokenRoutes);
-
       this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
       this.app.use('/secure-dashbooard/categorias/', AdminRoutes_Categorias);
@@ -115,6 +117,10 @@ class App{
       this.app.use('/produtos/', VendedorRoutes)
 
       this.app.use('/', HomeRoutes);
+
+      this.app.use('/login/', LoginRoutes)
+
+      this.app.use('/criar-conta/', Criar_Conta_Routes)
 
 
 

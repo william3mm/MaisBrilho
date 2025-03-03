@@ -8,9 +8,11 @@ import Categoria from "../Models/Categoria";
 
 import Produto from "../Models/Produto";
 
+import Usuario from "../Models/Usuario";
 
 
-const models = [Vendedor, Categoria, Produto]
+
+const models = [Vendedor, Categoria, Produto, Usuario]
 
 
 const connection = new Sequelize(databaseconfig); // Aqui inicializamos a conexao passando as informacoes da nossa database

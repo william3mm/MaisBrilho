@@ -1,14 +1,12 @@
 import { Router } from "express";
 
-import usuarioController from "../Controllers/UsuarioController/UsuarioController";
+import usuarioController from "../../Controllers/UsuarioController/UsuarioController";
 
-import LoginRequired from "../Middlewares/LoginRequired";
+import LoginRequired from "../../Middlewares/LoginRequired";
 
 const router = new Router();
 
-router.post('/', LoginRequired, usuarioController.create)
 
-router.delete('/', LoginRequired, usuarioController.delete)
 
 router.put('/',  LoginRequired, usuarioController.update)
 
