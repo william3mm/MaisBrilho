@@ -28,9 +28,9 @@ class Criar_Conta{
 
    } catch (error) {
 
-    console.log(error);
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO CRIAR CONTA DE VENDEDOR']
+    return res.status(400).json({success: false, messages: mensagemDeErro})
 
-    return res.status(400).json('ERRO AO CRIAR CONTA')
 
    }
   }

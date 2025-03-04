@@ -26,12 +26,12 @@ define:{
 
 dialectOptions: {
 
-  timezone: 'Africa/Luanda',
+  timezone: '+01:00',
 
   connectTimeout: 10000,
 },
 
-timezone: 'Africa/Luanda'
+timezone: '+01:00'
 
 
 }
