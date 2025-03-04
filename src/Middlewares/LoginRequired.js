@@ -17,8 +17,8 @@ if(!authorization){
 
 console.log(authorization)
 
-
-const [_, token] = authorization.split(' '); //Separamos o texto Bearer do texto do token
+// eslint-disable-next-line no-unused-vars
+const [_ ,  token] = authorization.split(' '); //Separamos o texto Bearer do texto do token
 
 
 try {
@@ -27,7 +27,7 @@ try {
 
   const dados = jwt.verify(token, process.env.TOKEN_SECRET);
 
-  const {id,EMAIL} = dados; // Passamos no token o payload id e EMAIL e agora obtemos eles aqui
+  const {id,Nome} = dados; // Passamos no token o payload id e EMAIL e agora obtemos eles aqui
 
   // Vamos verificar se o id e o EMAIL ainda correspondem ao mesmo usuário
 
@@ -38,7 +38,7 @@ try {
 
       id,
 
-      EMAIL
+      Nome
     }
   })
 
@@ -46,14 +46,14 @@ try {
 
     return res.status(401).json({
 
-      errors: ['Usuário Inválido']
+      errors: ['USUÁRIO INVÁLIDO POR FAVOR TENTE FAZER LOGIN NOVAMENTE']
     })
   }
 
   // Vamos pegar o id e o email do usuario quando ele fizer a requisicao
   req.userID = id;
 
-  req.userEmail = EMAIL;
+  req.userNome = Nome;
 
 
 
@@ -64,6 +64,7 @@ try {
 
 } catch (error) {
 
+  console.log(error);
   return res.status(400).json({
 
     erro: ['Login Required']})

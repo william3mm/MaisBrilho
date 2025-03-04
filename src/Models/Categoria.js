@@ -5,10 +5,10 @@ import Sequelize, {Model} from 'sequelize'
 export default class Categoria extends Model{
 
 
-  static associate(models){
+  // static associate(models){
 
-    this.hasMany(models.Produto, {foreignKey:'CATEGORIA_ID'})
-  }
+  //   this.hasMany(models.Produto, {foreignKey:'CATEGORIA_ID'})
+  // }
   static init(sequelize){
 
     super.init({

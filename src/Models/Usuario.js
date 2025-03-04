@@ -1,4 +1,4 @@
-import Sequelize, {Model} from 'sequelize'
+import Sequelize, { Model } from 'sequelize'
 
 import bcrypt from 'bcrypt'
 
@@ -6,105 +6,91 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-export default class Usuario extends Model{
-
+export default class Usuario extends Model {
 
   // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
-  passwordisValid(password){
+  passwordisValid(password) {
 
-    return bcrypt.compare(password, this.SENHA)
+    return bcrypt.compare(password, this.Senha)
   }
 
   // Vamos associar um usuario a um carrinho
 
-  static associate(models){
-
-    this.hasOne(models.Carrinho, {foreignKey: 'USUARIO_ID'})
-  }
-  static init(sequelize){
+  static init(sequelize) {
 
     super.init({
 
-
-      NOME: {
+      Nome: {
 
         type: Sequelize.STRING,
 
         allowNull: false,
 
-
-
         validate: {
 
-          len:{
+          len: {
 
-            args: [3,100],
+            args: [3, 100],
 
             msg: "O NOME DEVE TER ENTRE 3 E 20CARACTERES"
           },
 
-          notEmpty:{
+          notEmpty: {
 
             msg: "O CAMPO NOME NÃO PODE ESTAR VAZIO"
           }
         },
       },
 
-        SENHA:{
+      Senha: {
 
-          type: Sequelize.STRING,
+        type: Sequelize.STRING,
 
-          allowNull: false,
+        allowNull: false,
 
-          validate: {
+        validate: {
 
-            len:{
+          len: {
 
-              args: [5,150],
+            args: [5, 150],
 
-              msg: "A SENHA DEVE TER ENTRE 5 E 45 CARACTERES"
-            },
-
-            notEmpty:{
-
-              msg: "O CAMPO SENHA NÃO PODE ESTAR VAZIO"
-            }
-          }
-     },
-
-
-
-        EMAIL:{
-
-          type: Sequelize.STRING,
-
-          allowNull: false,
-
-          unique:{
-
-            msg: "EMAIL JÁ EXISTE"
-
+            msg: "A SENHA DEVE TER ENTRE 5 E 45 CARACTERES"
           },
 
-          validate: {
+          notEmpty: {
 
-            isEmail:{
-
-              msg: "EMAIL INVÁLIDO"
-            },
-
-            notEmpty:{
-
-              msg: "O CAMPO EMAIL NÃO PODE ESTAR VAZIO"
-            }
+            msg: "O CAMPO SENHA NÃO PODE ESTAR VAZIO"
           }
         }
+      },
 
 
 
+      Telefone: {
+
+        type: Sequelize.STRING,
+
+        allowNull: false,
+
+        unique: {
+
+          msg: "NÚMERO DE TELEFONE JÁ REGISTRADO"
+
+        },
+
+        validate: {
 
 
-    },{
+          notEmpty: {
+
+            msg: "O CAMPO TELEFONE NÃO PODE ESTAR VAZIO"
+          },
+
+
+        }
+      }
+
+    }, {
 
       sequelize,
 
@@ -112,16 +98,16 @@ export default class Usuario extends Model{
 
     });
 
-   this.addHook('beforeSave', async (Usuario) => {
+    this.addHook('beforeSave', async (Usuario) => {
 
 
-    // Para que a senha não se altere automaticamente sempre que fizermos o update de alguma nova informacao sobre o usuario
-    if(Usuario.changed('SENHA')){
+      // Para que a senha não se altere automaticamente sempre que fizermos o update de alguma nova informacao sobre o usuario
+      if (Usuario.changed('Senha')) {
 
 
-      Usuario.SENHA = await bcrypt.hash(Usuario.SENHA,8);
-    }
-  })
+        Usuario.Senha = await bcrypt.hash(Usuario.Senha, 8);
+      }
+    })
 
     return this
   }

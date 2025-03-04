@@ -2,15 +2,6 @@ import Sequelize, {Model}from "sequelize";
 
 export default class Carrinho_Produto extends Model{
 
-  static associate(models){
-
-    // Vamos definir as relacoes
-
-    this.belongsTo(models.Carrinho, {foreignKey: 'CARRINHO_ID'});
-
-    this.belongsTo(models.Produto, {foreignKey: 'PRODUTO_ID'})
-
-  }
 
   static init (sequelize){
 

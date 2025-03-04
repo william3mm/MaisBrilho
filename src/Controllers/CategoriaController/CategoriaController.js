@@ -28,6 +28,7 @@ class CategoriaController{
 
     } catch (e) {
 
+      console.log(e)
       return res.status(401).json({
 
         errors: ['ERRO AO CRIAR CATEGORIA']
@@ -57,6 +58,8 @@ class CategoriaController{
     res.json("CATEGORIA DELETADA COM SUCESSO")
 
   } catch(e){
+
+    console.log(e)
     return res.status(401).json({
 
       errors: ['ERRO AO DELETAR CATEGORIA']
@@ -87,6 +90,7 @@ class CategoriaController{
 
     } catch (e) {
 
+      console.log(e)
       return res.status(401).json({
 
         errors: ['ERRO AO ACTUALIZAR CATEGORIA']
