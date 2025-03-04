@@ -39,12 +39,14 @@ module.exports = {
 
           type: Sequelize.STRING,
 
-          allowNull: false
+          allowNull: false,
+
+          unique: true
         },
 
         Status:{
 
-          type: Sequelize.ENUM('pendente', 'aprovado', 'rejeitado'),
+          type: Sequelize.STRING,
 
           defaultValue: 'pendente',
 

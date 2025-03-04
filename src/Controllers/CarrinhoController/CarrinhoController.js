@@ -140,16 +140,13 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
         await carrinho.save();
 
-
-
-
         return res.json(carrinho);
 
 
 
       } catch (error) {
-        console.log(error)
-        return res.status(400).json('ERRO AO ADICIONAR PRODUTO AO CARRINHO')
+        const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO ADICIONAR PRODUTO AO CARRINHO']
+        return res.status(400).json({sucess: false, messages: mensagemDeErro})
 
 
 
@@ -165,22 +162,32 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
     // Primeiro vamos localizar o carrinho associado ao id do usuario
 
-    if(!req.userID){
 
-      res.status(400).json("ID DO USUÁRIO NÃO ENVIADO");
-    }
+    try {
 
-    const carrinho = await Carrinho.findOne({
+      if(!req.userID){
 
-      where: {
-
-        USUARIO_ID: req.userID
+        res.status(400).json("ID DO USUÁRIO NÃO ENVIADO");
       }
 
+      const carrinho = await Carrinho.findOne({
 
-    })
+        where: {
 
-    res.json(carrinho);
+          USUARIO_ID: req.userID
+        }
+
+
+      })
+
+      res.json(carrinho);
+    } catch (error) {
+
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
+
+      return res.status(400).json({sucess: false, messages: mensagemDeErro})
+    }
+
 
   }
 

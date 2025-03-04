@@ -28,9 +28,12 @@ class Criar_Conta{
 
     console.log(error);
 
-    return res.status(400).json('ERRO AO CRIAR CONTA')
+    // O ?. verifica se o erro existe antes de tentar acessar a chave
 
-   }
+    const mensagensDeErro = error.errors?.map(err => err.message) || ['Erro de validação'];
+return res.status(400).json({ success: false, messages: mensagensDeErro });
+
+}
   }
 }
 

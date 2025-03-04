@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import loginController from "../../Controllers/LoginController/LoginController";
+import loginController from "../../Controllers/Usuario_Login_Controller/LoginController";
 
 const app = new Router();
 

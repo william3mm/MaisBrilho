@@ -30,14 +30,14 @@ class UsuarioController{
 
       if(!usuario){
 
-        return res.json("USUÁRIO NÃO EXISTE")
+        return res.status(404).json("USUÁRIO NÃO EXISTE")
 
       }
 
       // Vamos permitir que o usuário troque o seu Nome, Telefone e Senha
 
-      const {Nome, Email,Senha} = req.body
-      const novos_dados = await usuario.update({ Nome, Email, Senha})
+
+      const novos_dados = await usuario.update( req.body)
 
      return res.json(novos_dados)
 
