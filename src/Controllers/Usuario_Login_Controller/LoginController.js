@@ -1,6 +1,6 @@
 import Usuario from "../../Models/Usuario";
 
-import TokenGenerator from "../TokenController/Token_Generator_Usuario";
+import TokenGenerator from "../Usuario_TokenController/Token_Generator_Usuario";
 class LoginController{
 
 
@@ -34,7 +34,8 @@ class LoginController{
 
       console.log(error);
 
-      return res.status(404).json('ERRO AO FAZER LOGIN')
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+      return res.status(404).json({sucess: false, messages: mensagemDeErro})
     }
 
 

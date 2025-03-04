@@ -17,7 +17,11 @@ se nao o fizessemos iriamos ter erros dizendo que os modelos nao foram inicializ
 
 import UsuarioRoutes from './src/Routes/UsuarioRoutes/UsuarioRoutes'
 
+import Usuario_LoginRoutes from './src/Routes/Usuario_LoginRoutes/LoginRoutes'
 
+import Usuario_Criar_Conta_Routes from './src/Routes/Usuario_Criar_ContaRoutes/Criar_Conta'
+
+import Usuario_Actualiza_Perfil from './src/Routes/Usuario_Actualiza_Perfil_Routes/Actualiza_Pefil'
 
 import AdminRoutes_Fotos_Dos_Produtos from  './src/Routes/AdminRoutes/AdminRoutes_Fotos_Dos_Produtos';
 
@@ -31,9 +35,11 @@ import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
 
 import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes'
 
-import LoginRoutes from './src/Routes/LoginRoutes/LoginRoutes'
+import Vendedor_Criar_Conta_Routes from './src/Routes/Vendedor_Criar_ContaRoutes/Criar_Conta'
 
-import Criar_Conta_Routes from './src/Routes/Criar_ContaRoutes/Criar_Conta'
+import Vendedor_LoginRoutes from './src/Routes/Vendedor_LoginRoutes/LoginRoutes'
+
+
 const whiteList = [
 
   'http://localhost:3000'
@@ -102,25 +108,32 @@ class App{
   Routes(){
 
 
-    this.app.use('/usuarios/', UsuarioRoutes);
+    this.app.use('/criar-conta/', Usuario_Criar_Conta_Routes)
 
     this.app.use('/usuarios/carrinho/', UsuarioRoutes);
 
+    this.app.use('/login/', Usuario_LoginRoutes)
+
+    this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
+
     this.app.use('/produtos/fotos', AdminRoutes_Fotos_Dos_Produtos);
 
-      this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
+    this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
-      this.app.use('/secure-dashbooard/categorias/', AdminRoutes_Categorias);
+    this.app.use('/secure-dashbooard/categorias/', AdminRoutes_Categorias);
 
-      this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
+    this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 
-      this.app.use('/produtos/', VendedorRoutes)
+    this.app.use('/produtos/', VendedorRoutes)
 
-      this.app.use('/', HomeRoutes);
+    this.app.use('/criar-conta/vendedores', Vendedor_Criar_Conta_Routes)
 
-      this.app.use('/login/', LoginRoutes)
+    this.app.use('/', HomeRoutes);
 
-      this.app.use('/criar-conta/', Criar_Conta_Routes)
+    this.app.use('/login/vendedores/', Vendedor_LoginRoutes)
+
+
+
 
 
 

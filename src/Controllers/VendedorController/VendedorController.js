@@ -64,7 +64,9 @@ class VendedorController{
 
       console.log(error);
 
-      return res.status(400).json('ERRO AO CRIAR PRODUTO')
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO REGISTRAR PRODUTO']
+
+      return res.status(400).json({sucess: false, messages: mensagemDeErro})
     }
 
 

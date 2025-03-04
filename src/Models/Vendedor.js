@@ -1,8 +1,16 @@
 import Sequelize, {Model} from "sequelize";
 
+import bcrypt from 'bcrypt';
+
+import Status_Vendedor from '../config/status'
 
 export default class Vendedor extends Model{
 
+   // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
+    passwordisValid(password) {
+
+      return bcrypt.compare(password, this.Senha)
+    }
 
   static init(sequelize){
 
@@ -22,6 +30,21 @@ export default class Vendedor extends Model{
             msg: 'O CAMPO NOME NÃO PODE ESTAR VAZIO'
           }
         },
+      },
+
+      Email:{
+
+        type: Sequelize.STRING,
+
+        allowNull: false,
+
+        validate:{
+
+          isEmail:{
+
+            msg: [ 'EMAIL INVÁLIDO']
+          }
+        }
       },
 
 
@@ -48,18 +71,24 @@ export default class Vendedor extends Model{
         }
       },
 
-      Verificado:{
+      Status:{
 
-        type: Sequelize.ENUM('aprovado', 'pendente', 'rejeitado'),
+        type: Sequelize.STRING,
 
         allowNull: false,
+
+        defaultValue: 'pendente',
 
         validate:{
 
           notEmpty:{
 
             msg: 'O CAMPO "VERIFICADO" NÃO PODE ESTAR VAZIO'
-          }
+          },
+
+          isIn: [Status_Vendedor]
+
+
         }
       },
 
@@ -74,8 +103,18 @@ export default class Vendedor extends Model{
     }, {
 
       sequelize,
+
+      tableName: 'Vendedor'
     })
 
 
+    this.addHook('beforeSave', async(Vendedor)=>{
+
+      if(Vendedor.changed('Senha')){
+
+        Vendedor.Senha = await bcrypt.hash(Vendedor.Senha,8)
+      }
+    })
+    return this
   }
 }

@@ -6,10 +6,6 @@ import LoginRequired from "../../Middlewares/LoginRequired";
 
 const router = new Router();
 
-
-
-router.put('/',  LoginRequired, usuarioController.update)
-
 router.post('/:id/', LoginRequired, usuarioController.criar_carrinho);
 
 router.post('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho)

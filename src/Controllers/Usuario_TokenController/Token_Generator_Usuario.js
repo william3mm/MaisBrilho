@@ -14,10 +14,10 @@ export default async function TokenGenerator(req,res){
  try {
 
 
-  const  {Nome = '', Senha= ''} = req.body;
+  const  {Telefone = '', Senha= ''} = req.body;
 
 
-  if(!Nome || !Senha){
+  if(!Telefone || !Senha){
 
     return res.status(400).json("NOME OU SENHA NÃO ENVIADOS")
   }
@@ -27,7 +27,7 @@ export default async function TokenGenerator(req,res){
 
       // WHERE RECEBE CHAVE:VALOR MAS PODEMOS PASSAR APENAS O VALOR
 
-      Nome,
+      Telefone,
 
     }
   })
@@ -56,20 +56,24 @@ export default async function TokenGenerator(req,res){
   const {id}= usuario
 
   // O PRIMEIRO ARGUMENTO QUE É O PAYLOAD SE REFERE AOS DADOS QUE IRÃO IDENTIFICAR O USUÁRIO, NO CASO O SEU ID E O NOME
-  const token =  jwt.sign({ id, Nome}, process.env.TOKEN_SECRET, {
+  const token =  jwt.sign({ id}, process.env.TOKEN_SECRET_USUARIO, {
 
     // NO TERCEIRO PARAMETRO PASSAMOS QUANDO O TOKEN VAI EXPIRAR
 
-    expiresIn: process.env.TOKEN_EXPIRATION
+    expiresIn: process.env.TOKEN_EXPIRATION_USUARIO
   })
 
-  return res.json({token, usuario: { nome: usuario.Nome, id}})
+
+
+  return res.json({token, usuario: { id}})
 
  } catch (error) {
 
   console.log(error);
 
-  return res.json('ERRO AO GERAR O TOKEN')
+  const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
+
+  return res.status(400).json({sucess:false, messages: mensagemDeErro})
 
  }
 

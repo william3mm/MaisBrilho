@@ -62,17 +62,18 @@ class TokenController{
       const {id}= admin
 
       // O PRIMEIRO ARGUMENTO QUE É O PAYLOAD SE REFERE AOS DADOS QUE IRÃO IDENTIFICAR O USUÁRIO, NO CASO O SEU ID E O EMAIL
-      const token =  jwt.sign({ id, EMAIL}, process.env.TOKEN_SECRET, {
+      const token =  jwt.sign({ id, EMAIL}, process.env.TOKEN_SECRET_ADMIN, {
 
         // NO SEGUNDO PARAMETRO PASSAMOS QUANDO O TOKEN VAI EXPIRAR
 
-        expiresIn: process.env.TOKEN_EXPIRATION
+        expiresIn: process.env.TOKEN_EXPIRATION_ADMIN
       })
 
       return res.json({token})
 
 
     } catch (error) {
+
 
       return res.status(400).json({errors: 'ERRO AO GERAR TOKEN'})
 
