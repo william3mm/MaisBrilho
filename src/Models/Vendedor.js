@@ -38,12 +38,19 @@ export default class Vendedor extends Model{
 
         allowNull: false,
 
+        unique:{
+
+          msg: 'EMAIL JÁ REGISTRADO'
+        },
+
         validate:{
 
           isEmail:{
 
             msg: [ 'EMAIL INVÁLIDO']
-          }
+          },
+
+
         }
       },
 

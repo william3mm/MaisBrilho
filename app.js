@@ -116,11 +116,11 @@ class App{
 
     this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
 
-    this.app.use('/produtos/fotos', AdminRoutes_Fotos_Dos_Produtos);
+    this.app.use('/produtos/fotos/', AdminRoutes_Fotos_Dos_Produtos);
 
     this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
-    this.app.use('/secure-dashbooard/categorias/', AdminRoutes_Categorias);
+    this.app.use('/secure-dashboard/categorias/', AdminRoutes_Categorias);
 
     this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 

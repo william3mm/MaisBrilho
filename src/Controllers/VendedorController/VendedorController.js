@@ -27,13 +27,15 @@ class VendedorController{
 
     try {
 
+      const {Nome, Preco, Quantidade, Categoria_ID, Descricao} = req.body
 
-      if(!req.body){
+      if(!Nome || !Preco || !Quantidade || !Categoria_ID || !Descricao){
 
-        return res.json('DADOS NÃO ENVIADOS OU INCOMPLETOS')
+
+
+        return res.json({success:false, messages: 'DADOS NÃO ENVIADOS OU INCOMPLETOS'})
       }
 
-      const {Nome, Preco, Quantidade, Codigo, Categoria_ID, Descricao} = req.body
 
     // Vamos checar se o produto já existe
 
@@ -49,13 +51,13 @@ class VendedorController{
 
     if(produto){
 
-      return res.status(400).json('Produto já registrado')
+      return res.status(400).json({success: false, message: 'PRODUTO JA2 REGISTRADO'})
     }
     else{
 
-      produto = await Produto.create({Nome, Preco, Quantidade, Codigo, Categoria_ID, Descricao});
+      produto = await Produto.create({Nome, Preco, Quantidade,Categoria_ID, Descricao});
 
-      return res.json(produto);
+      return res.json({success:true, produto});
 
     }
 
@@ -64,9 +66,9 @@ class VendedorController{
 
       console.log(error);
 
-      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO REGISTRAR PRODUTO']
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO CRIAR PRODUTO']
 
-      return res.status(400).json({sucess: false, messages: mensagemDeErro})
+      return res.status(400).json({success: false, messages: mensagemDeErro})
     }
 
 
@@ -87,20 +89,22 @@ class VendedorController{
 
       if(!produto){
 
-        return res.status(404).json('Produto não encontrado')
+        return res.status(404).json({success: false, messages: 'PRODUTO NÃO ENCONTRADO'})
       }
 
       // Caso o produto seja encontrado vamos deletar ele
 
      await produto.destroy();
 
-      return res.json('Produto deletado com sucesso')
+      return res.json({success: true , messages:'PRODUTO DELETADO COM successO'})
 
     } catch (error) {
 
       console.log(error);
 
-      return res.json('Erro ao Deletar produto')
+      const mensagemDeErro =  error.errors?.map(err => err.message) || [ 'ERRO AO DELETAR PRODUTO']
+
+      return res.json({success: false, messages: mensagemDeErro})
 
     }
 

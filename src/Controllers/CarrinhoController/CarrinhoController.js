@@ -146,7 +146,7 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
       } catch (error) {
         const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO ADICIONAR PRODUTO AO CARRINHO']
-        return res.status(400).json({sucess: false, messages: mensagemDeErro})
+        return res.status(400).json({success: false, messages: mensagemDeErro})
 
 
 
@@ -185,7 +185,7 @@ import Carrinho_Produto from "../../Models/Carrinho_Produto";
 
       const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
 
-      return res.status(400).json({sucess: false, messages: mensagemDeErro})
+      return res.status(400).json({success: false, messages: mensagemDeErro})
     }
 
 

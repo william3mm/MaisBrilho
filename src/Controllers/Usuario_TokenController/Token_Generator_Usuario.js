@@ -73,7 +73,7 @@ export default async function TokenGenerator(req,res){
 
   const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
 
-  return res.status(400).json({sucess:false, messages: mensagemDeErro})
+  return res.status(400).json({success:false, messages: mensagemDeErro})
 
  }
 

@@ -35,7 +35,7 @@ class LoginController{
       console.log(error);
 
       const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
-      return res.status(404).json({sucess: false, messages: mensagemDeErro})
+      return res.status(404).json({success: false, messages: mensagemDeErro})
     }
 
 
