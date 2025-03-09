@@ -1,6 +1,6 @@
 import Produto_Vendedor from "../../../../../Models/Produto_Vendedor";
 
-export default async function Ativa_Produto(req,res){
+export default async function Gerencia_Status(req,res){
 
 
   try {
@@ -19,9 +19,9 @@ export default async function Ativa_Produto(req,res){
 
     // Vamos tentar pegar o ID do produto
 
-    const {Produto_ID, status} = req.body;
+    const {Produto_ID, Status} = req.body;
 
-    if(!Produto_ID || typeof status !== 'boolean'){
+    if(!Produto_ID || typeof Status!== 'boolean'){
 
       return res.status(400).json({success: false, message: 'PRODUTO_ID E STATUS SÃO OBRIGATÓRIO'})
     }
@@ -37,11 +37,11 @@ export default async function Ativa_Produto(req,res){
 
     // Vamos actualizar o campo com base ao status enviado
 
-    produtoParaAtualizar.Ativo =  status;
+    produtoParaAtualizar.Ativo =  Status;
 
     await produtoParaAtualizar.save();
 
-    return res.status(200).json({success: true, message: `Produto: foi ${status ? 'ativado' : 'desativado'}`});
+    return res.status(200).json({success: true, message: `Produto: foi ${Status ? 'ativado' : 'desativado'}`});
 
   } catch (error) {
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import Ativa_Desativa_Produtos from "../../../Controllers/VendedorController/Funcoes/Ativa_Desativa_Produtos";
+import Ativa_Desativa_Produtos from "../../../Controllers/VendedorController/Funcoes/Ativa_Desativa_Produtos/index"
 
 import LoginRequired from '../../../Middlewares/LoginRequired'
 

@@ -1,11 +1,11 @@
-import Ativa_Produto from "./Funcao_Ativa_Produto/Ativa_Produto";
+import Gerencia_Status  from "./Funcao_Ativa_Produto/Ativa_Produto";
 
 class Ativa_Desativa_Produtos{
 
 
   async Ativa_Produtos(req,res){
 
-    return Ativa_Produto(req,res);
+    return Gerencia_Status(req,res);
   }
 
 
