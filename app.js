@@ -31,6 +31,8 @@ import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categor
 
 import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
 
+import Admin_Admite_Rejeita_Vendedores from './src/Routes/AdminRoutes/Admitir_Rejeitar_Vendedores_Routes/Admitir_Rejeitar_Vendedores'
+
 import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
 
 import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes'
@@ -39,6 +41,7 @@ import Vendedor_Criar_Conta_Routes from './src/Routes/Vendedor_Criar_ContaRoutes
 
 import Vendedor_LoginRoutes from './src/Routes/Vendedor_LoginRoutes/LoginRoutes'
 
+import Vendedor_Ativa_Desativa_Produtos from './src/Routes/VendedorRoutes/Ativa_Desativa_Produtos_Routes/Ativa_Desativa_Produtos_Routes'
 
 const whiteList = [
 
@@ -124,6 +127,8 @@ class App{
 
     this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
 
+    this.app.use('/secure-dashboard/vendedores-verificacao/', Admin_Admite_Rejeita_Vendedores )
+
     this.app.use('/produtos/', VendedorRoutes)
 
     this.app.use('/criar-conta/vendedores', Vendedor_Criar_Conta_Routes)
@@ -131,6 +136,8 @@ class App{
     this.app.use('/', HomeRoutes);
 
     this.app.use('/login/vendedores/', Vendedor_LoginRoutes)
+
+    this.app.use('/produtos/ativa-desativa-estado/', Vendedor_Ativa_Desativa_Produtos )
 
 
 

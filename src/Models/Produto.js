@@ -5,16 +5,25 @@ import GerarCodigo from '../Funcoes/Gera_Codigo_Produto';
 export default class Produto extends Model{
 
 
-  // static associate(models){
+  static associate(models){
 
-  //   this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
+    // Todo Produto pertence a uma categoria
+    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
 
-  //   this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'PRODUTO_ID'});
+    // // Um Produto pode estar em vários carrinhos
+    // this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'Produto_ID'});
 
-  //   this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'PRODUTO_ID'});
+    // Um Produto pode ser criado por vários vendedores
+    this.belongsToMany(models.Vendedor, {through: 'Produto_Vendedor', foreignKey: 'Produto_ID'}, );
+
+    // Podemos acessar diretamente dados na tabela Produto_Vendedor (Quantidade Criada)
+    this.hasMany(models.Produto_Vendedor, {foreignKey: 'Produto_ID'})
+
+    // // Podemos acessar diretamente dados na tabela Carrinho_Produto (Quantidade selecionada)
+    // this.hasMany(models.Carrinho_Produto, {foreignKey: 'Produto_ID'})
 
 
-  // }
+  }
 
   // Vamos criar um metodo de instancia para gerar um codigo para o produto
 
@@ -49,7 +58,7 @@ export default class Produto extends Model{
 
         Preco:{
 
-          type: Sequelize.FLOAT,
+          type: Sequelize.DECIMAL(10,2),
 
           allowNull: false,
 

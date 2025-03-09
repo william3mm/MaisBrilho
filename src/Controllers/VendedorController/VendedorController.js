@@ -1,15 +1,34 @@
 // O vendedor vai poder fazer o CRUD dos produtos
+
 import Produto from '../../Models/Produto'
+import Produto_Vendedor from '../../Models/Produto_Vendedor';
 
 class VendedorController{
 
  async index(req, res){
 
-   // Vamos poder ver todos os produtos criados
+   // Vamos poder ver todos os produtos criados pelo vendedor
 
    try {
 
-    const produto = await Produto.findAll();
+
+    const produto = await Produto_Vendedor.findAll({
+
+      where: {
+
+        Vendedor_ID: req.userID
+      },
+
+      include: {
+
+        model:Produto,
+
+        attributes: [ 'Nome', 'Preco', 'Quantidade', 'Descricao','Categoria_ID']
+
+
+      }
+
+    })
 
     return res.json(produto);
 
@@ -17,6 +36,9 @@ class VendedorController{
 
     console.log(error)
 
+
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO LISTAR PRODUTOS']
+    return res.json({success:false, messages: mensagemDeErro})
    }
 
 
@@ -27,9 +49,9 @@ class VendedorController{
 
     try {
 
-      const {Nome, Preco, Quantidade, Categoria_ID, Descricao} = req.body
+      const {Nome, Preco, Quantidade, Descricao, Categoria_ID, Vendedor_ID, Desconto} = req.body
 
-      if(!Nome || !Preco || !Quantidade || !Categoria_ID || !Descricao){
+      if(!Nome || !Preco || !Quantidade || !Categoria_ID || !Descricao || !Vendedor_ID || !Desconto){
 
 
 
@@ -51,11 +73,23 @@ class VendedorController{
 
     if(produto){
 
-      return res.status(400).json({success: false, message: 'PRODUTO JA2 REGISTRADO'})
+      return res.status(400).json({success: false, message: 'PRODUTO JÁ REGISTRADO'})
     }
     else{
 
-      produto = await Produto.create({Nome, Preco, Quantidade,Categoria_ID, Descricao});
+      produto = await Produto.create({Nome, Preco,Descricao, Categoria_ID, Quantidade,});
+
+      // Vamos criar a associacao do produto ao vendedor
+      await Produto_Vendedor.create({
+
+        Produto_ID: produto.id,
+
+        Vendedor_ID,
+
+
+
+        Desconto: Desconto || 0.00
+      })
 
       return res.json({success:true, produto});
 
@@ -138,11 +172,37 @@ class VendedorController{
 
       console.log(error);
 
+      const mensagemDeErro =  error.errors?.map(err => err.message) || [ 'ERRO AO DELETAR PRODUTO']
+
+      return res.json({success: false, messages: mensagemDeErro})
+
     }
 
+  }
+
+
+  async ativar_desativar_produto(req,res){
+
+    // Esta funcao vai nos permitir manipular o estado de um produto, dizendo se ele está ativo ou nao
+
+    try {
+
+      const produto = await Produto_Vendedor.findByPk(req.userID)
+
+      return res.status(200).json(produto);
 
 
 
+    } catch (error) {
+
+      console.log(error);
+
+      const mensagemDeErro =  error.errors?.map(err => err.message) || [ 'ERRO AO DELETAR PRODUTO']
+
+      return res.status(400).json({success: false, messages: mensagemDeErro})
+
+
+    }
   }
 
 }
