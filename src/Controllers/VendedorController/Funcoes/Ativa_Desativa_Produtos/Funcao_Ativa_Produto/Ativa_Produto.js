@@ -1,3 +1,4 @@
+
 import Produto_Vendedor from "../../../../../Models/Produto_Vendedor";
 
 export default async function Gerencia_Status(req,res){
@@ -14,6 +15,7 @@ export default async function Gerencia_Status(req,res){
 
       attributes: [ 'Produto_ID', 'Ativo', 'Desconto', 'Vendedor_ID'],
 
+      raw: true,
 
     })
 
@@ -37,9 +39,13 @@ export default async function Gerencia_Status(req,res){
 
     // Vamos actualizar o campo com base ao status enviado
 
-    produtoParaAtualizar.Ativo =  Status;
 
-    await produtoParaAtualizar.save();
+    await Produto_Vendedor.update(
+
+      {Ativo:Status},
+
+      {where: {Produto_ID: Produto_ID}}
+    );
 
     return res.status(200).json({success: true, message: `Produto: foi ${Status ? 'ativado' : 'desativado'}`});
 

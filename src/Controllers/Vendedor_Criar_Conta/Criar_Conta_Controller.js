@@ -12,6 +12,7 @@ class Criar_Conta{
 
       return res.json('POR FAVOR CERTIFIQUE-SE DE ENVIAR OS SEGUINTES DADOS: NOME, SENHA E TELEFONE')
     }
+    // eslint-disable-next-line no-unused-vars
     const vendedor = await Vendedor.create({
 
       Nome,
@@ -23,7 +24,7 @@ class Criar_Conta{
       Telefone
     })
 
-    return res.status(200).json(vendedor);
+    return res.status(200).json( {success: true, message: 'CONTA DE VENDEDOR CRIADA COM SUCESSO'});
 
 
    } catch (error) {

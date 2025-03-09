@@ -2,12 +2,12 @@ import { Router } from "express";
 
 import Ativa_Desativa_Produtos from "../../../Controllers/VendedorController/Funcoes/Ativa_Desativa_Produtos/index"
 
-import LoginRequired from '../../../Middlewares/LoginRequired'
+import Vendedor_Login_Required from "../../../Middlewares/Vendedor_Login_Required"
 
 const app =  new Router();
 
 
-app.post('/:id', LoginRequired, Ativa_Desativa_Produtos.Ativa_Produtos)
+app.post('/', Vendedor_Login_Required, Ativa_Desativa_Produtos.Ativa_Produtos)
 
 
 export default app;

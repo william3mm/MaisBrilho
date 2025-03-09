@@ -16,10 +16,12 @@ export default async function Admite_Rejeita_Vendedores(req,res){
 
       where: {
 
-        Status: { [Op.or]: ['pendente', 'rejeitado', 'aprovado']}
+        Status: { [Op.or]: ['pendente', 'rejeitado']}
       },
 
-      attributes: ['ID', 'NOME', 'EMAIL', 'TELEFONE', 'Status']
+      attributes: ['ID', 'NOME', 'EMAIL', 'TELEFONE', 'Status'],
+
+      raw: true
     })
 
     if(!vendedores_Pendentes.length){
@@ -31,17 +33,19 @@ export default async function Admite_Rejeita_Vendedores(req,res){
 
     const {Status, Vendedor_ID} = req.body
 
-    // Vamos verificar se o vendedor existe
+    // Vamos verificar se os dados estao a ser passados
 
-    //const vendedor = vendedores_Pendentes.find( vendedor => Number(vendedor.id) === Number(Vendedor_ID));
+    if(!Status || !Vendedor_ID){
 
-    // if(!vendedor){
+      return res.status(400).json('STATUS OU VENDEDOR_ID NÃO ENVIADOS')
+    }
 
-    //   return res.status(404).json({success: false, message: 'NENHUM VENDEDOR ENCONTRADO'})
+    const vendedor = vendedores_Pendentes.find( vendedor => vendedor.ID ===  Number(Vendedor_ID))
 
-    // }
+    if(!vendedor){
 
-    // Caso for encontrado vamos actualizar o status do vendedor
+      return res.status(404).json('VENDEDOR NÃO ENCONTRADO')
+    }
 
     await Vendedor.update(
 
@@ -50,9 +54,8 @@ export default async function Admite_Rejeita_Vendedores(req,res){
       {where: {ID: Vendedor_ID}}
     )
 
+    return res.json({ success: true, message: `STATUS ACTUALIZADO PARA ${Status} COM SUCESSO`})
 
-    return res.json(vendedores_Pendentes)
-    //return res.json({ success: true, message: `STATUS ACTUALIZADO PARA ${vendedor.Status} COM SUCESSO`})
 
   } catch (error) {
 

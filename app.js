@@ -23,8 +23,6 @@ import Usuario_Criar_Conta_Routes from './src/Routes/Usuario_Criar_ContaRoutes/C
 
 import Usuario_Actualiza_Perfil from './src/Routes/Usuario_Actualiza_Perfil_Routes/Actualiza_Pefil'
 
-import AdminRoutes_Fotos_Dos_Produtos from  './src/Routes/AdminRoutes/AdminRoutes_Fotos_Dos_Produtos';
-
 import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Admin_Generator'
 
 import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categoria'
@@ -118,8 +116,6 @@ class App{
     this.app.use('/login/', Usuario_LoginRoutes)
 
     this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
-
-    this.app.use('/produtos/fotos/', AdminRoutes_Fotos_Dos_Produtos);
 
     this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
