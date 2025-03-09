@@ -2,15 +2,19 @@ import { Router } from "express";
 
 import VendedorController from "../../Controllers/VendedorController/VendedorController";
 
+import Vendedor_Login_Required from '../../Middlewares/Vendedor_Login_Required'
+
 const app =  new Router();
 
-app.get('/', VendedorController.index)
+app.get('/', Vendedor_Login_Required, VendedorController.index)
 
-app.post('/', VendedorController.create)
+app.post('/',Vendedor_Login_Required, VendedorController.create)
 
-app.delete('/:id', VendedorController.delete);
+app.delete('/:id', Vendedor_Login_Required, VendedorController.delete);
 
-app.put('/:id', VendedorController.update)
+app.put('/:id', Vendedor_Login_Required, VendedorController.update)
+
+
 
 
 export default app;

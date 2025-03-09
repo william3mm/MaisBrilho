@@ -6,6 +6,13 @@ import Status_Vendedor from '../config/status'
 
 export default class Vendedor extends Model{
 
+
+  static associate(models){
+
+    this.belongsToMany(models.Produto, { through: 'Produto_Vendedor', foreignKey: 'Vendedor_ID'});
+
+    this.hasMany(models.Produto_Vendedor, {foreignKey: 'Vendedor_ID'})
+  }
    // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
     passwordisValid(password) {
 
@@ -93,7 +100,7 @@ export default class Vendedor extends Model{
             msg: 'O CAMPO "VERIFICADO" NÃO PODE ESTAR VAZIO'
           },
 
-          isIn: [Status_Vendedor]
+           isIn: [Status_Vendedor]
 
 
         }

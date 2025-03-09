@@ -23,13 +23,13 @@ import Usuario_Criar_Conta_Routes from './src/Routes/Usuario_Criar_ContaRoutes/C
 
 import Usuario_Actualiza_Perfil from './src/Routes/Usuario_Actualiza_Perfil_Routes/Actualiza_Pefil'
 
-import AdminRoutes_Fotos_Dos_Produtos from  './src/Routes/AdminRoutes/AdminRoutes_Fotos_Dos_Produtos';
-
 import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Admin_Generator'
 
 import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categoria'
 
 import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
+
+import Admin_Admite_Rejeita_Vendedores from './src/Routes/AdminRoutes/Admitir_Rejeitar_Vendedores_Routes/Admitir_Rejeitar_Vendedores'
 
 import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
 
@@ -39,6 +39,7 @@ import Vendedor_Criar_Conta_Routes from './src/Routes/Vendedor_Criar_ContaRoutes
 
 import Vendedor_LoginRoutes from './src/Routes/Vendedor_LoginRoutes/LoginRoutes'
 
+import Vendedor_Ativa_Desativa_Produtos from './src/Routes/VendedorRoutes/Ativa_Desativa_Produtos_Routes/Ativa_Desativa_Produtos_Routes'
 
 const whiteList = [
 
@@ -116,13 +117,13 @@ class App{
 
     this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
 
-    this.app.use('/produtos/fotos/', AdminRoutes_Fotos_Dos_Produtos);
-
     this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
 
     this.app.use('/secure-dashboard/categorias/', AdminRoutes_Categorias);
 
     this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
+
+    this.app.use('/secure-dashboard/vendedores-verificacao/', Admin_Admite_Rejeita_Vendedores )
 
     this.app.use('/produtos/', VendedorRoutes)
 
@@ -131,6 +132,8 @@ class App{
     this.app.use('/', HomeRoutes);
 
     this.app.use('/login/vendedores/', Vendedor_LoginRoutes)
+
+    this.app.use('/produtos/ativa-desativa-estado/', Vendedor_Ativa_Desativa_Produtos )
 
 
 

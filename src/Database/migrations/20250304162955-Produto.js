@@ -26,19 +26,18 @@ module.exports = {
 
           allowNull: false,
 
-
         },
 
-        Preco: {
+        Quantidade:{
 
-          type: Sequelize.FLOAT,
+          type: Sequelize.INTEGER,
 
           allowNull: false
         },
 
-        Quantidade : {
+        Preco:{
 
-          type: Sequelize.INTEGER,
+          type: Sequelize.DECIMAL(10,2),
 
           allowNull: false
         },
@@ -54,9 +53,14 @@ module.exports = {
 
         Descricao:{
 
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
 
-          allowNull: false
+          allowNull: false,
+
+          validate:{
+
+            len: [1,1000]
+          }
         },
 
         Categoria_ID: {
