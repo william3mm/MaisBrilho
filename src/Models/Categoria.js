@@ -1,6 +1,4 @@
-import Sequelize, {Model} from 'sequelize'
-
-
+import Sequelize, { Model} from 'sequelize'
 
 export default class Categoria extends Model{
 
@@ -14,7 +12,7 @@ export default class Categoria extends Model{
     super.init({
 
 
-      NOME: {
+      Nome: {
 
         type: Sequelize.STRING,
 
@@ -49,14 +47,9 @@ export default class Categoria extends Model{
 
       tableName: 'Categoria',
 
-      modelName: 'Categoria'
+
 
     });
-
-
-
-
-
 
 
     return this

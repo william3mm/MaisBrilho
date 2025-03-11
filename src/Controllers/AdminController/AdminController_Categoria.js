@@ -16,14 +16,10 @@ class AdminController_Categoria{
 
       return CategoriaController.create(req,res);
 
-    } catch (e) {
+    } catch (error) {
 
-      console.log(e)
-
-      return res.status(400).json({
-
-        errors: ['ERRO AO CRIAR CATEGORIA']
-      })
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
 
@@ -36,19 +32,11 @@ async update(req,res){
    return CategoriaController.update(req,res);
 
 
-  } catch (e) {
+  } catch (error) {
 
 
-    console.log(e);
-
-    const Validator = e.erros.map(err=> err.message)
-
-
-    return res.status(400).json({
-
-
-      errors: [Validator]
-    })
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+    return res.status(404).json({success: false, messages: mensagemDeErro})
 
   }
 }

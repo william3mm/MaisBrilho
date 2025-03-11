@@ -49,17 +49,13 @@ class AdminController_Admin_Generator{
 
       res.json(admin)
 
-    } catch (e) {
+    } catch (error) {
 
-      console.log(e)
+      console.log(error)
 
-      const validateErrors = e.errors.map(err => err.message)
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
 
-
-      return res.json({
-
-        errors: [validateErrors]
-      })
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
 
@@ -88,11 +84,10 @@ class AdminController_Admin_Generator{
 
       res.json("ADMIN DELETADO COM SUCESSO")
 
-    } catch (e) {
+    } catch (error) {
 
-      console.log(e);
-
-     return res.json("ERRO AO DELETAR USUÁRIO")
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
 
@@ -122,17 +117,10 @@ class AdminController_Admin_Generator{
 
         return res.json(novos_dados)
 
-    } catch (e) {
+    } catch (error) {
 
-      console.log(e);
-
-      const validateErrors = e.errors.map(err => err.message)
-
-
-      return res.json({
-
-        errors: [validateErrors]
-      })
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
 

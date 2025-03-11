@@ -16,6 +16,8 @@ export default async(req,res,next)=>{
   }
 
   // Vamos separar o token da palavra Bearer na requisicao
+
+  // eslint-disable-next-line no-unused-vars
   const [_,token] = authorization.split( ' ');
 
   try {
@@ -47,9 +49,10 @@ export default async(req,res,next)=>{
 
   } catch (error) {
 
-    return res.status(400).json({
 
-      erro: ['Login Required']})
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
+
+    return res.status(400).json({success: false, messages: mensagemDeErro})
 
   }
 

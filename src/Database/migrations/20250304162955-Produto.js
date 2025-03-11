@@ -48,7 +48,7 @@ module.exports = {
 
           allowNull: true,
 
-          unique: true
+
         },
 
         Descricao:{

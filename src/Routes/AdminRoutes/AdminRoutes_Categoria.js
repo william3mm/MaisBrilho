@@ -8,9 +8,9 @@ router.get('/', adminController_Categoria.index);
 
 router.post('/', adminController_Categoria.create);
 
-router.put('/:id', adminController_Categoria.update);
+router.put('/:id/', adminController_Categoria.update);
 
-router.delete('/:id', adminController_Categoria.delete);
+router.delete('/:id/', adminController_Categoria.delete);
 
 
 

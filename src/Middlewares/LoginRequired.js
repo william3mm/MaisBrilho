@@ -36,10 +36,9 @@ try {
 
 } catch (error) {
 
-  console.log(error);
-  return res.status(400).json({
+  const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
 
-    erro: ['Login Required']})
+    return res.status(400).json({success: false, messages: mensagemDeErro})
 
 }
 

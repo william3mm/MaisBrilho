@@ -43,13 +43,10 @@ class Fotos_Dos_ProdutosController{
     const Foto = await Fotos_Dos_Produtos.create({ originalname, filename, PRODUTO_ID})
 
     return res.json(Foto)
-  }catch(e){
+  }catch(error){
 
-    console.log(e);
-    return res.status(400).json({
-
-      errors: 'ERRO AO SALVAR FOTO'
-    })
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+    return res.status(404).json({success: false, messages: mensagemDeErro})
   }
 
 
