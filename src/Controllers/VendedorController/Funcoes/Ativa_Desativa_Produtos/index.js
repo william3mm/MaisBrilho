@@ -3,7 +3,7 @@ import Gerencia_Status  from "./Funcao_Ativa_Produto/Ativa_Produto";
 class Ativa_Desativa_Produtos{
 
 
-  async Ativa_Produtos(req,res){
+  async Ativa_Desativa_Produtos(req,res){
 
     return Gerencia_Status(req,res);
   }

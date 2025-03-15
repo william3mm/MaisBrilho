@@ -2,7 +2,7 @@ import Sequelize, {Model} from "sequelize";
 
 import bcrypt from 'bcrypt';
 
-import Status_Vendedor from '../config/status'
+import {Status_Vendedor} from '../config/status'
 
 export default class Vendedor extends Model{
 

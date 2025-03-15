@@ -47,6 +47,7 @@ export default async function Gerencia_Status(req,res){
       {where: {Produto_ID: Produto_ID, Vendedor_ID: req.userID}}
     );
 
+    // Se o Status for true message:ativado se Status for false message:desativado
     return res.status(200).json({success: true, message: `Produto: foi ${Status ? 'ativado' : 'desativado'}`});
 
   } catch (error) {
