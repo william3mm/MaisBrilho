@@ -6,9 +6,24 @@ class CategoriaController{
 
  async  index(req,res){
 
+
+  try {
+
     const categoria =  await Categoria.findAll();
 
-   return  res.json(categoria)
+    if(!categoria){
+
+      return res.json({success:false, message: 'CATEGORIAS NÃO ENCONTRADAS'})
+    }
+
+   return res.json(categoria)
+
+  } catch (error) {
+
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO LISTAR CATEGORIA']
+    return res.status(404).json({success: false, messages: mensagemDeErro})
+  }
+
   }
 
   async create(req,res){
@@ -26,13 +41,10 @@ class CategoriaController{
 
       return res.json(categoria)
 
-    } catch (e) {
+    } catch (error) {
 
-      console.log(e)
-      return res.status(401).json({
-
-        errors: ['ERRO AO CRIAR CATEGORIA']
-      })
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO CRIAR CATEGORIA']
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
   }
@@ -57,13 +69,10 @@ class CategoriaController{
 
     res.json("CATEGORIA DELETADA COM SUCESSO")
 
-  } catch(e){
+  } catch(error){
 
-    console.log(e)
-    return res.status(401).json({
-
-      errors: ['ERRO AO DELETAR CATEGORIA']
-    })
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO DELETAR CATEGORIA']
+    return res.status(404).json({success: false, messages: mensagemDeErro})
 
 
     }
@@ -84,17 +93,26 @@ class CategoriaController{
         res.json("CATEGORIA NÃO ENCONTRADA")
       }
 
-      const novos_dados = await categoria.update(req.body);
+      const {Nome} = req.body
 
-      res.json(novos_dados)
+      if(!Nome){
 
-    } catch (e) {
+        return res.status(400).json('PARAMETRO NOME NÃO ENVIADO')
+      }
 
-      console.log(e)
-      return res.status(401).json({
+      await Categoria.update(
 
-        errors: ['ERRO AO ACTUALIZAR CATEGORIA']
-      })
+        {Nome},
+
+        {where: {ID: req.params.id}}
+      )
+
+      res.status(200).json({success:true, message: 'CATEGORIA FOI ACTUALIZADA COM SUCESSO'})
+
+    } catch (error) {
+
+      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO ACTUALZAR CATEGORIA']
+      return res.status(404).json({success: false, messages: mensagemDeErro})
 
     }
 

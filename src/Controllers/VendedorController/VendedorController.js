@@ -23,7 +23,7 @@ class VendedorController{
 
         model:Produto,
 
-        attributes: [ 'Nome', 'Preco', 'Quantidade', 'Descricao','Categoria_ID']
+        attributes: [ 'Nome', 'Preco', 'Quantidade', 'Descricao','Categoria_ID', 'Codigo']
 
 
       }
@@ -49,9 +49,9 @@ class VendedorController{
 
     try {
 
-      const {Nome, Preco, Quantidade, Descricao, Categoria_ID, Vendedor_ID, Desconto} = req.body
+      const {Nome, Preco, Quantidade, Descricao, Categoria_ID,  Desconto} = req.body
 
-      if(!Nome || !Preco || !Quantidade || !Categoria_ID || !Descricao || !Vendedor_ID || !Desconto){
+      if(!Nome || !Preco || !Quantidade || !Categoria_ID || !Descricao){
 
 
 
@@ -84,7 +84,7 @@ class VendedorController{
 
         Produto_ID: produto.id,
 
-        Vendedor_ID,
+        Vendedor_ID: req.userID,
 
 
 
@@ -130,7 +130,7 @@ class VendedorController{
 
      await produto.destroy();
 
-      return res.json({success: true , messages:'PRODUTO DELETADO COM successO'})
+      return res.json({success: true , messages:'PRODUTO DELETADO COM SUCESSO'})
 
     } catch (error) {
 

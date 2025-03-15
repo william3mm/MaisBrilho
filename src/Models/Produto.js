@@ -2,6 +2,7 @@ import Sequelize, {Model} from 'sequelize'
 
 import GerarCodigo from '../Funcoes/Gera_Codigo_Produto';
 
+
 export default class Produto extends Model{
 
 
@@ -161,21 +162,19 @@ export default class Produto extends Model{
     this.addHook('beforeSave', async Produto=>{
 
 
-      if(Produto.changed('Categoria_ID')){
+      try {
 
-        // Vamos verificar se a categoria existe
+        if(Produto.changed('Categoria_ID')){
 
-        // const categoria = await Categoria.findByPk(Produto.CATEGORIA_ID)
 
-        // if(!categoria){
+          Produto.Codigo = await GerarCodigo(Produto.Nome, Produto.Categoria_ID);
+        }
 
-        //   throw new Error("Categoria não encontrada!");
-        // }
+      } catch (error) {
 
+        console.log(error)
 
       }
-
-      Produto.Codigo = await GerarCodigo(Produto.Nome, Produto.Categoria_ID);
 
     })
 

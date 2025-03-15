@@ -5,6 +5,12 @@ import admissao_rejeicao from '../../../Controllers/AdminController/Funcoes/Admi
 
 const router = new Router();
 
-router.post('/',admissao_rejeicao.index)
+router.post('/',admissao_rejeicao.admite_rejeita)
+
+router.put('/', admissao_rejeicao.suspender)
+
+router.get('/', admissao_rejeicao.index)
+
+
 
 export default router

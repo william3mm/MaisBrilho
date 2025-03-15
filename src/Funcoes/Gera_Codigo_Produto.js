@@ -1,34 +1,37 @@
- import Categoria from "../Models/Categoria";
+import Produto from "../Models/Produto";
 
- export default async function  GerarCodigo(nome_produto, categoria_produto, sequencial = 1) {
-    // Garantir que os parâmetros sejam strings e tratar espaços em excesso
+import Categoria from '../Models/Categoria'
+
+export default async function GerarCodigo(nome_produto, categoria_produto) {
+  try {
     const nome = nome_produto.trim().toUpperCase();
+    const categoria = await Categoria.findByPk(categoria_produto);
 
-    const categoria =  await Categoria.findByPk(categoria_produto)
-
-    if(!categoria){
-
-      throw new Error( 'CATEGORIA NÃO ENCONTRADA')
+    if (!categoria) {
+      throw new Error('CATEGORIA NÃO ENCONTRADA');
     }
-    const categoria_nome = categoria.NOME.trim().toUpperCase();
 
-    // Abreviação da categoria (primeiras 3 letras ou menos, caso seja curta)
+    const categoria_nome = categoria.Nome.trim().toUpperCase();
     const abreviacaoCategoria = categoria_nome.slice(0, 3);
-
-    // Abreviação do nome (primeiras 3 letras do nome do produto)
     const abreviacaoNome = nome.replace(/\s+/g, "").slice(0, 3);
 
-    // Ano e mês (formato AAAA-MM)
     const dataAtual = new Date();
     const ano = dataAtual.getFullYear();
     const mes = String(dataAtual.getMonth() + 1).padStart(2, "0");
 
-    const milisegundos = dataAtual.getMilliseconds();
+    // Pega o último produto para determinar o próximo sequencial
+    const ultimoProduto = await Produto.findOne({
+      order: [['createdAt', 'DESC']],
+    });
 
-    // Sequencial formatado (com 4 dígitos)
-    const sequenciaFormatada = String(sequencial).padStart(6, "0");
+    const sequencial = ultimoProduto ? ultimoProduto.id + 1 : 1;
 
-    // Gera o código final
-    const codigoFinal = `${abreviacaoCategoria}-${abreviacaoNome}-${ano}${mes}-${milisegundos}-${sequenciaFormatada}`;
+    const codigoFinal = `${abreviacaoCategoria}-${abreviacaoNome}-${ano}${mes}-${sequencial.toString().padStart(6, "0")}`;
+
     return codigoFinal;
+
+  } catch (error) {
+    console.log(error);
+    return 'ERRO AO GERAR CÓDIGO DO PRODUTO';
   }
+}

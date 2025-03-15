@@ -1,5 +1,7 @@
 import Produto from '../../Models/Produto'
 
+import Produto_Vendedor from '../../Models/Produto_Vendedor';
+
 const {Sequelize} = require('sequelize');
 
 class HomeController{
@@ -12,7 +14,19 @@ class HomeController{
     try {
 
 
-      const produto = await Produto.findAll()
+      const produto = await Produto.findAll({
+
+        include: {
+
+          model: Produto_Vendedor,
+
+          where: { Ativo:true},
+
+          attributes: ['Ativo']
+        },
+
+        attributes: ['ID','Nome', 'Preco', 'Quantidade', 'Descricao']
+      })
 
       return res.json(produto);
 
@@ -38,7 +52,18 @@ class HomeController{
 
       where: Sequelize.literal(  "MATCH(Nome) AGAINST(:nome IN BOOLEAN MODE)"),
 
-      replacements: {nome: Nome}
+      replacements: {nome: Nome},
+
+      include:{
+
+        model: Produto_Vendedor,
+
+        where: {Ativo:true},
+
+        attributes: ['Ativo']
+      },
+
+      attributes: ['ID', 'NOME', 'PRECO', 'QUANTIDADE']
     });
 
     if(produto.length === 0){

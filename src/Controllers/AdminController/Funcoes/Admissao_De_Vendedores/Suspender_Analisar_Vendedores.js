@@ -1,22 +1,20 @@
 import Vendedor from '../../../../Models/Vendedor';
 
-import { Op } from 'sequelize';
+import {Status_Vendedor_Suspensao_Analise } from '../../../../config/status'
 
-import {Status_Vendedor_Aprovacao_Rejeicao} from '../../../../config/status'
-
-export default async function Admite_Rejeita_Vendedores(req,res){
+export default async function Suspender(req,res){
 
 
   try {
 
-    // Vamos filtrar os vendedores com a situacao 'pendente' e actualizar o estado para aprovado ou rejeitado
+    // Apenas vamos poder suspender os vendedores que foram aprovados
 
 
     const vendedores_Pendentes = await Vendedor.findAll({
 
       where: {
 
-        Status: { [Op.or]: ['pendente', 'rejeitado', 'suspenso']}
+        Status: 'aprovado'
       },
 
       attributes: ['ID', 'Nome', 'Email', 'Telefone', 'Status'],
@@ -26,7 +24,7 @@ export default async function Admite_Rejeita_Vendedores(req,res){
 
     if(!vendedores_Pendentes.length){
 
-      return res.status(404).json({success: false, message: 'NENHUM VENDEDOR PENDENTE OU REJEITADO'})
+      return res.status(404).json({success: false, message: 'NENHUM VENDEDOR APROVADO'})
     }
 
     // Vamos capturar os dados da requisicao
@@ -48,12 +46,12 @@ export default async function Admite_Rejeita_Vendedores(req,res){
     */
 
 
-    if(!Status_Vendedor_Aprovacao_Rejeicao.includes(Status)){
+    if(!Status_Vendedor_Suspensao_Analise.includes(Status)){
 
       return res.status(400).json({success:false, message: 'STATUS INVÁLIDO'})
     }
 
-    // Vai nos retornaro o vendedor equivalente ao ID do vendedor passado na requisicao
+    // Vai nos retornar  o vendedor equivalente ao ID do vendedor passado na requisicao
     const vendedor = vendedores_Pendentes.find( vendedor => vendedor.ID ===  Number(Vendedor_ID))
 
     if(!vendedor){
@@ -75,7 +73,7 @@ export default async function Admite_Rejeita_Vendedores(req,res){
 
     console.log(error)
 
-    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO ADMITIR OU REJEITAR VENDEDOR']
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO SUSPENDER VENDEDOR']
 
     return res.status(400).json({success: false, messages: mensagemDeErro})
   }
