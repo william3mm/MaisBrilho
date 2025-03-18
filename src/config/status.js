@@ -8,3 +8,5 @@ export const Status_Vendedor_Suspensao_Analise = [ 'suspenso', 'em análise']
 
 
 
+
+

@@ -9,13 +9,13 @@ export default class Produto extends Model{
   static associate(models){
 
     // Todo Produto pertence a uma categoria
-    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', });
+    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', as:'categoria'});
 
     // // Um Produto pode estar em vários carrinhos
-    // this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'Produto_ID'});
+     this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'Produto_ID' , as:'carrinhos'});
 
     // Um Produto pode ser criado por vários vendedores
-    this.belongsToMany(models.Vendedor, {through: 'Produto_Vendedor', foreignKey: 'Produto_ID'}, );
+    this.belongsToMany(models.Vendedor, {through: 'Produto_Vendedor', foreignKey: 'Produto_ID', as:'vendedores'}, );
 
     // Podemos acessar diretamente dados na tabela Produto_Vendedor (Quantidade Criada)
     this.hasMany(models.Produto_Vendedor, {foreignKey: 'Produto_ID'})

@@ -8,7 +8,7 @@ export default class Carrinho_Produto extends Model{
     super.init({
 
 
-      CARRINHO_ID:{
+      Carrinho_ID:{
 
         type: Sequelize.INTEGER,
 
@@ -27,7 +27,7 @@ export default class Carrinho_Produto extends Model{
         onUpdate: 'CASCADE',
       },
 
-      PRODUTO_ID:{
+      Produto_ID:{
 
         type: Sequelize.INTEGER,
 
@@ -43,9 +43,32 @@ export default class Carrinho_Produto extends Model{
         onDelete: 'CASCADE',
 
         onUpdate: 'CASCADE'
+      },
+
+
+
+      Quantidade_Adicionada:{
+
+        type: Sequelize.INTEGER,
+
+        allowNull: false,
+
+        defaultValue: 1,
+
+        validate:{
+
+          min:1
+        }
+      },
+
+      Valor_Total_Item: {
+
+        type: Sequelize.DECIMAL(10,2),
+
+        allowNull: false,
+
+        defaultValue: 0.00
       }
-
-
 
     }, {
 

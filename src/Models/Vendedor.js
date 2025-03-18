@@ -9,9 +9,9 @@ export default class Vendedor extends Model{
 
   static associate(models){
 
-    this.belongsToMany(models.Produto, { through: 'Produto_Vendedor', foreignKey: 'Vendedor_ID'});
+    this.belongsToMany(models.Produto, { through: 'Produto_Vendedor', foreignKey: 'Vendedor_ID', as: 'produtos'});
 
-    this.hasMany(models.Produto_Vendedor, {foreignKey: 'Vendedor_ID'})
+
   }
    // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
     passwordisValid(password) {

@@ -7,11 +7,9 @@ export default class Produto_Vendedor extends Model{
 
   static associate(models){
 
-    this.belongsTo(models.Produto, {foreignKey: 'Produto_ID', });
+    this.belongsTo(models.Produto, {foreignKey: 'Produto_ID', as: 'produto' });
 
-    this.belongsTo(models.Vendedor, {foreignKey: 'Vendedor_ID', });
-
-    //this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'PRODUTO_ID'});
+    this.belongsTo(models.Vendedor, {foreignKey: 'Vendedor_ID', as: 'vendedor' });
 
 
   }
