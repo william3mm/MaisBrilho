@@ -3,5 +3,6 @@
 export default function CalculaTotal(Quantidade, Preco){
 
 
+
   return Quantidade * Preco;
 }

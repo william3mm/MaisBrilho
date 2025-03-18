@@ -20,8 +20,6 @@ export default async (req, res, next) => {
 
     }
 
-    console.lo
-
 
 
   } catch (error) {

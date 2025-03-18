@@ -36,7 +36,7 @@ try {
 
 } catch (error) {
 
-  const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
+  const mensagemDeErro = error.errors?.map(err => err.message) || [ 'POR FAVOR FAÇA LOGIN']
 
     return res.status(400).json({success: false, messages: mensagemDeErro})
 

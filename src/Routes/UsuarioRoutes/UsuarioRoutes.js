@@ -8,7 +8,7 @@ const router = new Router();
 
 router.post('/:id/', LoginRequired, usuarioController.criar_carrinho);
 
-router.post('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho)
+router.put('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho)
 
 router.get('/', LoginRequired, usuarioController.listar_carrinho);
 

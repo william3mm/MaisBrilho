@@ -14,6 +14,11 @@ export default class Usuario extends Model {
     return bcrypt.compare(password, this.Senha)
   }
 
+  static associate(models){
+
+    this.hasMany(models.Carrinho, { foreignKey: 'Usuario_ID', as: 'carrinhos'})
+  }
+
   // Vamos associar um usuario a um carrinho
 
   static init(sequelize) {
