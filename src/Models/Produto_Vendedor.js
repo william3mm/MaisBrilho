@@ -79,7 +79,9 @@ export default class Produto_Vendedor extends Model{
 
       sequelize,
 
-      tableName: 'Produto_Vendedor'
+      tableName: 'Produto_Vendedor',
+
+      modelName: 'Produto_Vendedor'
 
     });
 
