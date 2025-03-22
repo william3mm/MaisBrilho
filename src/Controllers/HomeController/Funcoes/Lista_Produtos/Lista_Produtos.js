@@ -1,3 +1,4 @@
+import Fotos_Dos_Produtos from "../../../../Models/Fotos_Dos_Produtos"
 import Produto from "../../../../Models/Produto"
 import Produto_Vendedor from "../../../../Models/Produto_Vendedor"
 
@@ -10,7 +11,9 @@ export default async function Lista_Produtos(req,res){
 
       {
 
-        include: {
+        include: [{
+
+
 
          model: Produto_Vendedor,
 
@@ -20,6 +23,17 @@ export default async function Lista_Produtos(req,res){
 
 
         },
+
+        {
+
+          model: Fotos_Dos_Produtos,
+
+          attributes: ['OriginalName', 'FileName'],
+
+          as: 'fotos'
+        }
+
+      ],
 
         attributes: ['ID','Nome', 'Preco', 'Quantidade', 'Descricao']
       }

@@ -8,14 +8,14 @@ export default class Fotos_Dos_Produtos extends Model{
 
   static associate(models){
 
-    this.belongsTo(models.Produto, {foreignKey:'PRODUTO_ID'})
+    this.belongsTo(models.Produto, {foreignKey:'Produto_ID', as:'produto'})
   }
 
   static init(sequelize){
 
     super.init({
 
-      filename:{
+      Filename:{
 
         type: Sequelize.JSON,
 
@@ -24,7 +24,7 @@ export default class Fotos_Dos_Produtos extends Model{
 
       },
 
-      originalname:{
+      Originalname:{
 
         type: Sequelize.JSON,
 
@@ -45,7 +45,7 @@ export default class Fotos_Dos_Produtos extends Model{
 
       },
 
-      PRODUTO_ID:{
+      Produto_ID:{
 
         type: Sequelize.INTEGER,
 
