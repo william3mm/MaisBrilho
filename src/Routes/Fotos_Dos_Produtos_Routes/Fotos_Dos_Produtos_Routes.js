@@ -7,10 +7,12 @@ import multer from "multer";
 const upload =  multer(multerconfig)
 
 import fotos_Dos_Produtos_Controller from "../../Controllers/Fotos_Dos_Produtos_Controller/Fotos_Dos_Produtos_Controller";
+
+import Vendedor_Login_Required from '../../Middlewares/Vendedor_Login_Required'
 const app = new Router();
 
 app.get('/', fotos_Dos_Produtos_Controller.index);
 
-app.post('/', upload.array('files',3), fotos_Dos_Produtos_Controller.create)
+app.post('/', Vendedor_Login_Required,  upload.array('files',3), fotos_Dos_Produtos_Controller.create)
 
 export default app;
