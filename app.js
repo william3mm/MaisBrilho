@@ -41,6 +41,7 @@ import Vendedor_LoginRoutes from './src/Routes/Vendedor_LoginRoutes/LoginRoutes'
 
 import Vendedor_Ativa_Desativa_Produtos from './src/Routes/VendedorRoutes/Ativa_Desativa_Produtos_Routes/Ativa_Desativa_Produtos_Routes'
 
+import Fotos_Dos_Produtos_Routes from './src/Routes/Fotos_Dos_Produtos_Routes/Fotos_Dos_Produtos_Routes';
 const whiteList = [
 
   'http://localhost:3000'
@@ -127,6 +128,8 @@ class App{
 
     this.app.use('/produtos/', VendedorRoutes)
 
+    this.app.use('/produtos/adicionar-fotos/', Fotos_Dos_Produtos_Routes)
+
     this.app.use('/criar-conta/vendedores', Vendedor_Criar_Conta_Routes)
 
     this.app.use('/', HomeRoutes);
@@ -134,6 +137,8 @@ class App{
     this.app.use('/login/vendedores/', Vendedor_LoginRoutes)
 
     this.app.use('/produtos/ativa-desativa-estado/', Vendedor_Ativa_Desativa_Produtos )
+
+
 
 
 

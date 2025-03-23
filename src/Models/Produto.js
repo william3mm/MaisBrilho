@@ -20,8 +20,9 @@ export default class Produto extends Model{
     // Podemos acessar diretamente dados na tabela Produto_Vendedor (Quantidade Criada)
     this.hasMany(models.Produto_Vendedor, {foreignKey: 'Produto_ID'})
 
-    // // Podemos acessar diretamente dados na tabela Carrinho_Produto (Quantidade selecionada)
-    // this.hasMany(models.Carrinho_Produto, {foreignKey: 'Produto_ID'})
+   // Um produto pode ter várias fotos
+
+   this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'Produto_ID', as:'fotos'} )
 
 
   }

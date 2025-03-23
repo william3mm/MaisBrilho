@@ -6,7 +6,7 @@ class Fotos_Dos_ProdutosController{
 
   index(req,res){
 
-    res.json("FOTOS DO SEU PRODUTO AQUI OK???")
+    return res.json("FOTOS DO SEU PRODUTO AQUI OK???")
   }
 
 
@@ -15,11 +15,12 @@ class Fotos_Dos_ProdutosController{
     try{
 
 
-    if(!req.files){
+    if(!req.files || req.files.length === 0){
 
       return res.json({errors: "NENHUM FICHEIRO ENVIADO"})
     }
 
+    // Vamos obter um objecto com originalname e filename
     const file = req.files.map((file) => ({
 
       originalname:file.originalname,
@@ -27,9 +28,12 @@ class Fotos_Dos_ProdutosController{
       filename: file.filename
     }))
 
-    const originalname = file.map((file) => file.originalname);
+    // Aqui iteramos sobre os objectos temos como retorno o nome original e o nome do ficheiro
+    const Originalname = file.map((file) => file.originalname);
 
-    const filename = file.map((file)=> file.filename);
+    const Filename = file.map((file)=> file.filename);
+
+    console.log(file)
 
     if(!req.body){
 
@@ -38,14 +42,14 @@ class Fotos_Dos_ProdutosController{
    // Aqui o produto ID é passado como string precisamos converter ele
 
 
-    const {PRODUTO_ID} = req.body
+    const {Produto_ID} = req.body
 
-    const Foto = await Fotos_Dos_Produtos.create({ originalname, filename, PRODUTO_ID})
+    const Foto = await Fotos_Dos_Produtos.create({ Originalname, Filename, Produto_ID})
 
     return res.json(Foto)
   }catch(error){
 
-    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO FAZER LOGIN']
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO SALVAR FOTO']
     return res.status(404).json({success: false, messages: mensagemDeErro})
   }
 
