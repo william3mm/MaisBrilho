@@ -29,7 +29,7 @@ class Criar_Conta{
 
    } catch (error) {
 
-    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO CRIAR CONTA DE VENDEDOR']
+    const mensagemDeErro = error.errors?.map(err => err.message) || [ 'ERRO AO CRIAR CONTA DO VENDEDOR']
     return res.status(400).json({success: false, messages: mensagemDeErro})
 
 
