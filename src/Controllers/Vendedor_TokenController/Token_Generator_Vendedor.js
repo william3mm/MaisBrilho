@@ -19,7 +19,7 @@ export default async function TokenGenerator(req,res){
 
   if(!Email || !Senha){
 
-    return res.status(400).json("Email OU SENHA NÃO ENVIADOS")
+    return res.status(400).json("EMAIL OU SENHA NÃO ENVIADOS")
   }
   const vendedor = await Vendedor.findOne({
 
@@ -44,7 +44,7 @@ export default async function TokenGenerator(req,res){
 
     return res.status(401).json({
 
-     sucess:false, message: 'Senha Inválida'
+     sucess:false, message: 'SENHA INVÁLIDA'
     })
   }
 
@@ -67,7 +67,7 @@ export default async function TokenGenerator(req,res){
 
   console.log(error);
 
-  return res.json('ERRO AO GERAR O TOKEN')
+  return res.status(400).json('ERRO AO GERAR O TOKEN')
 
  }
 

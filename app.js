@@ -10,6 +10,8 @@ import cors from 'cors';
 
 import helmet from 'helmet';
 
+import delay from 'express-delay';
+
 import './src/Database' /*Importamos o arquivo de configuracao da database para que os modelos sejam inicializados antes do servidor começar a executar as rotas,
 
 se nao o fizessemos iriamos ter erros dizendo que os modelos nao foram inicializados.
@@ -101,6 +103,8 @@ class App{
 
     this.app.use(express.json()); //Para podermos receber requisicoes por json
 
+    this.app.use(delay(2000))
+
     // Vamos comunicar ao express onde está a pasta de arquivos estaticos para que possamos abrir os arquivos
 
     this.app.use(express.static(resolve(__dirname, 'Uploads')))
@@ -114,7 +118,7 @@ class App{
 
     this.app.use('/usuarios/carrinho/', UsuarioRoutes);
 
-    this.app.use('/login/', Usuario_LoginRoutes)
+    this.app.use('/login/usuarios/', Usuario_LoginRoutes)
 
     this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
 
