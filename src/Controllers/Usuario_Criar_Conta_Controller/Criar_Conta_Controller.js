@@ -1,6 +1,7 @@
 import Usuario from '../../Models/Usuario';
 
 class Criar_Conta {
+  // eslint-disable-next-line
   async create(req, res) {
     try {
       const { Nome, Senha, Telefone } = req.body;
