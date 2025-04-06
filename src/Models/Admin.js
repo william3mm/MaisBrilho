@@ -11,7 +11,7 @@ export default class Admin extends Model {
   static init(sequelize) {
     super.init({
 
-      NOME: {
+      Nome: {
 
         type: Sequelize.STRING,
 
@@ -33,7 +33,7 @@ export default class Admin extends Model {
         },
       },
 
-      EMAIL: {
+      Email: {
 
         type: Sequelize.STRING,
 
@@ -53,7 +53,23 @@ export default class Admin extends Model {
         },
       },
 
-      SENHA: {
+      Telefone: {
+
+        type: Sequelize.INTEGER,
+
+        allowNull: false,
+
+        validate: {
+
+          notEmpty: {
+
+            msg: [ 'O CAMPO TELEFONE NÃO PODE ESTAR VAZIO' ],
+          },
+        },
+
+      },
+
+      Senha: {
 
         type: Sequelize.STRING,
 
@@ -84,8 +100,8 @@ export default class Admin extends Model {
     });
 
     this.addHook('beforeSave', async (Admin) => {
-      if (Admin.changed('SENHA')) {
-        Admin.SENHA = await bcrypt.hash(Admin.SENHA, 8);
+      if (Admin.changed('Senha')) {
+        Admin.Senha = await bcrypt.hash(Admin.Senha, 8);
       }
     });
     return this;
