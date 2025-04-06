@@ -18,7 +18,9 @@ import Carrinho_Produto from '../Models/Carrinho_Produto';
 
 import Fotos_Dos_Produtos from '../Models/Fotos_Dos_Produtos';
 
-const models = [ Vendedor, Categoria, Produto, Usuario, Produto_Vendedor, Carrinho, Carrinho_Produto, Fotos_Dos_Produtos ];
+import Admin from '../Models/Admin';
+
+const models = [ Vendedor, Categoria, Produto, Usuario, Produto_Vendedor, Carrinho, Carrinho_Produto, Fotos_Dos_Produtos, Admin ];
 
 const connection = new Sequelize(databaseconfig); // Aqui inicializamos a conexao passando as informacoes da nossa database
 
