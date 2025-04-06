@@ -1,78 +1,70 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Usuario', {
 
-      await queryInterface.createTable('Usuario', {
+      id: {
 
+        type: Sequelize.INTEGER,
 
-        id: {
+        primaryKey: true,
 
-          type: Sequelize.INTEGER,
+        autoIncrement: true,
 
-          primaryKey: true,
+        allowNull: false,
 
-          autoIncrement: true,
+      },
 
-          allowNull: false,
+      Nome: {
 
-        },
+        type: Sequelize.STRING,
 
-        Nome:{
+        allowNull: false,
+      },
 
-          type: Sequelize.STRING,
+      Senha: {
 
-          allowNull: false
-        },
+        type: Sequelize.STRING,
 
-        Senha:{
+        allowNull: false,
+      },
 
-          type: Sequelize.STRING,
+      Telefone: {
 
-          allowNull: false
-        },
+        type: Sequelize.STRING,
 
-        Telefone:{
+        allowNull: false,
 
-          type: Sequelize.STRING,
+        unique: true,
+      },
 
-          allowNull: false,
+      Email: {
 
-          unique: true
-        },
+        type: Sequelize.STRING,
 
-        Email:{
+        allowNull: true,
 
-          type: Sequelize.STRING,
+        unique: true,
+      },
 
-          allowNull: true,
+      createdAt: {
 
-          unique: true
-        },
+        type: Sequelize.DATE,
 
-        createdAt:{
+        allowNull: false,
+      },
 
-          type: Sequelize.DATE,
+      updatedAt: {
 
-          allowNull: false
-        },
+        type: Sequelize.DATE,
 
-        updatedAt:{
+        allowNull: false,
+      },
 
-          type: Sequelize.DATE,
-
-          allowNull: false
-        }
-
-
-      });
-
+    });
   },
-// eslint-disable-next-line no-unused-vars
-  async down (queryInterface, Sequelize) {
-
-     await queryInterface.dropTable('Usuario');
-
-  }
+  // eslint-disable-next-line no-unused-vars
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Usuario');
+  },
 };

@@ -1,1 +1,1 @@
-export const status_possiveis = ['aberto', 'finalizado', 'cancelado']
+export const status_possiveis = [ 'aberto', 'finalizado', 'cancelado' ];

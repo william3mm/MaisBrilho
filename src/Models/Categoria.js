@@ -1,17 +1,13 @@
-import Sequelize, { Model} from 'sequelize'
+import Sequelize, { Model } from 'sequelize';
 
-export default class Categoria extends Model{
-
-
-   static associate(models){
-
+export default class Categoria extends Model {
+  static associate(models) {
     // Uma categoria pode ter varios produtos
-     this.hasMany(models.Produto, {foreignKey:'CATEGORIA_ID', as:'produtos'})
+    this.hasMany(models.Produto, { foreignKey: 'CATEGORIA_ID', as: 'produtos' });
   }
-  static init(sequelize){
 
+  static init(sequelize) {
     super.init({
-
 
       Nome: {
 
@@ -19,44 +15,30 @@ export default class Categoria extends Model{
 
         allowNull: false,
 
-
         validate: {
 
-          len:{
+          len: {
 
-            args: [3,100],
+            args: [ 3, 100 ],
 
-            msg: "O CAMPO NOME DEVE TER ENTRE 3 E 100 CARACTERES"
+            msg: 'O CAMPO NOME DEVE TER ENTRE 3 E 100 CARACTERES',
           },
 
-          notEmpty:{
+          notEmpty: {
 
-            msg: "O CAMPO NOME NÃO PODE ESTAR VAZIO"
-          }
+            msg: 'O CAMPO NOME NÃO PODE ESTAR VAZIO',
+          },
         },
       },
 
-
-
-
-
-
-
-    },{
+    }, {
 
       sequelize,
 
       tableName: 'Categoria',
 
-
-
     });
 
-
-    return this
+    return this;
   }
-
-
-
-
 }

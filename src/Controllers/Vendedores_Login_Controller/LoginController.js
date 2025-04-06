@@ -1,33 +1,20 @@
-
-
-import dotenv  from 'dotenv';
-
-dotenv.config()
-
+import dotenv from 'dotenv';
 
 import Token_Generator from '../Vendedor_TokenController/Token_Generator_Vendedor';
 
-class LoginController{
+dotenv.config();
 
-  async login(req,res){
-
-
+class LoginController {
+  async login(req, res) {
     try {
-
-
-      return Token_Generator(req,res);
-
+      return Token_Generator(req, res);
     } catch (error) {
       console.error(error);
 
-      const mensagemDeErro = error.errors?.map(err => err.message) || [ 'Erro AO FAZER LOGIN']
-      return res.status(400).json({sucess: false, messages: mensagemDeErro})
+      const mensagemDeErro = error.errors?.map((err) => err.message) || [ 'Erro AO FAZER LOGIN' ];
+      return res.status(400).json({ sucess: false, messages: mensagemDeErro });
     }
-
   }
-
-
 }
 
-
-export default new LoginController()
+export default new LoginController();

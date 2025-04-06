@@ -1,24 +1,20 @@
-import Sequelize, {Model}from "sequelize";
+import Sequelize, { Model } from 'sequelize';
 
-export default class Carrinho_Produto extends Model{
-
-
-  static init (sequelize){
-
+export default class Carrinho_Produto extends Model {
+  static init(sequelize) {
     super.init({
 
-
-      Carrinho_ID:{
+      Carrinho_ID: {
 
         type: Sequelize.INTEGER,
 
         allowNull: false,
 
-        references:{
+        references: {
 
           model: 'Carrinho',
 
-          key: 'id'
+          key: 'id',
 
         },
 
@@ -27,7 +23,7 @@ export default class Carrinho_Produto extends Model{
         onUpdate: 'CASCADE',
       },
 
-      Produto_ID:{
+      Produto_ID: {
 
         type: Sequelize.INTEGER,
 
@@ -37,17 +33,15 @@ export default class Carrinho_Produto extends Model{
 
           model: 'Produto',
 
-          key: 'id'
+          key: 'id',
         },
 
         onDelete: 'CASCADE',
 
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
       },
 
-
-
-      Quantidade_Adicionada:{
+      Quantidade_Adicionada: {
 
         type: Sequelize.INTEGER,
 
@@ -55,29 +49,28 @@ export default class Carrinho_Produto extends Model{
 
         defaultValue: 1,
 
-        validate:{
+        validate: {
 
-          min:1
-        }
+          min: 1,
+        },
       },
 
       Valor_Total_Item: {
 
-        type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10, 2),
 
         allowNull: false,
 
-        defaultValue: 0.00
-      }
+        defaultValue: 0.00,
+      },
 
     }, {
 
       sequelize,
 
-      tableName: 'Carrinho_Produto'
-    })
+      tableName: 'Carrinho_Produto',
+    });
 
-    return this
+    return this;
   }
-
 }

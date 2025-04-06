@@ -1,10 +1,8 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
-import {resolve} from 'path'
+import { resolve } from 'path';
 
-dotenv.config();
-
-import express from "express";
+import express from 'express';
 
 import cors from 'cors';
 
@@ -12,52 +10,25 @@ import helmet from 'helmet';
 
 import delay from 'express-delay';
 
-import './src/Database' /*Importamos o arquivo de configuracao da database para que os modelos sejam inicializados antes do servidor começar a executar as rotas,
+import './src/Database'; /* Importamos o arquivo de configuracao da database para que os modelos sejam inicializados antes do servidor começar a executar as rotas,
 
 se nao o fizessemos iriamos ter erros dizendo que os modelos nao foram inicializados.
  */
 
-import UsuarioRoutes from './src/Routes/UsuarioRoutes/UsuarioRoutes'
+import * as Routes from './routes';
 
-import Usuario_LoginRoutes from './src/Routes/Usuario_LoginRoutes/LoginRoutes'
-
-import Usuario_Criar_Conta_Routes from './src/Routes/Usuario_Criar_ContaRoutes/Criar_Conta'
-
-import Usuario_Actualiza_Perfil from './src/Routes/Usuario_Actualiza_Perfil_Routes/Actualiza_Pefil'
-
-import AdminRoutes_Admin_Generator from './src/Routes/AdminRoutes/AdminRoutes_Admin_Generator'
-
-import AdminRoutes_Categorias from './src/Routes/AdminRoutes/AdminRoutes_Categoria'
-
-import AdminRoutes_Token from './src/Routes/AdminRoutes/AdminRoutes_Token';
-
-import Admin_Admite_Rejeita_Vendedores from './src/Routes/AdminRoutes/Admitir_Rejeitar_Vendedores_Routes/Admitir_Rejeitar_Vendedores'
-
-import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes'
-
-import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes'
-
-import Vendedor_Criar_Conta_Routes from './src/Routes/Vendedor_Criar_ContaRoutes/Criar_Conta'
-
-import Vendedor_LoginRoutes from './src/Routes/Vendedor_LoginRoutes/LoginRoutes'
-
-import Vendedor_Ativa_Desativa_Produtos from './src/Routes/VendedorRoutes/Ativa_Desativa_Produtos_Routes/Ativa_Desativa_Produtos_Routes'
-
-import Fotos_Dos_Produtos_Routes from './src/Routes/Fotos_Dos_Produtos_Routes/Fotos_Dos_Produtos_Routes';
+dotenv.config();
 const whiteList = [
 
-  'http://localhost:3000'
-]
+  'http://localhost:3000',
+];
 
 // Vamos escrever as configuracoes do CORS
 
-const corsOptions  = {
+const corsOptions = {
 
-
-  origin: function(origin, callback){
-
+  origin(origin, callback) {
     /* O cabecalho origin vai indicar a origem de um recurso que está a ser procurado, tem as seguintes funcoes:
-
 
     1 - Ele vai informar ao navegador quais orignens podem receber solicitacoes
 
@@ -67,90 +38,71 @@ const corsOptions  = {
 
     */
 
-     // whiteList.indexOf(origin) != -1 significa que a origin está contida e !origin quer dizer que nem sempre ela será envidada
+    // whiteList.indexOf(origin) != -1 significa que a origin está contida e !origin quer dizer que nem sempre ela será envidada
 
-     if(whiteList.indexOf(origin) != -1 || !origin){
-
+    if (whiteList.indexOf(origin) != -1 || !origin) {
       // O primeiro argumento do callback seria um erro, que, vamos setar como null
-      callback(null, true)
-
-    }else{
-
-      callback(new Error('NOT ALLOWED BY CORS'))
+      callback(null, true);
+    } else {
+      callback(new Error('NOT ALLOWED BY CORS'));
     }
-  }
-}
+  },
+};
 
-class App{
-
-  constructor(){
-
+class App {
+  constructor() {
     this.app = express();
 
     this.Middlewares();
 
     this.Routes();
-
   }
 
-  Middlewares(){
-
+  Middlewares() {
     this.app.use(cors(corsOptions));
 
     this.app.use(helmet()); // Previne vunerabilidades comuns
 
-    this.app.use(express.urlencoded({extended:true}));
+    this.app.use(express.urlencoded({ extended: true }));
 
-    this.app.use(express.json()); //Para podermos receber requisicoes por json
+    this.app.use(express.json()); // Para podermos receber requisicoes por json
 
-    this.app.use(delay(2000))
+    this.app.use(delay(2000));
 
     // Vamos comunicar ao express onde está a pasta de arquivos estaticos para que possamos abrir os arquivos
 
-    this.app.use(express.static(resolve(__dirname, 'Uploads')))
-
+    this.app.use(express.static(resolve(__dirname, 'Uploads')));
   }
 
-  Routes(){
+  Routes() {
+    this.app.use('/criar-conta/', Routes.Usuario_Criar_Conta_Routes);
 
+    this.app.use('/usuarios/carrinho/', Routes.UsuarioRoutes);
 
-    this.app.use('/criar-conta/', Usuario_Criar_Conta_Routes)
+    this.app.use('/login/usuarios/', Routes.Usuario_LoginRoutes);
 
-    this.app.use('/usuarios/carrinho/', UsuarioRoutes);
+    this.app.use('/usuarios/perfil/', Routes.Usuario_Actualiza_Perfil);
 
-    this.app.use('/login/usuarios/', Usuario_LoginRoutes)
+    this.app.use('/secure-dashboard/manager-generator/', Routes.AdminRoutes_Admin_Generator);
 
-    this.app.use('/usuarios/perfil/', Usuario_Actualiza_Perfil)
+    this.app.use('/secure-dashboard/categorias/', Routes.AdminRoutes_Categorias);
 
-    this.app.use('/secure-dashboard/manager-generator/', AdminRoutes_Admin_Generator)
+    this.app.use('/secure-dashboard/manager-super-management/token/', Routes.AdminRoutes_Token);
 
-    this.app.use('/secure-dashboard/categorias/', AdminRoutes_Categorias);
+    this.app.use('/secure-dashboard/vendedores-verificacao/', Routes.Admin_Admite_Rejeita_Vendedores);
 
-    this.app.use('/secure-dashboard/manager-super-management/token/', AdminRoutes_Token);
+    this.app.use('/produtos/', Routes.VendedorRoutes);
 
-    this.app.use('/secure-dashboard/vendedores-verificacao/', Admin_Admite_Rejeita_Vendedores )
+    this.app.use('/produtos/adicionar-fotos/', Routes.Fotos_Dos_Produtos_Routes);
 
-    this.app.use('/produtos/', VendedorRoutes)
+    this.app.use('/criar-conta/vendedores', Routes.Vendedor_Criar_Conta_Routes);
 
-    this.app.use('/produtos/adicionar-fotos/', Fotos_Dos_Produtos_Routes)
+    this.app.use('/', Routes.HomeRoutes);
 
-    this.app.use('/criar-conta/vendedores', Vendedor_Criar_Conta_Routes)
+    this.app.use('/login/vendedores/', Routes.Vendedor_LoginRoutes);
 
-    this.app.use('/', HomeRoutes);
-
-    this.app.use('/login/vendedores/', Vendedor_LoginRoutes)
-
-    this.app.use('/produtos/ativa-desativa-estado/', Vendedor_Ativa_Desativa_Produtos )
-
-
-
-
-
-
-
-
+    this.app.use('/produtos/ativa-desativa-estado/', Routes.Vendedor_Ativa_Desativa_Produtos);
   }
-
 }
 
 export default new App().app;

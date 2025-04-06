@@ -1,40 +1,30 @@
-import Sequelize, {Model} from 'sequelize'
+import Sequelize, { Model } from 'sequelize';
 
 import GerarCodigo from '../Funcoes/Gera_Codigo_Produto';
 
-
-export default class Produto extends Model{
-
-
-  static associate(models){
-
+export default class Produto extends Model {
+  static associate(models) {
     // Todo Produto pertence a uma categoria
-    this.belongsTo(models.Categoria, {foreignKey: 'CATEGORIA_ID', as:'categoria'});
+    this.belongsTo(models.Categoria, { foreignKey: 'CATEGORIA_ID', as: 'categoria' });
 
     // // Um Produto pode estar em vários carrinhos
-     this.belongsToMany(models.Carrinho, {through: 'Carrinho_Produto', foreignKey: 'Produto_ID' , as:'carrinhos'});
+    this.belongsToMany(models.Carrinho, { through: 'Carrinho_Produto', foreignKey: 'Produto_ID', as: 'carrinhos' });
 
     // Um Produto pode ser criado por vários vendedores
-    this.belongsToMany(models.Vendedor, {through: 'Produto_Vendedor', foreignKey: 'Produto_ID', as:'vendedores'}, );
+    this.belongsToMany(models.Vendedor, { through: 'Produto_Vendedor', foreignKey: 'Produto_ID', as: 'vendedores' });
 
     // Podemos acessar diretamente dados na tabela Produto_Vendedor (Quantidade Criada)
-    this.hasMany(models.Produto_Vendedor, {foreignKey: 'Produto_ID'})
+    this.hasMany(models.Produto_Vendedor, { foreignKey: 'Produto_ID' });
 
-   // Um produto pode ter várias fotos
+    // Um produto pode ter várias fotos
 
-   this.hasMany(models.Fotos_Dos_Produtos, {foreignKey: 'Produto_ID', as:'fotos'} )
-
-
+    this.hasMany(models.Fotos_Dos_Produtos, { foreignKey: 'Produto_ID', as: 'fotos' });
   }
 
   // Vamos criar um metodo de instancia para gerar um codigo para o produto
 
-
-
-  static init(sequelize){
-
+  static init(sequelize) {
     super.init({
-
 
       Nome: {
 
@@ -44,142 +34,131 @@ export default class Produto extends Model{
 
         validate: {
 
-          len:{
+          len: {
 
-            args: [3,100],
+            args: [ 3, 100 ],
 
-            msg: "O NOME DEVE TER ENTRE 3 E 20CARACTERES"
+            msg: 'O NOME DEVE TER ENTRE 3 E 20CARACTERES',
           },
 
-          notEmpty:{
+          notEmpty: {
 
-            msg: "O CAMPO NOME NÃO PODE ESTAR VAZIO"
-          }
+            msg: 'O CAMPO NOME NÃO PODE ESTAR VAZIO',
+          },
         },
       },
 
-        Preco:{
+      Preco: {
 
-          type: Sequelize.DECIMAL(10,2),
+        type: Sequelize.DECIMAL(10, 2),
 
-          allowNull: false,
+        allowNull: false,
 
-          validate: {
+        validate: {
 
-            isFloat:{
+          min: 1,
 
-              msg: "O CAMPO DEVE SER UM VALOR DECIMAL"
-            },
+          isFloat: {
 
-            notEmpty:{
-
-              msg: "O CAMPO PRECO NÃO PODE ESTAR VAZIO"
-            }
-          }
-     },
-
-        Quantidade:{
-
-          type: Sequelize.INTEGER,
-
-          allowNull: false,
-
-          validate:{
-
-
-            isInt:{
-
-              msg: "O CAMPO QUANTIDADE NÃO PODE CONTER LETRAS OU SÍMBOLOS"
-            },
-
-            notEmpty:{
-
-              msg: "O CAMPO QUANTIDADE NÃO PODE ESTAR VAZIO"
-            }
-          }
-
-        },
-
-        Codigo:{
-
-          type: Sequelize.STRING,
-
-          allowNull: true,
-
-          unique:{
-
-            msg: "CODIGO JÁ REGISTRADO"
-
+            msg: 'O CAMPO DEVE SER UM VALOR DECIMAL',
           },
 
+          notEmpty: {
+
+            msg: 'O CAMPO PRECO NÃO PODE ESTAR VAZIO',
+          },
+        },
+      },
+
+      Quantidade: {
+
+        type: Sequelize.INTEGER,
+
+        allowNull: false,
+
+        validate: {
+
+          min: 1, // A quantidade tem valor mínimo de 1
+          isInt: {
+
+            msg: 'O CAMPO QUANTIDADE NÃO PODE CONTER LETRAS OU SÍMBOLOS',
+          },
+
+          notEmpty: {
+
+            msg: 'O CAMPO QUANTIDADE NÃO PODE ESTAR VAZIO',
+          },
         },
 
-       Descricao:{
+      },
 
-          type: Sequelize.STRING,
+      Codigo: {
 
-          allowNull: false,
+        type: Sequelize.STRING,
 
-          validate:{
+        allowNull: true,
 
-            notEmpty:{
+        unique: {
 
-              msg: "O CAMPO DESCRICAO NÃO PODE ESTAR VAZIO"
-            }
-          }
-
-
+          msg: 'CODIGO JÁ REGISTRADO',
 
         },
 
-        Categoria_ID:{
+      },
 
-          type: Sequelize.INTEGER,
+      Descricao: {
 
-          allowNull: false,
+        type: Sequelize.STRING,
 
-          references:{
+        allowNull: false,
 
-            model: "Categoria",
+        validate: {
 
-            key: "id"
-          }
-        }
+          notEmpty: {
 
-    },{
+            msg: 'O CAMPO DESCRICAO NÃO PODE ESTAR VAZIO',
+          },
+        },
+
+      },
+
+      Categoria_ID: {
+
+        type: Sequelize.INTEGER,
+
+        allowNull: false,
+
+        references: {
+
+          model: 'Categoria',
+
+          key: 'id',
+        },
+      },
+
+    }, {
 
       sequelize,
 
-      tableName: 'Produto'
+      tableName: 'Produto',
 
     });
-
 
     /* Antes de salvar o produto poderiamos adicionar um hook para gerar um codigo com base ao nome do produto e
 
     a sua categoria
     */
 
-    this.addHook('beforeSave', async Produto=>{
-
-
+    this.addHook('beforeSave', async (Produto) => {
       try {
-
-        if(Produto.changed('Categoria_ID')){
-
-
+        if (Produto.changed('Categoria_ID')) {
           Produto.Codigo = await GerarCodigo(Produto.Nome, Produto.Categoria_ID);
         }
-
       } catch (error) {
-
-        console.log(error)
-
+        console.log(error);
       }
+    });
 
-    })
-
-    return this
+    return this;
   }
-
 }

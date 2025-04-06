@@ -1,15 +1,15 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import usuarioController from "../../Controllers/UsuarioController/UsuarioController";
+import usuarioController from '../../Controllers/UsuarioController/UsuarioController';
 
-import LoginRequired from "../../Middlewares/LoginRequired";
+import LoginRequired from '../../Middlewares/LoginRequired';
 
 const router = new Router();
 
 router.post('/:id/', LoginRequired, usuarioController.criar_carrinho);
 
-router.put('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho)
+router.put('/', LoginRequired, usuarioController.adicionar_item_ao_carrinho);
 
 router.get('/', LoginRequired, usuarioController.listar_carrinho);
 
-export default router
+export default router;

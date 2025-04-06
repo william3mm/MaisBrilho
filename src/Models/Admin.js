@@ -1,100 +1,93 @@
-import Sequelize, {Model} from "sequelize"
+import Sequelize, { Model } from 'sequelize';
 
 import bcrypt from 'bcrypt';
 
-export default class Admin extends Model{
-
+export default class Admin extends Model {
   // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
-  passwordisValid(password){
-
-    return bcrypt.compare(password, this.SENHA)
+  passwordisValid(password) {
+    return bcrypt.compare(password, this.SENHA);
   }
 
-static init(sequelize){
+  static init(sequelize) {
+    super.init({
 
-  super.init({
+      NOME: {
 
-    NOME:{
+        type: Sequelize.STRING,
 
-      type: Sequelize.STRING,
+        allowNull: false,
 
-      allowNull: false,
+        validate: {
 
-      validate:{
+          len: {
 
-        len:{
+            args: [ 3, 20 ],
 
-          args: [3,20],
+            msg: [ 'O CAMPO NOME DEVE TER ENTRE 3 A 15 CARACTERES' ],
+          },
 
-          msg: [ 'O CAMPO NOME DEVE TER ENTRE 3 A 15 CARACTERES']
+          notEmpty: {
+
+            msg: [ 'O CAMPO NOME NÃO PODE ESTAR VAZIO' ],
+          },
         },
+      },
 
-        notEmpty:{
+      EMAIL: {
 
-          msg: [ 'O CAMPO NOME NÃO PODE ESTAR VAZIO']
-        }
-      }
-    },
+        type: Sequelize.STRING,
 
-    EMAIL:{
+        allowNull: false,
 
-      type: Sequelize.STRING,
+        validate: {
 
-      allowNull: false,
+          isEmail: {
 
-      validate:{
+            msg: [ 'EMAIL INVÁLIDO' ],
+          },
 
-        isEmail:{
+          notEmpty: {
 
-          msg: [ 'EMAIL INVÁLIDO']
+            msg: [ ' O CAMPO EMAIL NÃO PODE ESTAR VAZIO' ],
+          },
         },
+      },
 
-      notEmpty:{
+      SENHA: {
 
-        msg: [' O CAMPO EMAIL NÃO PODE ESTAR VAZIO']
-      }
-      }
-    },
+        type: Sequelize.STRING,
 
-    SENHA: {
+        allowNull: false,
 
-      type: Sequelize.STRING,
+        validate: {
 
-      allowNull: false,
+          notEmpty: {
 
-      validate:{
+            msg: [ 'O CAMPO SENHA NÃO PODE ESTAR VAZIO' ],
+          },
 
-        notEmpty:{
+          // // Vamos fazer com que senha obrigatório incluir pelo menos um simbolo ou um caracter no campo senha
+          isValid(valor) {
+            const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]*$/;
 
-          msg: ['O CAMPO SENHA NÃO PODE ESTAR VAZIO']
+            if (!regex.test(valor)) {
+              throw new Error('O CAMPO SENHA DEVE CONTER PELO MENOS UM SÍMBOLO OU CARACTERE ESPECIAL');
+            }
+          },
+
         },
+      },
+    }, {
 
-        // // Vamos fazer com que senha obrigatório incluir pelo menos um simbolo ou um caracter no campo senha
-        isValid(valor){
+      sequelize,
+      tableName: 'Admin',
+    });
 
-          const regex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]*$/;
-
-          if(!regex.test(valor)){
-
-            throw new Error("O CAMPO SENHA DEVE CONTER PELO MENOS UM SÍMBOLO OU CARACTERE ESPECIAL")
-          }
-        }
-
+    this.addHook('beforeSave', async (Admin) => {
+      if (Admin.changed('SENHA')) {
+        Admin.SENHA = await bcrypt.hash(Admin.SENHA, 8);
       }
-    }
-  },{
-
-    sequelize,
-    tableName:'Admin'
-  })
-
-  this.addHook('beforeSave', async (Admin)=>{
-
-    if(Admin.changed('SENHA')){
-
-      Admin.SENHA = await bcrypt.hash(Admin.SENHA, 8);
-    }
-  })
-  return this
+    });
+    return this;
+  }
 }
-  }

@@ -1,73 +1,50 @@
-import Usuario from "../../Models/Usuario";
+import Usuario from '../../Models/Usuario';
 
-import CarrinhoController from "../CarrinhoController/CarrinhoController";
+import CarrinhoController from '../CarrinhoController/CarrinhoController';
 
-class UsuarioController{
-
-
-  async index(req,res){
-
-   return CarrinhoController.index(req,res);
-
-
+class UsuarioController {
+  async index(req, res) {
+    return CarrinhoController.index(req, res);
   }
 
-
-  async update(req,res){
-
+  async update(req, res) {
     // Vamos actualizar os dados dos  usuários
 
     try {
-
-
-      if(!req.userID) {
-
-        return res.json("ID NÃO ENVIADO")
+      if (!req.userID) {
+        return res.json('ID NÃO ENVIADO');
       }
 
-        const usuario = await Usuario.findByPk(req.userID);
+      const usuario = await Usuario.findByPk(req.userID);
       // Primeiro vamos verificar se o usuário existe na base de dados
 
-      if(!usuario){
-
-        return res.status(404).json("USUÁRIO NÃO EXISTE")
-
+      if (!usuario) {
+        return res.status(404).json('USUÁRIO NÃO EXISTE');
       }
 
       // Vamos permitir que o usuário troque o seu Nome, Telefone e Senha
 
+      const novos_dados = await usuario.update(req.body);
 
-      const novos_dados = await usuario.update( req.body)
-
-     return res.json(novos_dados)
-
+      return res.json(novos_dados);
     } catch (e) {
-
-      console.log(e)
-      return res.status(400).json({
-
-        errors: ['ERRO AO ACTUALIZAR USUÁRIO']})
-
+      console.log(e);
+      return res.status(400).json({ errors: [ 'ERRO AO ACTUALIZAR USUÁRIO' ] });
     }
   }
 
   // Agora iremos adicionar os metodos associados ao carrinho
 
-  async criar_carrinho(req,res){
-
-    return CarrinhoController.create(req,res);
-    }
-
-
-  async listar_carrinho(req,res){
-
-    return CarrinhoController.index(req,res);
+  async criar_carrinho(req, res) {
+    return CarrinhoController.create(req, res);
   }
 
-  async adicionar_item_ao_carrinho(req,res){
+  async listar_carrinho(req, res) {
+    return CarrinhoController.index(req, res);
+  }
 
-
-    return CarrinhoController.update(req,res)
+  async adicionar_item_ao_carrinho(req, res) {
+    return CarrinhoController.update(req, res);
   }
 }
 

@@ -1,68 +1,63 @@
-import Sequelize, {Model} from 'sequelize';
+import Sequelize, { Model } from 'sequelize';
 
 import { status_possiveis } from '../config/status_carrinho';
 
-export default class Carrinho extends Model{
+export default class Carrinho extends Model {
+  static associate(models) {
+    this.belongsTo(models.Usuario, { foreignKey: 'Usuario_ID', as: 'usuario' });
 
-
-
-  static associate(models){
-
-    this.belongsTo(models.Usuario, {foreignKey: 'Usuario_ID', as:'usuario'});
-
-    this.belongsToMany(models.Produto, {through:'Carrinho_Produto', foreignKey: 'Carrinho_ID', as: 'produtos' })
+    this.belongsToMany(models.Produto, { through: 'Carrinho_Produto', foreignKey: 'Carrinho_ID', as: 'produtos' });
   }
 
-  static init(sequelize){
+  static init(sequelize) {
+    super.init(
+      {
 
-    super.init({
+        USUARIO_ID: {
 
-      USUARIO_ID:{
+          type: Sequelize.INTEGER,
 
-        type: Sequelize.INTEGER,
+          allowNull: false,
 
-        allowNull: false,
+          references: {
 
-        references:{
+            model: 'Usuario',
 
-          model: 'Usuario',
+            key: 'id',
+          },
+        },
 
-          key: 'id'
-        }
+        Valor_Total: {
+
+          type: Sequelize.DECIMAL(10, 2),
+
+          allowNull: true,
+        },
+
+        Status: {
+
+          type: Sequelize.STRING,
+
+          allowNull: false,
+
+          defaultValue: 'aberto',
+
+          validate: {
+
+            isIn: [ status_possiveis ],
+          },
+        },
+
       },
-
-      Valor_Total: {
-
-        type: Sequelize.DECIMAL(10,2),
-
-        allowNull: true
-      },
-
-      Status: {
-
-        type: Sequelize.STRING,
-
-        allowNull: false,
-
-        defaultValue: 'aberto',
-
-        validate:{
-
-          isIn: [status_possiveis]
-        }
-      }
-
-    },
 
       {
 
         sequelize,
 
-        tableName: 'Carrinho'
-      })
+        tableName: 'Carrinho',
+      },
+    );
 
-
-
-return this;
+    return this;
   }
 }

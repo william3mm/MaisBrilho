@@ -1,95 +1,91 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable(
+      'Produto_Vendedor',
 
-     await queryInterface.createTable('Produto_Vendedor',
+      {
+        id: {
 
-      { id: {
+          type: Sequelize.INTEGER,
 
-        type: Sequelize.INTEGER,
+          allowNull: false,
 
-        allowNull: false,
+          primaryKey: true,
 
-        primaryKey: true,
-
-        autoIncrement: true
-      },
-
-      Produto_ID:{
-
-        type: Sequelize.INTEGER,
-
-        references:{
-
-          model: 'Produto',
-
-          key: 'id'
+          autoIncrement: true,
         },
 
-        onDelete: 'CASCADE',
+        Produto_ID: {
 
-        onUpdate: 'CASCADE',
+          type: Sequelize.INTEGER,
 
-        allowNull: false
-      },
+          references: {
 
-      Ativo:{
+            model: 'Produto',
 
-        type: Sequelize.BOOLEAN,
+            key: 'id',
+          },
 
-        defaultValue: true
-      },
+          onDelete: 'CASCADE',
 
-      Desconto:{
+          onUpdate: 'CASCADE',
 
-        type: Sequelize.DECIMAL(5,2),
-
-        defaultValue: 0.00
-      },
-
-      Vendedor_ID:{
-
-        type: Sequelize.INTEGER,
-
-        references:{
-
-          model: 'Vendedor',
-
-          key: 'id'
+          allowNull: false,
         },
 
-        onDelete: 'CASCADE',
+        Ativo: {
 
-        onUpdate: 'CASCADE',
+          type: Sequelize.BOOLEAN,
 
-        allowNull: false
+          defaultValue: true,
+        },
+
+        Desconto: {
+
+          type: Sequelize.DECIMAL(5, 2),
+
+          defaultValue: 0.00,
+        },
+
+        Vendedor_ID: {
+
+          type: Sequelize.INTEGER,
+
+          references: {
+
+            model: 'Vendedor',
+
+            key: 'id',
+          },
+
+          onDelete: 'CASCADE',
+
+          onUpdate: 'CASCADE',
+
+          allowNull: false,
+
+        },
+
+        createdAt: {
+
+          type: Sequelize.DATE,
+
+          allowNull: false,
+        },
+
+        updatedAt: {
+
+          type: Sequelize.DATE,
+
+          allowNull: false,
+        },
 
       },
-
-      createdAt:{
-
-        type: Sequelize.DATE,
-
-        allowNull: false
-      },
-
-      updatedAt:{
-
-        type: Sequelize.DATE,
-
-        allowNull: false
-      }
-
-
-      });
-
+    );
   },
 
-  async down (queryInterface) {
-
-     await queryInterface.dropTable('Produto_Vendedor');
-
-  }
+  async down(queryInterface) {
+    await queryInterface.dropTable('Produto_Vendedor');
+  },
 };

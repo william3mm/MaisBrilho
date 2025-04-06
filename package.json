@@ -7,17 +7,22 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon -r sucrase/register server.js",
     "undo": "npx sequelize db:migrate:undo",
-    "migrate": "npx sequelize db:migrate"
+    "migrate": "npx sequelize db:migrate",
+
+    "lint": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.19.0",
+    "@eslint/js": "^9.24.0",
     "bcrypt": "^5.1.1",
-    "eslint": "^9.18.0",
-    "globals": "^15.14.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.31.0",
+    "globals": "^15.15.0",
     "nodemon": "^3.1.9",
+    "prettier": "^3.5.3",
     "sequelize-cli": "^6.6.2",
     "sucrase": "^3.35.0"
   },

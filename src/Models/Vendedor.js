@@ -1,68 +1,23 @@
-import Sequelize, {Model} from "sequelize";
+import Sequelize, { Model } from 'sequelize';
 
 import bcrypt from 'bcrypt';
 
-import {Status_Vendedor} from '../config/status'
+import { Status_Vendedor } from '../config/status';
 
-export default class Vendedor extends Model{
-
-
-  static associate(models){
-
-    this.belongsToMany(models.Produto, { through: 'Produto_Vendedor', foreignKey: 'Vendedor_ID', as: 'produtos'});
-
-
+export default class Vendedor extends Model {
+  static associate(models) {
+    this.belongsToMany(models.Produto, { through: 'Produto_Vendedor', foreignKey: 'Vendedor_ID', as: 'produtos' });
   }
-   // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
-    passwordisValid(password) {
 
-      return bcrypt.compare(password, this.Senha)
-    }
+  // VAMOS CRIAR UM METODO DE INSTANCIA DA CLASSE USUARIO PARA PERMITIR A VERIFICACAO DA PASSWORD
+  passwordisValid(password) {
+    return bcrypt.compare(password, this.Senha);
+  }
 
-  static init(sequelize){
-
+  static init(sequelize) {
     super.init({
 
-
-      Nome:{
-
-        type: Sequelize.STRING,
-
-        allowNull: false,
-
-        validate:{
-
-          notEmpty:{
-
-            msg: 'O CAMPO NOME NÃO PODE ESTAR VAZIO'
-          }
-        },
-      },
-
-      Email:{
-
-        type: Sequelize.STRING,
-
-        allowNull: false,
-
-        unique:{
-
-          msg: 'EMAIL JÁ REGISTRADO'
-        },
-
-        validate:{
-
-          isEmail:{
-
-            msg: [ 'EMAIL INVÁLIDO']
-          },
-
-
-        }
-      },
-
-
-      Telefone:{
+      Nome: {
 
         type: Sequelize.STRING,
 
@@ -72,20 +27,56 @@ export default class Vendedor extends Model{
 
           notEmpty: {
 
-            msg: 'O CAMPO TELEFONE NÃO PODE ESTAR VAZIO'
+            msg: 'O CAMPO NOME NÃO PODE ESTAR VAZIO',
+          },
+        },
+      },
+
+      Email: {
+
+        type: Sequelize.STRING,
+
+        allowNull: false,
+
+        unique: {
+
+          msg: 'EMAIL JÁ REGISTRADO',
+        },
+
+        validate: {
+
+          isEmail: {
+
+            msg: [ 'EMAIL INVÁLIDO' ],
+          },
+
+        },
+      },
+
+      Telefone: {
+
+        type: Sequelize.STRING,
+
+        allowNull: false,
+
+        validate: {
+
+          notEmpty: {
+
+            msg: 'O CAMPO TELEFONE NÃO PODE ESTAR VAZIO',
           },
 
           len: {
 
-            args: [9,13],
+            args: [ 9, 13 ],
 
-            msg: ' NÚMERO DE TELEFONE INVÁLIDO'
+            msg: ' NÚMERO DE TELEFONE INVÁLIDO',
 
-          }
-        }
+          },
+        },
       },
 
-      Status:{
+      Status: {
 
         type: Sequelize.STRING,
 
@@ -93,42 +84,37 @@ export default class Vendedor extends Model{
 
         defaultValue: 'pendente',
 
-        validate:{
+        validate: {
 
-          notEmpty:{
+          notEmpty: {
 
-            msg: 'O CAMPO "VERIFICADO" NÃO PODE ESTAR VAZIO'
+            msg: 'O CAMPO "VERIFICADO" NÃO PODE ESTAR VAZIO',
           },
 
-           isIn: [Status_Vendedor]
+          isIn: [ Status_Vendedor ],
 
-
-        }
+        },
       },
 
-      Senha:{
+      Senha: {
 
         type: Sequelize.STRING,
 
-        allowNull: false
-      }
-
+        allowNull: false,
+      },
 
     }, {
 
       sequelize,
 
-      tableName: 'Vendedor'
-    })
+      tableName: 'Vendedor',
+    });
 
-
-    this.addHook('beforeSave', async(Vendedor)=>{
-
-      if(Vendedor.changed('Senha')){
-
-        Vendedor.Senha = await bcrypt.hash(Vendedor.Senha,8)
+    this.addHook('beforeSave', async (Vendedor) => {
+      if (Vendedor.changed('Senha')) {
+        Vendedor.Senha = await bcrypt.hash(Vendedor.Senha, 8);
       }
-    })
-    return this
+    });
+    return this;
   }
 }

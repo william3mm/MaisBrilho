@@ -1,91 +1,80 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Vendedor', {
 
-      await queryInterface.createTable('Vendedor', {
+      id: {
 
+        type: Sequelize.INTEGER,
 
-        id: {
+        allowNull: false,
 
-          type: Sequelize.INTEGER,
+        primaryKey: true,
 
-          allowNull: false,
+        autoIncrement: true,
+      },
 
-          primaryKey: true,
+      Nome: {
 
-          autoIncrement:  true
-        },
+        type: Sequelize.STRING,
 
-        Nome:{
+        allowNull: false,
+      },
 
-          type: Sequelize.STRING,
+      Email: {
 
-          allowNull: false
-        },
+        type: Sequelize.STRING,
 
-        Email:{
+        allowNull: false,
 
-          type: Sequelize.STRING,
+        unique: true,
 
-          allowNull: false,
+      },
 
-          unique: true
+      Telefone: {
 
-        },
+        type: Sequelize.STRING,
 
-        Telefone:{
+        allowNull: false,
 
-          type: Sequelize.STRING,
+        unique: true,
+      },
 
-          allowNull: false,
+      Status: {
 
-          unique: true
-        },
+        type: Sequelize.STRING,
 
-        Status:{
+        defaultValue: 'pendente',
 
-          type: Sequelize.STRING,
+        allowNull: false,
+      },
 
-          defaultValue: 'pendente',
+      Senha: {
 
-          allowNull: false
-        },
+        type: Sequelize.STRING,
 
-        Senha:{
+        allowNull: false,
+      },
 
-          type: Sequelize.STRING,
+      createdAt: {
 
-          allowNull: false
-        },
+        type: Sequelize.DATE,
 
+        allowNull: false,
 
+      },
 
-        createdAt:{
+      updatedAt: {
 
-          type: Sequelize.DATE,
+        type: Sequelize.DATE,
 
-          allowNull: false
+        allowNull: false,
+      },
 
-        },
-
-        updatedAt:{
-
-          type: Sequelize.DATE,
-
-          allowNull: false
-        }
-
-
-
-      });
-
+    });
   },
 
-  async down (queryInterface) {
-
-      await queryInterface.dropTable('Vendedor');
-
-  }
+  async down(queryInterface) {
+    await queryInterface.dropTable('Vendedor');
+  },
 };

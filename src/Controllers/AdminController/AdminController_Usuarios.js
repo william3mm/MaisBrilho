@@ -1,19 +1,16 @@
-import Usuario from "../../Models/Usuario"
-class AdminController_Usuarios{
+import Usuario from '../../Models/Usuario';
 
+class AdminController_Usuarios {
   // Aqui vamos poder listar, e deletar usuários
 
-  async index(req,res){
-
+  async index(req, res) {
     try {
+      const usuario = await Usuario.findAll({
+        attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA' ],
 
+        order: [ [ 'ID', 'DESC' ] ],
 
-      const usuario = await Usuario.findAll( {attributes: [ 'id', 'NOME', 'EMAIL', 'SENHA'],
-
-      order: [['ID', 'DESC']]
-
-
-    } );
+      });
 
       res.json(usuario);
 
@@ -22,18 +19,14 @@ class AdminController_Usuarios{
       // console.log( 'User Id', req.userId);
 
       // console.log('User Email', req.userEmail)
+    } catch (error) {
+      console.log(error);
 
-      } catch (error) {
+      return res.status(400).json({
 
-        console.log(error);
-
-
-
-        return res.status(400).json({
-
-          errors: [ 'Erro ao listar Usuários']
-        })
-      }
+        errors: [ 'Erro ao listar Usuários' ],
+      });
+    }
   }
 }
 

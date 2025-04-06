@@ -1,37 +1,36 @@
 // AQUI VAMOS FAZER A CONFIGURACAO DA BASE DE DADOS
 
 require('dotenv').config();
+
 module.exports = {
 
-dialect: 'mariadb',
+  dialect: 'mariadb',
 
-host: process.env.DATABASE_HOST,
+  host: process.env.DATABASE_HOST,
 
-port: process.env.DATABASE_PORT,
+  port: process.env.DATABASE_PORT,
 
-username: process.env.DATABASE_USERNAME,
+  username: process.env.DATABASE_USERNAME,
 
-password: process.env.DATABASE_PASSWORD,
+  password: process.env.DATABASE_PASSWORD,
 
-database: process.env.DATABASE_NAME,
+  database: process.env.DATABASE_NAME,
 
-define:{
+  define: {
 
-  timestamps: true,
+    timestamps: true,
 
+    underscoredAll: true,
 
-  underscoredAll: true,
+  },
 
-},
+  dialectOptions: {
 
-dialectOptions: {
+    timezone: '+01:00',
+
+    connectTimeout: 10000,
+  },
 
   timezone: '+01:00',
 
-  connectTimeout: 10000,
-},
-
-timezone: '+01:00'
-
-
-}
+};

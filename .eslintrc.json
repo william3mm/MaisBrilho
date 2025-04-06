@@ -1,0 +1,75 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended", // Conjunto de regras recomendadas pelo ESLint
+    "airbnb-base" // Usando o guia de estilo Airbnb (base)
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest", // Para usar a versão mais recente do ECMAScript
+    "sourceType": "module" // Para permitir import/export no código
+  },
+  "rules": {
+    // Regras personalizadas
+    "no-unused-vars": [
+      "warn",
+      { // Emite um aviso para variáveis não utilizadas
+        "vars": "all", // Verifica todas as variáveis
+        "args": "none" // Ignora os argumentos de funções
+      }
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ], // Força o uso de aspas simples em strings
+    "camelcase": "off",
+    "semi": [
+      "error",
+      "always"
+    ], // Exige ponto e vírgula no final das declarações
+    "no-console": "off", // Emite um aviso quando console.log é usado
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ], // Exige vírgula no final em objetos ou arrays multiline
+    "indent": [
+      "error",
+      2
+    ], // Exige indentação de 2 espaços
+    "linebreak-style": [
+      "error",
+      "unix"
+    ], // Força o uso de quebras de linha estilo Unix (LF)
+    "no-trailing-spaces": "error", // Evita espaços em branco no final da linha
+    "brace-style": [
+      "error",
+      "1tbs"
+    ], // Força o estilo de chaves 1TBS (One True Brace Style)
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ], // Exige espaço dentro de chaves de objetos
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ], // Exige espaço dentro de colchetes de arrays
+    "max-len": [
+      "warn",
+      {
+        "code": 100
+      }
+    ], // Limita o comprimento da linha para 80 caracteres
+    "no-magic-numbers": [
+      "off",
+      { // Evita números mágicos no código
+        "ignore": [
+          0,
+          1
+        ] // Permite o uso dos números 0 e 1
+      }
+    ]
+  }
+}

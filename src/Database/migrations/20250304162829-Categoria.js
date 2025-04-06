@@ -1,56 +1,46 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Categoria', {
 
-      await queryInterface.createTable('Categoria', {
+      id: {
 
+        type: Sequelize.INTEGER,
 
+        allowNull: false,
 
-        id:{
+        primaryKey: true,
 
-          type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
 
-          allowNull: false,
+      Nome: {
 
-          primaryKey: true,
+        type: Sequelize.STRING,
 
-          autoIncrement: true
-        },
+        allowNull: false,
 
-        Nome:{
+        unique: true,
+      },
 
-          type: Sequelize.STRING,
+      createdAt: {
 
-          allowNull: false,
+        type: Sequelize.DATE,
 
-          unique:true
-        },
+        allowNull: false,
+      },
 
-        createdAt:{
+      updatedAt: {
 
-          type: Sequelize.DATE,
+        type: Sequelize.DATE,
 
-          allowNull: false
-        },
+        allowNull: false,
+      },
 
-        updatedAt:{
-
-          type: Sequelize.DATE,
-
-          allowNull: false
-        }
-
-
-
-      });
-
+    });
   },
-// eslint-disable-next-line no-unused-vars
-  async down (queryInterface, Sequelize) {
-
-      await queryInterface.dropTable('Categoria');
-
-  }
+  // eslint-disable-next-line no-unused-vars
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Categoria');
+  },
 };

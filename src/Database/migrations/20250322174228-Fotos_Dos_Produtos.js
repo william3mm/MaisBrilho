@@ -1,79 +1,73 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable(
+      'Fotos_Dos_Produtos',
 
-     await queryInterface.createTable('Fotos_Dos_Produtos',
+      {
+        id: {
 
-      { id: {
+          type: Sequelize.INTEGER,
 
-        type: Sequelize.INTEGER,
+          allowNull: false,
 
-        allowNull: false,
+          primaryKey: true,
 
-        primaryKey: true,
+          autoIncrement: true,
+        },
 
-        autoIncrement: true
-      },
+        Filename: {
 
-      Filename:{
+          type: Sequelize.JSON,
 
-        type: Sequelize.JSON,
+          allowNull: false,
+        },
 
-        allowNull: false
-      },
+        Originalname: {
 
-      Originalname:{
+          type: Sequelize.JSON,
 
-        type: Sequelize.JSON,
+          allowNull: false,
+        },
 
-        allowNull: false
-      },
+        Produto_ID: {
 
-      Produto_ID:{
+          type: Sequelize.INTEGER,
 
-        type: Sequelize.INTEGER,
+          allowNull: false,
 
-        allowNull: false,
+          references: {
 
-        references:{
+            model: 'Produto',
 
-          model: 'Produto',
+            key: 'id',
 
-          key: 'id',
+          },
+          onDelete: 'CASCADE',
 
+          onUpdate: 'CASCADE',
 
         },
-        onDelete: 'CASCADE',
 
-        onUpdate: 'CASCADE'
+        createdAt: {
+
+          type: Sequelize.DATE,
+
+          allowNull: false,
+        },
+
+        updatedAt: {
+
+          type: Sequelize.DATE,
+
+          allowNull: false,
+        },
 
       },
-
-      createdAt:{
-
-        type: Sequelize.DATE,
-
-        allowNull: false
-      },
-
-      updatedAt:{
-
-        type: Sequelize.DATE,
-
-        allowNull: false
-      }
-
-
-
-       });
-
+    );
   },
 
-  async down (queryInterface, ) {
-
-      await queryInterface.dropTable('Fotos_Dos_Produtos');
-
-  }
+  async down(queryInterface) {
+    await queryInterface.dropTable('Fotos_Dos_Produtos');
+  },
 };
