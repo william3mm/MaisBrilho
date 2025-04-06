@@ -40,7 +40,7 @@ const corsOptions = {
 
     // whiteList.indexOf(origin) != -1 significa que a origin está contida e !origin quer dizer que nem sempre ela será envidada
 
-    if (whiteList.indexOf(origin) != -1 || !origin) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
       // O primeiro argumento do callback seria um erro, que, vamos setar como null
       callback(null, true);
     } else {
@@ -90,6 +90,8 @@ class App {
     this.app.use('/secure-dashboard/manager-super-management/token/', Routes.AdminRoutes_Token);
 
     this.app.use('/secure-dashboard/vendedores-verificacao/', Routes.Admin_Admite_Rejeita_Vendedores);
+
+    this.app.use('/secure-dashborard/manager-super-management/criar-conta/', Routes.Admin_Criar_Conta);
 
     this.app.use('/produtos/', Routes.VendedorRoutes);
 
