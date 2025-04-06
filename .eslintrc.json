@@ -21,6 +21,12 @@
         "args": "none" // Ignora os argumentos de funções
       }
     ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
     "quotes": [
       "error",
       "single"
@@ -57,7 +63,7 @@
       "always"
     ], // Exige espaço dentro de colchetes de arrays
     "max-len": [
-      "warn",
+      "off",
       {
         "code": 100
       }
