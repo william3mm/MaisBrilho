@@ -25,7 +25,6 @@ export default async function Criar_Fotos_Dos_Produtos(req,res){
 
       const Filename = file.map((file)=> file.filename);
 
-      console.log(file)
 
       if(!req.body){
 
@@ -49,10 +48,6 @@ export default async function Criar_Fotos_Dos_Produtos(req,res){
           }
         }
       )
-
-
-
-      console.log(req.userID)
 
       if(!produto){
 

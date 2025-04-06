@@ -13,8 +13,6 @@ export default async function Lista_Produtos(req,res){
 
         include: [{
 
-
-
          model: Produto_Vendedor,
 
          where: {Ativo:true},
