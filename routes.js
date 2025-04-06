@@ -14,6 +14,8 @@ import AdminRoutes_Token from './src/Routes/AdminRoutes/Admin_Routes_Login/Admin
 
 import Admin_Admite_Rejeita_Vendedores from './src/Routes/AdminRoutes/Admitir_Rejeitar_Vendedores_Routes/Admitir_Rejeitar_Vendedores';
 
+import Admin_Criar_Conta from './src/Routes/AdminRoutes/Admin_Routes_Criar_Conta/Criar_Conta_Admin';
+
 import VendedorRoutes from './src/Routes/VendedorRoutes/VendedorRoutes';
 
 import HomeRoutes from './src/Routes/HomeRoutes/HomeRoutes';
@@ -36,6 +38,7 @@ export {
   AdminRoutes_Categorias,
   AdminRoutes_Token,
   Admin_Admite_Rejeita_Vendedores,
+  Admin_Criar_Conta,
   VendedorRoutes,
   HomeRoutes,
   Vendedor_Criar_Conta_Routes,
