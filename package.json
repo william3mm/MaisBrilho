@@ -33,7 +33,7 @@
     "is-fullwidth-code-point": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
     "mariadb": "^3.4.0",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^2.0.2",
     "mysql2": "^3.13.0",
     "sequelize": "^6.37.6"
   }
