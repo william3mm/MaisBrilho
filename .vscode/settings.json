@@ -1,17 +1,18 @@
 {
-    "eslint.enable": true, // Habilita o ESLint no VS Code
-    //  "eslint.autoFixOnSave": true, // Aplica a correção automática ao salvar
-    "editor.formatOnSave": true, // Formata o código ao salvar
-    "eslint.codeActionsOnSave": {
-        "enable": true // Habilita a correção das ações do ESLint ao salvar
-    },
-    "eslint.validate": [
-        "javascript", // Valida arquivos JS
-        "javascriptreact", // Valida arquivos JS no React
-        "typescript", // Valida arquivos TypeScript
-        "typescriptreact" // Valida arquivos TypeScript no React (TSX/JSX)
-    ],
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "always"
-    }
+  "eslint.enable": true, // Habilita o ESLint no VS Code
+  //  "eslint.autoFixOnSave": true, // Aplica a correção automática ao salvar
+  "editor.formatOnSave": true, // Formata o código ao salvar
+  "eslint.codeActionsOnSave": {
+    "enable": true // Habilita a correção das ações do ESLint ao salvar
+  },
+  "eslint.validate": [
+    "javascript", // Valida arquivos JS
+    "javascriptreact", // Valida arquivos JS no React
+    "typescript", // Valida arquivos TypeScript
+    "typescriptreact" // Valida arquivos TypeScript no React (TSX/JSX)
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "explorer.compactFolders": false
 }

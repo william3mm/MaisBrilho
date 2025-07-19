@@ -4,6 +4,6 @@ import TokenController from '../../../Controllers/AdminController/AdminControlle
 
 const router = Router();
 
-router.post('/', TokenController.create);
+router.post('/', TokenController);
 
 export default router;
